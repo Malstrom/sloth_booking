@@ -1,0 +1,65 @@
+<div class="container-fluid">
+  <p style="color: green"><%= notice %></p>
+  <div>
+    <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @prices_by_hours.first.last.last.gametable.club.name %></h1>
+  </div>
+  <br>
+
+  <div class="text-center">
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+      <label class="btn btn-outline-primary" for="btnradio1">Price Table</label>
+
+      <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+      <label class="btn btn-outline-primary" for="btnradio2">Boooking table</label>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+
+
+
+
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="col-1">
+      <th class="text-center table-dark">
+        Time/Table
+      </th>
+      <%= turbo_stream_from "gametables" %>
+
+      <% @gametables.each do |gametable| %>
+        <%= turbo_frame_tag dom_id(gametable) do %>
+          <th class="text-center " id="<%= gametable.id %>">
+            <%= gametable.id %>
+            <br>
+            <%= gametable.description %>
+          </th>
+        <% end %>
+      <% end %>
+      <th class="col-1 text-center" id="">
+        Settings
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @prices_by_hours.each do |hours| %>
+      <tr>
+        <th class="text-right col-1">
+          <%= hours.first.strftime("%H:%M") %>
+        </th>
+        <% hours.last.each do |price| %>
+          <%= render price %>
+        <% end %>
+        <td class="col-1 text-center">
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+

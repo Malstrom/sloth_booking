@@ -1,0 +1,6 @@
+<%= turbo_stream_from "price" %>
+<%= turbo_frame_tag dom_id(price) do %>
+  <td class="col-1 text-center table-<%= price.define_color %>" id=<%= price.id %> >
+    <%= price.bookings.empty? ? price.value : price.bookings.first.user.email[/[^@]+/] %>
+  </td>
+<% end %>
