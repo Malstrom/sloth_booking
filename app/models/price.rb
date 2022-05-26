@@ -3,6 +3,8 @@ class Price < ApplicationRecord
   has_many   :bookings, dependent: :delete_all
   has_many   :users, through: :bookings
 
+  after_update_commit { broadcast_replace_to "prices" }
+
   attr_accessor :color
 
   scope :group_prices_by_hours, -> (club) { joins(:gametable).where("gametables.club_id = ?", club)

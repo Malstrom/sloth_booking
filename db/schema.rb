@@ -10,9 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_26_001602) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_26_002733) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "price_id", null: false
+    t.integer "kind"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["price_id"], name: "index_bookings_on_price_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "clubs", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "gametables", force: :cascade do |t|
+    t.bigint "club_id", null: false
+    t.string "description"
+    t.integer "active"
+    t.integer "display_description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_gametables_on_club_id"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.bigint "gametable_id", null: false
+    t.datetime "hour"
+    t.integer "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gametable_id"], name: "index_prices_on_gametable_id"
+  end
+
+  create_table "rents", force: :cascade do |t|
+    t.bigint "booking_id", null: false
+    t.integer "balls"
+    t.integer "rackets"
+    t.integer "robot"
+    t.bigint "trainer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_rents_on_booking_id"
+    t.index ["trainer_id"], name: "index_rents_on_trainer_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -40,4 +87,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_26_001602) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "bookings", "prices"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "gametables", "clubs"
+  add_foreign_key "prices", "gametables"
+  add_foreign_key "rents", "bookings"
+  add_foreign_key "rents", "users", column: "trainer_id"
 end

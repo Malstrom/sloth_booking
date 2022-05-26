@@ -28,16 +28,17 @@
       <th class="text-center table-dark">
         Time/Table
       </th>
-      <%= turbo_stream_from "gametables" %>
 
       <% @gametables.each do |gametable| %>
-        <%= turbo_frame_tag dom_id(gametable) do %>
+
           <th class="text-center " id="<%= gametable.id %>">
-            <%= gametable.id %>
-            <br>
-            <%= gametable.description %>
+            <%= turbo_frame_tag dom_id(gametable) do %>
+              <%= gametable.id %>
+              <br>
+              <%= gametable.description %>
+            <% end %>
           </th>
-        <% end %>
+
       <% end %>
       <th class="col-1 text-center" id="">
         Settings
@@ -45,6 +46,7 @@
     </tr>
     </thead>
     <tbody>
+    <%= turbo_stream_from "prices" %>
     <% @prices_by_hours.each do |hours| %>
       <tr>
         <th class="text-right col-1">
