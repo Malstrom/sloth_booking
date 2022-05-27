@@ -27,7 +27,11 @@ sample_prices = [300,400,500,600]
 starts = DateTime.now.beginning_of_day + 7.hours
 ends = DateTime.now.beginning_of_day + 23.hours
 
-@hours = (starts.to_i..ends.to_i).step(1.hour).map { |hour| Time.at(hour).strftime("%H:%M") }
+# DateTime.parse(hour)
+
+@hours = (starts.to_i..ends.to_i).step(1.hour).map do |hour|
+  DateTime.parse(Time.at(hour).strftime("%H:%M"))
+end
 
 gametables = Array.new
 gametables << Gametable.create(club: @club, description: "Table 1", active: 1, display_description: 1)
@@ -41,12 +45,28 @@ gametables << Gametable.create(club: @club, description: "Table 7", active: 1, d
 gametables.each do |gametable|
   print gametable
   @hours.each do |hour|
+    case hour.strftime("%H").to_i
+    when 0..14
+      Price.create gametable: gametable, hour: hour, value: 400
+    when 15..18
+      Price.create gametable: gametable, hour: hour, value: 500
+    when 19..24
+      Price.create gametable: gametable, hour: hour, value: 700
+    else
+      Price.create gametable: gametable, hour: hour, value: 400
+    end
     p hour
-    Price.create gametable: gametable, hour: hour, value: sample_prices.sample
   end
 end
 
-Booking.create(user:User.first, price: Price.first, kind:1)
+Booking.create(price: Price.first, kind:1, email: "igormir87@gmail.com", phone: "23948729847")
+
+
+
+
+
+
+
 
 #@available_slots = (starts.to_i..ends.to_i).step(1.hour).map { |hour| Time.at(hour).utc.strftime("%H:%M") }
 
