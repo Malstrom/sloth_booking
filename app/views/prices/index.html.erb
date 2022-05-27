@@ -1,12 +1,22 @@
+<div class="bg-light row row-cols-12 shadow p-3 mb-5 bg-body rounded">
+  <div class="col-1">prev</div>
+  <% @days.each do |day| %>
+    <div class="col text-center <%= "bg-info" if day == @selected_day  %>">
+      <%= link_to(day.strftime('%a %d %b %Y'), prices_path(selected_day:day), remote:true) %>
+    </div>
+  <% end %>
+  <div class="col-1">next</div>
+</div>
+
 <div class="container-fluid">
   <p style="color: green"><%= notice %></p>
   <div>
-    <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @prices_by_hours.first.last.last.gametable.club.name %></h1>
+    <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @gametables.first.club.name %></h1>
   </div>
   <br>
 
   <div class="text-center">
-    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+    <div class="btn-group  " role="group" aria-label="Basic radio toggle button group">
       <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
       <label class="btn btn-outline-primary" for="btnradio1">Price Table</label>
 

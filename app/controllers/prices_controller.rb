@@ -4,9 +4,12 @@ class PricesController < ApplicationController
 
   # GET /prices or /prices.json
   def index
+    @selected_day = params[:selected_day].to_datetime
+    @days = Date.today..(Date.today + 6.day)
     @gametables = Gametable.where(club: @club)
-    @prices_by_hours = Price.group_prices_by_hours(@club)
+    @prices_by_hours = Price.group_prices_by_hours(@club, @selected_day)
   end
+
 
   # GET /prices/1 or /prices/1.json
   def show; end

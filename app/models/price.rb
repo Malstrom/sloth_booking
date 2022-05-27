@@ -7,8 +7,17 @@ class Price < ApplicationRecord
 
   attr_accessor :color
 
-  scope :group_prices_by_hours, -> (club) { joins(:gametable).where("gametables.club_id = ?", club)
-                                                .order(:gametable_id, :hour).group_by{ |price| price['hour'].itself }
+  # scope :group_prices_by_hours, -> (club) {
+  #                                 joins(:gametable).where("gametables.club_id = ?", club)
+  #                                               .order(:gametable_id, :hour).group_by{ |price| price['hour'].itself }
+  # }
+
+  scope :group_prices_by_hours, -> (club, selected_day) {
+    joins(:gametable)
+        .where("gametables.club_id = ?", club)
+        .where(hour: selected_day.beginning_of_day..selected_day.end_of_day)
+        .order(:gametable_id, :hour)
+        .group_by{ |price| price['hour'].itself }
   }
 
 
