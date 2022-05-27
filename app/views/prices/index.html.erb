@@ -2,7 +2,7 @@
   <div class="col-1">prev</div>
   <% @days.each do |day| %>
     <div class="col text-center <%= "bg-info" if day == @selected_day  %>">
-      <%= link_to(day.strftime('%a %d %b %Y'), prices_path(selected_day:day), remote:true) %>
+      <%= link_to(day.strftime('%a %d %b'), prices_path(selected_day: day), remote:true) %>
     </div>
   <% end %>
   <div class="col-1">next</div>
@@ -28,10 +28,6 @@
   <br>
   <br>
 
-
-
-
-
   <table class="table table-hover table-bordered">
     <thead>
     <tr class="col-1">
@@ -40,15 +36,11 @@
       </th>
 
       <% @gametables.each do |gametable| %>
-
-          <th class="text-center " id="<%= gametable.id %>">
-            <%= turbo_frame_tag dom_id(gametable) do %>
-              <%= gametable.id %>
-              <br>
-              <%= gametable.description %>
-            <% end %>
-          </th>
-
+        <th class="text-center " id="<%= gametable.id %>">
+          <%= gametable.id %>
+          <br>
+          <%= gametable.description %>
+        </th>
       <% end %>
       <th class="col-1 text-center" id="">
         Settings
@@ -56,7 +48,9 @@
     </tr>
     </thead>
     <tbody>
+
     <%= turbo_stream_from "prices" %>
+
     <% @prices_by_hours.each do |hours| %>
       <tr>
         <th class="text-right col-1">

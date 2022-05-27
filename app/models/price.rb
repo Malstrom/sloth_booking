@@ -7,11 +7,6 @@ class Price < ApplicationRecord
 
   attr_accessor :color
 
-  # scope :group_prices_by_hours, -> (club) {
-  #                                 joins(:gametable).where("gametables.club_id = ?", club)
-  #                                               .order(:gametable_id, :hour).group_by{ |price| price['hour'].itself }
-  # }
-
   scope :group_prices_by_hours, -> (club, selected_day) {
     joins(:gametable)
         .where("gametables.club_id = ?", club)
@@ -19,7 +14,6 @@ class Price < ApplicationRecord
         .order(:gametable_id, :hour)
         .group_by{ |price| price['hour'].itself }
   }
-
 
   # .strftime("%H:%M")
   def define_color
@@ -34,5 +28,33 @@ class Price < ApplicationRecord
       "secondary"
     end
   end
+
+  def self.generate_prices(selected_day, club_id)
+    starts = selected_day.beginning_of_day + 7.hours
+    ends = selected_day.beginning_of_day + 23.hours
+    hours = (starts.to_i..ends.to_i).step(1.hour).map do |hour|
+
+      Time.at(hour)
+    end
+
+    club = Club.find club_id
+
+    club.gametables.each do |gametable|
+      hours.each do |hour|
+        case hour.strftime("%H").to_i
+        when 0..12
+          Price.create gametable: gametable, hour: hour, value: 400
+        when 14..16
+          Price.create gametable: gametable, hour: hour, value: 500
+        when 19..24
+          Price.create gametable: gametable, hour: hour, value: 700
+        else
+          Price.create gametable: gametable, hour: hour, value: 400
+        end
+        p hour
+      end
+    end
+  end
+
 
 end

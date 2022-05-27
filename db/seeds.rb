@@ -46,9 +46,9 @@ gametables.each do |gametable|
   print gametable
   @hours.each do |hour|
     case hour.strftime("%H").to_i
-    when 0..14
+    when 0..12
       Price.create gametable: gametable, hour: hour, value: 400
-    when 15..18
+    when 14..16
       Price.create gametable: gametable, hour: hour, value: 500
     when 19..24
       Price.create gametable: gametable, hour: hour, value: 700
@@ -65,6 +65,7 @@ Booking.create(price: Price.first, kind:1, email: "igormir87@gmail.com", phone: 
 
 
 
+# heroku pg:reset --confirm  sloth-booking
 
 
 

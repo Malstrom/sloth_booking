@@ -1,15 +1,16 @@
 class PricesController < ApplicationController
   before_action :set_price, only: %i[ show edit update destroy ]
-  before_action :set_club, only: %i[ index ]
+  before_action :set_club, :selected_day, only: %i[ index ]
 
   # GET /prices or /prices.json
   def index
-    @selected_day = params[:selected_day].to_datetime
     @days = Date.today..(Date.today + 6.day)
     @gametables = Gametable.where(club: @club)
     @prices_by_hours = Price.group_prices_by_hours(@club, @selected_day)
+    if @prices_by_hours.empty?
+      Price.generate_prices(@selected_day, @club.id)
+    end
   end
-
 
   # GET /prices/1 or /prices/1.json
   def show; end
@@ -64,6 +65,11 @@ class PricesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_price
     @price = Price.find(params[:id])
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def selected_day
+    @selected_day = params[:selected_day] ? params[:selected_day].to_datetime : DateTime.now
   end
 
   # Use callbacks to share common setup or constraints between actions.
