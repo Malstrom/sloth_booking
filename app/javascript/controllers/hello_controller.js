@@ -45,7 +45,8 @@ export default class extends Controller {
       this.element.classList.remove(tableClass);
       this.element.classList.add("table-" + timecell.color);
 
-      this.element.querySelector('turbo-frame').innerHTML = timecell.display_value
+       this.element.innerHTML = timecell.display_value
+      // this.element.querySelector('turbo-frame').innerHTML = timecell.display_value
     })
   }
 }
