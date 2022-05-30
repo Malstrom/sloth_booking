@@ -1,28 +1,35 @@
-class Price < ApplicationRecord
+class Timecell < ApplicationRecord
   belongs_to :gametable
-  has_many   :bookings, dependent: :delete_all
-  has_many   :users, through: :bookings
 
-  after_update_commit { broadcast_replace_to "prices" }
+  enum :kind, [:default, :fun, :group_training, :tournament]
 
   attr_accessor :color
 
   scope :group_prices_by_hours, -> (club, selected_day) {
     joins(:gametable)
         .where("gametables.club_id = ?", club)
-        .where(hour: selected_day.beginning_of_day..selected_day.end_of_day)
-        .order(:gametable_id, :hour)
-        .group_by{ |price| price['hour'].itself }
+        .where(time: selected_day.beginning_of_day..selected_day.end_of_day)
+        .order(:gametable_id, :time)
+        .group_by{ |cell| cell['time'].itself }
   }
 
-  # .strftime("%H:%M")
+  def display_value
+    if default?
+      price
+    elsif tournament?
+      "< #{tournament_rating}"
+    else
+      kind
+    end
+  end
+
   def define_color
-    case value.to_i
+    case price.to_i
     when 0..400
       "success"
     when 401..500
       "warning"
-    when 501..700
+    when 501..1000
       "danger"
     else
       "secondary"
@@ -33,7 +40,6 @@ class Price < ApplicationRecord
     starts = selected_day.beginning_of_day + 7.hours
     ends = selected_day.beginning_of_day + 23.hours
     hours = (starts.to_i..ends.to_i).step(1.hour).map do |hour|
-
       Time.at(hour)
     end
 
@@ -43,18 +49,16 @@ class Price < ApplicationRecord
       hours.each do |hour|
         case hour.strftime("%H").to_i
         when 0..12
-          Price.create gametable: gametable, hour: hour, value: 400
-        when 14..16
-          Price.create gametable: gametable, hour: hour, value: 500
-        when 19..24
-          Price.create gametable: gametable, hour: hour, value: 700
+          Timecell.create gametable: gametable, time: hour, price: 400
+        when 13..16
+          Timecell.create gametable: gametable, time: hour, price: 500
+        when 17..24
+          Timecell.create gametable: gametable, time: hour, price: 600
         else
-          Price.create gametable: gametable, hour: hour, value: 400
+          Timecell.create gametable: gametable, time: hour, price: 100
         end
         p hour
       end
     end
   end
-
-
 end

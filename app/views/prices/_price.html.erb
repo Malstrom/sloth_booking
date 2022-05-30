@@ -1,7 +1,0 @@
-<td class="col-1 text-center table-<%= price.define_color %>">
-  <%= turbo_frame_tag dom_id(price) do %>
-    <div class="col <%= "bg-#{price.define_color}" if price.changed? %>">
-      <%= price.bookings.empty? ? price.value : price.bookings.first.email %>
-    </div>
-  <% end %>
-</td>

@@ -1,0 +1,42 @@
+<%= form_with(model: timecell) do |form| %>
+  <% if timecell.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(timecell.errors.count, "error") %> prohibited this timecell from being saved:</h2>
+
+      <ul>
+        <% timecell.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :gametable_id, style: "display: block" %>
+    <%= form.text_field :gametable_id %>
+  </div>
+
+  <div>
+    <%= form.label :time, style: "display: block" %>
+    <%= form.datetime_field :time %>
+  </div>
+
+  <div>
+    <%= form.label :value, style: "display: block" %>
+    <%= form.text_field :value %>
+  </div>
+
+  <div>
+    <%= form.label :kind, style: "display: block" %>
+    <%= form.number_field :kind %>
+  </div>
+
+  <div>
+    <%= form.label :tournament_rating, style: "display: block" %>
+    <%= form.number_field :tournament_rating %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

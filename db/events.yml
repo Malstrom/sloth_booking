@@ -1,0 +1,15 @@
+- martin:
+
+    name: Martin D'vloper
+    job: Developer
+
+
+
+
+- tabitha:
+    name: Tabitha Bitumen
+    job: Developer
+    skills:
+      - lisp
+      - fortran
+      - erlang

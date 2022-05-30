@@ -1,0 +1,5 @@
+<td class="col-1 text-center table-<%= timecell.define_color %> pointer" id="<%= timecell.id %>" data-controller="hello" data-action="click->hello#handleClick" >
+  <%= turbo_frame_tag dom_id(timecell) do %>
+      <%= timecell.display_value %>
+  <% end %>
+</td>

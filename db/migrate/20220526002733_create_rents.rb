@@ -1,7 +1,6 @@
 class CreateRents < ActiveRecord::Migration[7.0]
   def change
     create_table :rents do |t|
-      t.belongs_to :booking, null: false, foreign_key: true
       t.integer :balls
       t.integer :rackets
       t.integer :robot

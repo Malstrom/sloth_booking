@@ -1,0 +1,107 @@
+<div class="navbar fixed-top  bg-light row row-cols-12 shadow p-3 mb-5 bg-body rounded">
+  <div class="col-1">prev</div>
+  <% @days.each do |day| %>
+    <div class="col text-center <%= "rounded border border-secondary border-2" if day == @selected_day  %>">
+      <%= link_to(day.strftime('%A'), timecells_path(selected_day: day), class: "link-secondary link-date", remote:true) %>
+      <br>
+      <%= link_to(day.strftime('%d %b'), timecells_path(selected_day: day), class: "link-secondary link-date", remote:true) %>
+    </div>
+  <% end %>
+  <div class="col-1 text-center ">next</div>
+</div>
+
+<br>
+<div class="container-fluid">
+  <p style="color: green"><%= notice %></p>
+  <div>
+    <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @gametables.first.club.name %></h1>
+  </div>
+  <br>
+
+
+  <div class="row">
+    <div class="col-4">
+      <label for="formFile" class="form-label">Select tournament or group training</label>
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-outline-primary" value="<%= {value: 83, kind: "tournament", tournament_rating: 400 }.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
+                  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">< 400</button>
+        </div>
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-outline-primary" value="<%= {value: 77, kind: "tournament", tournament_rating: 435 }.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
+                  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
+          >< 435</button>
+        </div>
+        <div class="btn-group me-2" role="group" aria-label="Second group"  >
+          <button type="button" class="btn btn-outline-primary" value="<%= {value: 1, kind: "group_training"}.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
+                  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
+          >Training</button>
+        </div>
+        <div class="btn-group me-2" role="group" aria-label="Second group"  >
+          <button type="button" class="btn btn-outline-info" value="<%= {value: 2, kind: "group_training"}.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
+                  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
+          >Training</button>
+        </div>
+
+      </div>
+      <br>
+      <div class="collapse" id="collapseExample">
+        <div id="eventAdditionalInfo" class="card card-body">
+        </div>
+      </div>
+
+    </div>
+    <div class="col-2">
+      <label for="formFile" class="form-label">Set price</label>
+      <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400" value="345" data-controller="hello" data-action="input->hello#setPrice">
+    </div>
+    <div class="col-3 d-none">
+      <label for="formFile" class="form-label">Your click will set</label>
+      <input class="form-control" list="datalistOptions" id="params_to_send" placeholder="400" value="400" >
+    </div>
+  </div>
+
+  <br>
+
+  <br>
+  <br>
+
+  <div data-controller="hello" data-clubs-my-value="training">
+  </div>
+
+  <table class="table table-hover table-bordered">
+    <thead>
+    <tr class="">
+      <th class="text-center table-dark">
+        Time/Table
+      </th>
+
+      <% @gametables.each do |gametable| %>
+        <th class="text-center" id="<%= gametable.id %>">
+          <%= gametable.id %>
+          <br>
+          <%= gametable.description %>
+        </th>
+      <% end %>
+    </tr>
+    </thead>
+    <tbody>
+
+    <%= turbo_stream_from "prices" %>
+
+    <% @timecells.each do |cells| %>
+      <tr>
+        <th class="text-right col-1" data-controller="hello" data-action="click->hello#handleTime" value="<%= {time: 1}.to_json %>" >
+          <%= cells.first.strftime("%H:%M") %>
+        </th>
+        <% cells.last.each do |timecell| %>
+          <%= render timecell %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+
