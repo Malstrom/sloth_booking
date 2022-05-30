@@ -17,11 +17,11 @@
 #
 #
 
-Price.destroy_all
+Timecell.destroy_all
 Gametable.destroy_all
 Club.destroy_all
 
-sample_prices = [300,400,500,600]
+# sample_prices = [300,400,500,600]
 @club = Club.create name: "Sokol"
 
 starts = DateTime.now.beginning_of_day + 7.hours
@@ -41,54 +41,22 @@ gametables << Gametable.create(club: @club, description: "Table 4", active: 1, d
 gametables << Gametable.create(club: @club, description: "Table 5", active: 1, display_description: 1)
 gametables << Gametable.create(club: @club, description: "Table 6", active: 1, display_description: 1)
 gametables << Gametable.create(club: @club, description: "Table 7", active: 1, display_description: 1)
+gametables << Gametable.create(club: @club, description: "Table 8", active: 1, display_description: 1)
+gametables << Gametable.create(club: @club, description: "Table 9", active: 1, display_description: 1)
 
 gametables.each do |gametable|
   print gametable
   @hours.each do |hour|
     case hour.strftime("%H").to_i
     when 0..12
-      Price.create gametable: gametable, hour: hour, value: 400
-    when 14..16
-      Price.create gametable: gametable, hour: hour, value: 500
-    when 19..24
-      Price.create gametable: gametable, hour: hour, value: 700
+      Timecell.create gametable: gametable, time: hour, price: 400, kind: 0
+    when 13..16
+      Timecell.create gametable: gametable, time: hour, price: 500, kind: 0
+    when 17..24
+      Timecell.create gametable: gametable, time: hour, price: 600, kind: 0
     else
-      Price.create gametable: gametable, hour: hour, value: 400
+      Timecell.create gametable: gametable, time: hour, price: 100, kind: 0
     end
     p hour
   end
 end
-
-Booking.create(price: Price.first, kind:1, email: "igormir87@gmail.com", phone: "23948729847")
-
-
-
-
-
-# heroku pg:reset --confirm  sloth-booking
-
-
-
-#@available_slots = (starts.to_i..ends.to_i).step(1.hour).map { |hour| Time.at(hour).utc.strftime("%H:%M") }
-
-# club = Club.first
-#
-# club_gametables_id = club.gametables.pluck :id
-#
-# club = 2
-# Price.joins(:gametable).where("gametables.club_id = 2")
-#
-#
-#
-# to_update = Price.where(id:club_gametables_id, :hour => starts...ends )
-# # to_update = Price.where(gametable:25)
-#
-# to_update.each do |price|
-#   price.update_attribute :value, 777
-# end
-#
-
-# (DateTime.now.at_beginning_of_week.to_i..DateTime.now.at_end_of_week.to_i).step(1.day) do |day|
-#   p DateTime.new(day)
-# end
-#
