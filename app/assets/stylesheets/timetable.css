@@ -1,0 +1,53 @@
+.css-grid-table,
+.css-grid-table-header,
+.css-grid-table-body {
+display: grid;
+}
+
+.css-grid-table {
+  width: auto;
+}
+
+.css-grid-table-header,
+.css-grid-table-body {
+grid-template-columns: repeat(30, 100px);
+line-height: 30px;
+}
+
+.css-grid-table-header {
+grid-template-rows: auto;
+position: sticky;
+top: 0;
+z-index: 3;
+background: white;
+}
+
+.css-grid-table-body {
+grid-template-rows: auto
+}
+
+.css-grid-table-header div {
+text-align: center;
+font-weight: bold;
+border: 1px solid;
+border-color: rgba(191, 191, 191, 0.3);
+
+}
+
+.css-grid-table-body div {
+text-align: center;
+font-size: 14px;
+text-overflow: ellipsis;
+padding: 0px 8px 0px 8px;
+overflow: hidden;
+border: 1px solid;
+border-color: rgba(191, 191, 191, 0.3);
+}
+
+.sticky-left {
+  left: 0px;
+  position: sticky;
+  z-index: 2;
+  background-color: grey;
+  font-weight: bold;
+}
