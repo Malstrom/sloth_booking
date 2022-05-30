@@ -12,6 +12,9 @@ class TimecellsController < ApplicationController
       Timecell.generate_prices(@selected_day, @club.id)
       @timecells = Timecell.group_prices_by_hours(@club, @selected_day)
     end
+    #
+    # @tournament = Tournament.new
+    # @training = Training.new
   end
 
   # GET /timecells/1 or /timecells/1.json

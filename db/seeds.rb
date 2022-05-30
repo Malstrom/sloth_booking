@@ -34,18 +34,15 @@ ends = DateTime.now.beginning_of_day + 23.hours
 end
 
 gametables = Array.new
-gametables << Gametable.create(club: @club, description: "Table 1", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 2", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 3", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 4", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 5", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 6", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 7", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 8", active: 1, display_description: 1)
-gametables << Gametable.create(club: @club, description: "Table 9", active: 1, display_description: 1)
+
+10.times do
+  gametables << Gametable.create(club: @club, description: "Table 1", active: 1, display_description: 1)
+end
+p gametables
 
 gametables.each do |gametable|
-  print gametable
+
+  print gametable.id
   @hours.each do |hour|
     case hour.strftime("%H").to_i
     when 0..12

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_27_154117) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_30_123911) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,13 +43,41 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_27_154117) do
   create_table "timecells", force: :cascade do |t|
     t.bigint "gametable_id", null: false
     t.datetime "time"
-    t.string "price"
-    t.string "value"
+    t.integer "price"
     t.integer "kind", default: 0
+    t.string "value"
     t.integer "tournament_rating"
+    t.string "trainer"
+    t.string "bookable_type"
+    t.bigint "bookable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["bookable_type", "bookable_id"], name: "index_timecells_on_bookable"
     t.index ["gametable_id"], name: "index_timecells_on_gametable_id"
+  end
+
+  create_table "tournaments", force: :cascade do |t|
+    t.bigint "club_id", null: false
+    t.string "name"
+    t.string "rating"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_tournaments_on_club_id"
+  end
+
+  create_table "trainings", force: :cascade do |t|
+    t.bigint "club_id", null: false
+    t.string "name"
+    t.string "trainer"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_trainings_on_club_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -81,4 +109,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_27_154117) do
   add_foreign_key "gametables", "clubs"
   add_foreign_key "rents", "users", column: "trainer_id"
   add_foreign_key "timecells", "gametables"
+  add_foreign_key "tournaments", "clubs"
+  add_foreign_key "trainings", "clubs"
 end

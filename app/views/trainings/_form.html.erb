@@ -1,0 +1,32 @@
+<div class="modal fade" id="trainingModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Create new training</h5>
+      </div>
+      <%= form_with(model: @training) do |form| %>
+        <div class="modal-body">
+
+            <div class="mb-3">
+              <%= form.label :name, class: "col-form-label" %>
+              <%= form.text_field :name, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :trainer, class: "col-form-label" %>
+              <%= form.text_field :trainer, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :price, class: "col-form-label" %>
+              <%= form.number_field :price, class: "form-control" %>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save training</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

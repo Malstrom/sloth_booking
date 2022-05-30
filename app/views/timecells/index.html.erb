@@ -18,40 +18,90 @@
   <br>
   <%= render 'timecell_definition' %>
   <br>
-  <%= render 'event_modal' %>
+
+  <%= render 'trainings/form'  %>
+  <%= render 'tournaments/form'  %>
 
   <br>
   <br>
-  <table class="table table-hover table-bordered">
-    <thead>
-    <tr class="">
-      <th class="text-center table-dark">
-        Time/Table
-      </th>
 
+
+
+  <div class="css-grid-table">
+
+    <div class="css-grid-table-header">
+      <div class="sticky-left">time/table</div>
       <% @gametables.each do |gametable| %>
-        <th class="text-center" id="<%= gametable.id %>">
+        <div id="<%= gametable.id %>">
           <%= gametable.id %>
           <br>
           <%= gametable.description %>
-        </th>
+        </div>
       <% end %>
-    </tr>
-    </thead>
-    <tbody>
+    </div>
 
     <% @timecells.each do |cells| %>
-      <tr>
-        <th class="text-right col-1" data-controller="hello" data-action="click->hello#handleTime" value="<%= {time: 1}.to_json %>" >
+      <div class="css-grid-table-body">
+        <div class="sticky-left" data-controller="hello" data-action="click->hello#handleTime">
           <%= cells.first.strftime("%H:%M") %>
-        </th>
+        </div>
         <% cells.last.each do |timecell| %>
           <%= render timecell %>
         <% end %>
-      </tr>
+      </div>
     <% end %>
-    </tbody>
-  </table>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--  <table class="table table-hover table-bordered">-->
+<!--    <thead>-->
+<!--    <tr class="">-->
+<!--      <th class="text-center table-dark">-->
+<!--        Time/Table-->
+<!--      </th>-->
+
+      <%# @gametables.each do |gametable| %>
+<!--        <th class="text-center" id="<%#= gametable.id %>">-->
+          <%#= gametable.id %>
+<!--          <br>-->
+          <%#= gametable.description %>
+<!--        </th>-->
+      <%# end %>
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+
+    <%# @timecells.each do |cells| %>
+<!--      <tr>-->
+<!--        <th class="text-right col-1" data-controller="hello" data-action="click->hello#handleTime" value="<%#= {time: 1}.to_json %>" >-->
+          <%#= cells.first.strftime("%H:%M") %>
+<!--        </th>-->
+        <%# cells.last.each do |timecell| %>
+          <%#= render timecell %>
+        <%# end %>
+<!--      </tr>-->
+    <%# end %>
+<!--    </tbody>-->
+<!--  </table>-->
 </div>
 
 
