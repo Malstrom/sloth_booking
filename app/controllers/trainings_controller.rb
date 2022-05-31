@@ -53,7 +53,7 @@ class TrainingsController < ApplicationController
     @training.destroy
 
     respond_to do |format|
-      format.html { redirect_to trainings_url, notice: "Training was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Training was successfully destroyed." }
       format.json { head :no_content }
     end
   end

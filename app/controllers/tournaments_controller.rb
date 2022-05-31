@@ -40,7 +40,7 @@ class TournamentsController < ApplicationController
   def update
     respond_to do |format|
       if @tournament.update(tournament_params)
-        format.html { redirect_to tournament_url(@tournament), notice: "Tournament was successfully updated." }
+        format.html { redirect_to root_path, notice: "Tournament was successfully updated." }
         format.json { render :show, status: :ok, location: @tournament }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class TournamentsController < ApplicationController
     @tournament.destroy
 
     respond_to do |format|
-      format.html { redirect_to tournaments_url, notice: "Tournament was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Tournament was successfully destroyed." }
       format.json { head :no_content }
     end
   end

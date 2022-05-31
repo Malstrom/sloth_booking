@@ -5,10 +5,14 @@
     <% end %>
   </div>
   <% @days.each do |day| %>
-    <div class="col text-center <%= "rounded border border-secondary border-2" if day == @selected_day  %>">
-      <%= link_to(day.strftime('%A'), timecells_path(selected_day: day), class: "link-secondary link-date", remote:true) %>
+    <div class="col text-center">
+      <%= link_to(day.strftime('%A'), timecells_path(selected_day: day),
+                  class: (day == @selected_day ? "link-success fw-bold link-date" : "link-secondary link-date"),
+                  remote:true) %>
       <br>
-      <%= link_to(day.strftime('%d %b'), timecells_path(selected_day: day), class: "link-secondary link-date", remote:true) %>
+      <%= link_to(day.strftime('%d %b'), timecells_path(selected_day: day),
+                  class: (day == @selected_day ? "link-success fw-bold link-date" : "link-secondary link-date"),
+                  remote:true) %>
     </div>
   <% end %>
   <div class="col-1 text-center">

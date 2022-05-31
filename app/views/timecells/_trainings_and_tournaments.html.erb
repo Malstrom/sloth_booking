@@ -1,6 +1,12 @@
 <div class="col-6">
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tournamentModal" data-bs-whatever="tournament">New tournament</button>
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">New training</button>
+<!--  <button type="button" class="btn btn-outline-primary"-->
+<!--          value="<%#= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"-->
+<!--          data-bs-toggle="collapse" href="#tournament_<%#= tournament.id %>_collapse" role="button" aria-expanded="false" aria-controls="tournament_<%#= tournament.id %>_collapse">-->
+<!--    < <%#= tournament.rating %>-->
+<!--  </button>-->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setPrice" data-bs-whatever="group training">New price</button>
 </div>
 
 <br>
@@ -28,17 +34,49 @@
 
 <br>
 
+<div class="collapse" id="setPrice" data-bs-parent="#traninngsTournaments">
+  <div id="eventAdditionalInfo" class="card card-body clearfix">
+    <div id="eventAdditionalInfo" class="clearfix">
+      <div class="row">
+        <div class="col-6">
+
+
+          <label for="formFile" class="form-label">Set price</label>
+          <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400" value="345" data-controller="hello" data-action="input->hello#setPrice">
+
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-outline-primary float-end btn-sm"
+                  data-controller="hello" data-action="click->hello#selectKind">
+            Set in calendar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="traninngsTournaments">
   <% @club.tournaments.each do |tournament| %>
     <div class="collapse" id="tournament_<%= tournament.id %>_collapse" data-bs-parent="#traninngsTournaments">
       <div id="eventAdditionalInfo" class="card card-body clearfix">
         <div id="eventAdditionalInfo" class="clearfix">
-          This tournament have rating <%= tournament.rating %>
-          <button type="button" class="btn btn-secondary float-end"
-                  value="<%= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"
-                  data-controller="hello" data-action="click->hello#selectKind">
-            Set in calendar
-          </button>
+          <div class="row">
+            <div class="col-6">
+              <%= form_with model: [@club, tournament] do |form| %>
+                <%= form.text_field :name %>
+                <%= form.text_field :rating %>
+                <%= form.submit %>
+              <% end %>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-primary float-end btn-sm"
+                      value="<%= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"
+                      data-controller="hello" data-action="click->hello#selectKind"> Set in calendar
+              </button>
+              <%= button_to "delete", club_tournament_path(@club, tournament), class:"btn btn-outline-danger float-end btn-sm", method: :delete %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -50,12 +88,23 @@
     <div class="collapse" id="training_<%= training.id %>_collapse" data-bs-parent="#traninngsTournaments">
       <div id="eventAdditionalInfo" class="card card-body clearfix">
         <div id="eventAdditionalInfo" class="clearfix">
-          This Training will be promote by <%= training.trainer %>
-          <button type="button" class="btn btn-secondary float-end"
-                  value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>"
-                  data-controller="hello" data-action="click->hello#selectKind">
-            Set in calendar
-          </button>
+          <div class="row">
+            <div class="col-6">
+              <%= form_with model: [@club, training] do |form| %>
+                <%= form.text_field :name %>
+                <%= form.text_field :trainer %>
+                <%= form.submit %>
+              <% end %>
+            </div>
+            <div class="col-6">
+              <button type="button" class="btn btn-outline-primary float-end btn-sm"
+                      value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>"
+                      data-controller="hello" data-action="click->hello#selectKind">
+                Set in calendar
+              </button>
+              <%= button_to "delete", club_training_path(@club,training), class:"btn btn-outline-danger float-end btn-sm", method: :delete %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
