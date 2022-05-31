@@ -5,7 +5,7 @@ class TimecellsController < ApplicationController
 
   # GET /timecells or /timecells.json
   def index
-    @days = Date.today..(Date.today + 6.day)
+    @days = @selected_day.at_beginning_of_week..(@selected_day.at_end_of_week)
     @gametables = Gametable.where(club: @club)
     @timecells = Timecell.group_prices_by_hours(@club, @selected_day)
     if @timecells.empty?
@@ -16,6 +16,9 @@ class TimecellsController < ApplicationController
     @tournament = Tournament.new
     @training = Training.new
   end
+
+
+
 
   # GET /timecells/1 or /timecells/1.json
   def show
