@@ -28,37 +28,39 @@
 
 <br>
 
-<% @club.tournaments.each do |tournament| %>
-  <div class="collapse" id="tournament_<%= tournament.id %>_collapse">
-    <div id="eventAdditionalInfo" class="card card-body clearfix">
-      <div id="eventAdditionalInfo" class="clearfix">
-        This tournament have rating <%= tournament.rating %>
-        <button type="button" class="btn btn-secondary float-end"
-                value="<%= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"
-                data-controller="hello" data-action="click->hello#selectKind">
-          Set in calendar
-        </button>
+<div id="traninngsTournaments">
+  <% @club.tournaments.each do |tournament| %>
+    <div class="collapse" id="tournament_<%= tournament.id %>_collapse" data-bs-parent="#traninngsTournaments">
+      <div id="eventAdditionalInfo" class="card card-body clearfix">
+        <div id="eventAdditionalInfo" class="clearfix">
+          This tournament have rating <%= tournament.rating %>
+          <button type="button" class="btn btn-secondary float-end"
+                  value="<%= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"
+                  data-controller="hello" data-action="click->hello#selectKind">
+            Set in calendar
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<br>
+  <br>
 
-<% @club.trainings.each do |training| %>
-  <div class="collapse" id="training_<%= training.id %>_collapse">
-    <div id="eventAdditionalInfo" class="card card-body clearfix">
-      <div id="eventAdditionalInfo" class="clearfix">
-        This Training will be promote by <%= training.trainer %>
-        <button type="button" class="btn btn-secondary float-end"
-                value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>"
-                data-controller="hello" data-action="click->hello#selectKind">
-          Set in calendar
-        </button>
+  <% @club.trainings.each do |training| %>
+    <div class="collapse" id="training_<%= training.id %>_collapse" data-bs-parent="#traninngsTournaments">
+      <div id="eventAdditionalInfo" class="card card-body clearfix">
+        <div id="eventAdditionalInfo" class="clearfix">
+          This Training will be promote by <%= training.trainer %>
+          <button type="button" class="btn btn-secondary float-end"
+                  value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>"
+                  data-controller="hello" data-action="click->hello#selectKind">
+            Set in calendar
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
 
 <%= render 'trainings/form_modal'  %>
 <%= render 'tournaments/form_modal'  %>

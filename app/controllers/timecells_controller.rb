@@ -17,9 +17,6 @@ class TimecellsController < ApplicationController
     @training = Training.new
   end
 
-
-
-
   # GET /timecells/1 or /timecells/1.json
   def show
   end
@@ -86,7 +83,7 @@ class TimecellsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def selected_day
-      @selected_day = params[:selected_day] ? params[:selected_day].to_datetime : DateTime.now
+      @selected_day = params[:selected_day] ? params[:selected_day].to_date : Date.today
     end
 
     # Use callbacks to share common setup or constraints between actions.
