@@ -16,7 +16,6 @@
 #   Character.create(name: "Luke", movie: movies.first)
 #
 #
-
 Timecell.destroy_all
 Gametable.destroy_all
 Club.destroy_all
@@ -35,10 +34,10 @@ end
 
 gametables = Array.new
 
-10.times do
+10.times do |index|
+  p index
   gametables << Gametable.create(club: @club, description: "Table 1", active: 1, display_description: 1)
 end
-p gametables
 
 gametables.each do |gametable|
 

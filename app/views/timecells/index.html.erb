@@ -1,3 +1,11 @@
+<style>
+    .css-grid-table-header,
+    .css-grid-table-body {
+        grid-template-columns: repeat(<%= @gametables.count + 1 %> , 100px);
+        line-height: 30px;
+    }
+</style>
+
 <div class="navbar fixed-top  bg-light row row-cols-12 shadow p-3 mb-5 bg-body rounded">
   <div class="col-1">prev</div>
   <% @days.each do |day| %>

@@ -1,5 +1,7 @@
 class TournamentsController < ApplicationController
-  before_action :set_tournament, only: %i[ show edit update destroy ]
+  before_action :set_club
+  before_action :set_tournament , only: %i[ show edit update destroy ]
+
 
   # GET /tournaments or /tournaments.json
   def index
@@ -21,12 +23,12 @@ class TournamentsController < ApplicationController
 
   # POST /tournaments or /tournaments.json
   def create
-    @tournament = Tournament.new(tournament_params)
+    @tournament = @club.tournaments.build(tournament_params)
 
     respond_to do |format|
       if @tournament.save
-        format.html { redirect_to tournament_url(@tournament), notice: "Tournament was successfully created." }
-        format.json { render :show, status: :created, location: @tournament }
+        format.html { redirect_to root_path, notice: "Tournament was successfully created." }
+        format.json { render json: @tournament }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @tournament.errors, status: :unprocessable_entity }
@@ -61,6 +63,11 @@ class TournamentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tournament
       @tournament = Tournament.find(params[:id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_club
+      @club = Club.find(params[:club_id])
     end
 
     # Only allow a list of trusted parameters through.

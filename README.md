@@ -1,4 +1,4 @@
-# Sloth Booking
+ya# Sloth Booking
 
 Simply way to have self booking system for sports activity
 

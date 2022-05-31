@@ -5,7 +5,14 @@ export default class extends Controller {
   connect() {
     var data = {kind: "default", price: document.getElementById("price").value}
     document.getElementById("params_to_send").value = JSON.stringify(data);
+
+
   }
+
+  presetValue(){
+    // this.element.innerHTML = "Set new";
+  }
+
 
   // todo: open collapse and show additional information about event
   // set value to hidden input

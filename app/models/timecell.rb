@@ -1,9 +1,7 @@
 class Timecell < ApplicationRecord
   belongs_to :gametable
 
-  # belongs_to :bookable, polymorphic: true
-
-  enum :kind, [:default, :fun, :group_training, :tournament]
+  belongs_to :bookable, polymorphic: true, optional: true
 
   attr_accessor :color
 
@@ -16,12 +14,12 @@ class Timecell < ApplicationRecord
   }
 
   def display_value
-    if default?
-      price
-    elsif tournament?
-      "< #{tournament_rating}"
+    if bookable_type == "Training"
+      bookable.trainer
+    elsif bookable_type == "Tournament"
+      bookable.rating
     else
-      kind
+      price
     end
   end
 

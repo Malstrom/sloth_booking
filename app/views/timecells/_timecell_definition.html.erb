@@ -2,29 +2,24 @@
   <div class="col-5">
     <label for="formFile" class="form-label">Select tournament or group training</label>
     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+      <% @club.tournaments.each do |tournament| %>
+        <div class="btn-group me-2" role="group" aria-label="First group">
+          <button type="button" class="btn btn-outline-primary" value="<%= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
+                  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"> < <%= tournament.rating %></button>
+        </div>
+      <% end %>
 
-      <div class="btn-group me-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-outline-primary" value="<%= {value: 83, kind: "tournament", tournament_rating: 400 }.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
-                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">< 400</button>
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="First group">
-        <button type="button" class="btn btn-outline-primary" value="<%= {value: 77, kind: "tournament", tournament_rating: 435 }.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
-                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
-        >< 435</button>
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="Second group"  >
-        <button type="button" class="btn btn-outline-primary" value="<%= {value: 1, kind: "group_training"}.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
-                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
-        >Training</button>
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="Second group"  >
-        <button type="button" class="btn btn-outline-info" value="<%= {value: 2, kind: "group_training"}.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
-                data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"
-        >Training</button>
-      </div>
-
+      <% @club.trainings.each do |training| %>
+        <div class="btn-group me-2" role="group" aria-label="Second group"  >
+          <button type="button" class="btn btn-outline-info" value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>" data-controller="hello" data-action="click->hello#selectKind"
+                  data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <%= training.trainer %>
+          </button>
+        </div>
+      <% end %>
     </div>
     <br>
+
     <div class="collapse" id="collapseExample">
       <div id="eventAdditionalInfo" class="card card-body">
       </div>
@@ -41,8 +36,9 @@
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">New training</button>
   </div>
 
-  <div class="col-1 d-none">
-    <label for="formFile" class="form-label">Your click will set</label>
-    <input class="form-control" list="datalistOptions" id="params_to_send" placeholder="400" value="400" >
-  </div>
+
+</div>
+<div class="col-3 ">
+  <label for="formFile" class="form-label">Your click will set</label>
+  <input class="form-control" list="datalistOptions" id="params_to_send" placeholder="400" value="400" >
 </div>

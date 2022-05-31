@@ -12,9 +12,9 @@ class TimecellsController < ApplicationController
       Timecell.generate_prices(@selected_day, @club.id)
       @timecells = Timecell.group_prices_by_hours(@club, @selected_day)
     end
-    #
-    # @tournament = Tournament.new
-    # @training = Training.new
+
+    @tournament = Tournament.new
+    @training = Training.new
   end
 
   # GET /timecells/1 or /timecells/1.json
@@ -94,6 +94,6 @@ class TimecellsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def timecell_params
-      params.require(:timecell).permit(:gametable_id, :time, :value, :kind, :tournament_rating, :price, :color)
+      params.require(:timecell).permit(:gametable_id, :time, :value, :kind, :tournament_rating, :price, :color, :bookable_id, :bookable_type)
     end
 end

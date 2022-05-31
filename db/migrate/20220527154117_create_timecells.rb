@@ -4,8 +4,6 @@ class CreateTimecells < ActiveRecord::Migration[7.0]
       t.belongs_to :gametable, null: false, foreign_key: true
       t.datetime :time
       t.integer :price
-      t.integer :kind, default: 0
-      t.string :value
       t.integer :tournament_rating
       t.string :trainer
 

@@ -146,3 +146,11 @@
 //.bg-red{
 //  background-color: red;
 //}
+
+
+.zoom:hover{
+  transform: scale(1.1);
+  transition: all ease 500ms;
+  background-color: #3e8e41;
+  color: white;
+}
