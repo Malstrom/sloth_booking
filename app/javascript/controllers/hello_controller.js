@@ -3,10 +3,8 @@ import {Controller} from "@hotwired/stimulus"
 export default class extends Controller {
 
   connect() {
-    var data = {kind: "default", price: document.getElementById("price").value}
+    var data = {bookable_id: null, bookable_type: null, price: document.getElementById("price").value}
     document.getElementById("params_to_send").value = JSON.stringify(data);
-
-
   }
 
   presetValue(){
@@ -17,7 +15,7 @@ export default class extends Controller {
   // todo: open collapse and show additional information about event
   // set value to hidden input
   selectKind(){
-    document.getElementById("eventAdditionalInfo").innerHTML = this.element.value
+    // document.getElementById("eventAdditionalInfo").innerHTML = this.element.value
     document.getElementById("params_to_send").value = this.element.value;
   }
 

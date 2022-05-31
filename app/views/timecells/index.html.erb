@@ -18,22 +18,35 @@
   <div class="col-1 text-center ">next</div>
 </div>
   <br>
+
 <div class="container-fluid">
   <p style="color: green"><%= notice %></p>
+
   <div>
     <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @gametables.first.club.name %></h1>
   </div>
   <br>
-  <%= render 'timecell_definition' %>
+
+  <div class="row">
+
+    <div class="col-5">
+      <label for="formFile" class="form-label">Select tournament or group training</label>
+      <%= render 'trainings_and_tournaments' %>
+    </div>
+
+    <div class="col-4 ">
+      <label for="formFile" class="form-label">Your click will set</label>
+      <input class="form-control" list="datalistOptions" id="params_to_send" placeholder="400" value="400" >
+    </div>
+
+    <div class="col-2">
+      <label for="formFile" class="form-label">Set price</label>
+      <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400" value="345" data-controller="hello" data-action="input->hello#setPrice">
+    </div>
+
+  </div>
+
   <br>
-
-  <%= render 'trainings/form'  %>
-  <%= render 'tournaments/form'  %>
-
-  <br>
-  <br>
-
-
 
   <div class="css-grid-table">
 
@@ -60,56 +73,6 @@
     <% end %>
   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--  <table class="table table-hover table-bordered">-->
-<!--    <thead>-->
-<!--    <tr class="">-->
-<!--      <th class="text-center table-dark">-->
-<!--        Time/Table-->
-<!--      </th>-->
-
-      <%# @gametables.each do |gametable| %>
-<!--        <th class="text-center" id="<%#= gametable.id %>">-->
-          <%#= gametable.id %>
-<!--          <br>-->
-          <%#= gametable.description %>
-<!--        </th>-->
-      <%# end %>
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-
-    <%# @timecells.each do |cells| %>
-<!--      <tr>-->
-<!--        <th class="text-right col-1" data-controller="hello" data-action="click->hello#handleTime" value="<%#= {time: 1}.to_json %>" >-->
-          <%#= cells.first.strftime("%H:%M") %>
-<!--        </th>-->
-        <%# cells.last.each do |timecell| %>
-          <%#= render timecell %>
-        <%# end %>
-<!--      </tr>-->
-    <%# end %>
-<!--    </tbody>-->
-<!--  </table>-->
 </div>
 
 
