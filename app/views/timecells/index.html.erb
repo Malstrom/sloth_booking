@@ -6,34 +6,25 @@
     }
 </style>
 
-<div class="navbar fixed-top  bg-light row row-cols-12 shadow p-3 mb-5 bg-body rounded">
-
-  <div class="col-1 text-center">
-    <%= link_to(timecells_path( selected_day: @selected_day.to_datetime.prev_week ), class: "link-secondary link-date", remote:true) do %>
-      <i class='bi bi-arrow-left-square' width="60" height="60"></i>
-    <% end %>
-  </div>
-  <% @days.each do |day| %>
-    <div class="col text-center <%= "rounded border border-secondary border-2" if day == @selected_day  %>">
-      <%= link_to(day.strftime('%A'), timecells_path(selected_day: day), class: "link-secondary link-date", remote:true) %>
-      <br>
-      <%= link_to(day.strftime('%d %b'), timecells_path(selected_day: day), class: "link-secondary link-date", remote:true) %>
-    </div>
-  <% end %>
-  <div class="col-1 text-center">
-    <%= link_to(timecells_path(selected_day: @selected_day.to_datetime.next_week ), class: "link-secondary link-date", remote:true) do %>
-      <i class='bi bi-arrow-right-square'></i>
-    <% end %>
-  </div>
-</div>
-  <br>
+<%= render 'days_weeks_navbar' %>
 
 <div class="container-fluid">
-  <p style="color: green"><%= notice %></p>
-
-  <div>
-    <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @gametables.first.club.name %></h1>
+  <br>  <br>  <br>  <br>  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        time
+      </div>
+      <div class="col">
+        <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @gametables.first.club.name %></h1>
+        <p style="color: green"><%= notice %></p>
+      </div>
+      <div class="col">
+        Column
+      </div>
+    </div>
   </div>
+
   <br>
 
   <div class="row">
@@ -83,6 +74,3 @@
   </div>
 
 </div>
-
-
-

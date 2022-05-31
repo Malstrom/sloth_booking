@@ -21,7 +21,7 @@ export default class extends Controller {
 
   // triggered when fill in input price and trigger hidden input
   setPrice(){
-    var data = {kind: "default", price: this.element.value}
+    var data = {bookable_id: null, bookable_type: null, price: this.element.value}
     document.getElementById("params_to_send").value = JSON.stringify(data);
   }
 
@@ -46,9 +46,9 @@ export default class extends Controller {
       body: data
     }).then(response => response.json()).then(timecell => {
 
-      const tableClass = this.element.className.match(new RegExp(/\btable-.+?\b/, 'g'))
+      const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
       this.element.classList.remove(tableClass);
-      this.element.classList.add("table-" + timecell.color);
+      this.element.classList.add(timecell.color);
 
        this.element.innerHTML = timecell.display_value
       // this.element.querySelector('turbo-frame').innerHTML = timecell.display_value

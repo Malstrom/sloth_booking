@@ -25,14 +25,18 @@ class Timecell < ApplicationRecord
 
   def define_color
     case price.to_i
-    when 0..400
-      "success"
-    when 401..500
-      "warning"
-    when 501..1000
-      "danger"
+    when 0..300
+      "cell-color-yellow"
+    when 301..450
+      "cell-color-blue"
+    when 451..600
+      "cell-color-green"
+    when 601..750
+      "cell-color-pink"
+    when 751..3000
+      "cell-color-purple"
     else
-      "secondary"
+      "cell-color-yellow"
     end
   end
 
