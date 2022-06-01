@@ -2,7 +2,7 @@
     .css-grid-table-header,
     .css-grid-table-body {
         grid-template-columns: repeat(<%= @gametables.count + 1 %> , 100px);
-        line-height: 30px;
+        line-height: 60px;
     }
 </style>
 
@@ -14,7 +14,7 @@
     <p style="color: green"><%= notice %></p>
     <div class="row">
       <div class="col">
-        time
+        Opening hours: 7:00 - 23:00
       </div>
       <div class="col">
         <h1 class="font-bold text-center text-4xl text-blue-500">Prices for club <%= @gametables.first.club.name %></h1>
@@ -46,8 +46,9 @@
       <% @gametables.each do |gametable| %>
         <div id="<%= gametable.id %>">
           <%= gametable.id %>
-          <br>
+          <p class="table-description mb-0 fw-normal">
           <%= gametable.description %>
+          </p>
         </div>
       <% end %>
     </div>

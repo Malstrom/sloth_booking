@@ -96,19 +96,20 @@
 }
 
 .css-grid-table {
-  width: auto;
+width: 90%;
+  margin: auto;
 }
 
 .css-grid-table-header,
 .css-grid-table-body {
-  grid-template-columns: repeat(30, 100px);
-  line-height: 30px;
+
+  line-height: 60px;
 }
 
 .css-grid-table-header {
   grid-template-rows: auto;
   position: sticky;
-  top: 0;
+  top:0px;
   z-index: 3;
   background: white;
 }
@@ -122,7 +123,7 @@
   font-weight: bold;
   border: 1px solid;
   border-color: rgba(191, 191, 191, 0.3);
-
+  line-height: 30px;
 }
 
 .css-grid-table-body div {
@@ -135,11 +136,24 @@
   border-color: rgba(191, 191, 191, 0.3);
 }
 
+.training-cell {
+  border-left: 8px solid;
+  border-left-color: orange;
+  background: white;
+}
+
+.tournament-cell {
+  border-left: 8px solid;
+  border-left-color: green;
+  background: white;
+}
+
+
 .sticky-left {
   left: 0px;
   position: sticky;
   z-index: 2;
-  background-color: grey;
+  background-color: white;
   font-weight: bold;
 }
 
@@ -163,10 +177,21 @@ background-color: #CFC7FF;
 background-color: #FFFACE;
 }
 
+.navbar_arrows {
+  font-size: 2rem;
+  opacity: 50%;
+}
 
 .zoom:hover{
   transform: scale(1.1);
   transition: all ease 500ms;
   background-color: #3e8e41;
   color: white;
+}
+
+.table-description{
+  font-size: 12px;
+  color: grey;
+  line-height: 1.5;
+  font-weight: normal;
 }
