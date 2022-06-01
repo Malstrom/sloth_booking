@@ -1,22 +1,12 @@
-<div class="col-6">
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tournamentModal" data-bs-whatever="tournament">New tournament</button>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">New training</button>
-<!--  <button type="button" class="btn btn-outline-primary"-->
-<!--          value="<%#= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"-->
-<!--          data-bs-toggle="collapse" href="#tournament_<%#= tournament.id %>_collapse" role="button" aria-expanded="false" aria-controls="tournament_<%#= tournament.id %>_collapse">-->
-<!--    < <%#= tournament.rating %>-->
-<!--  </button>-->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#setPrice" data-bs-whatever="group training">New price</button>
-</div>
-
-<br>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tournamentModal" data-bs-whatever="tournament">New tournament</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">New training</button>
+<button type="button" class="btn btn-primary" data-bs-toggle="collapse" href="#setPriceCollapse" role="button" aria-expanded="false" aria-controls="setPriceCollapse">Set price</button>
 
 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
   <% @club.tournaments.each do |tournament| %>
     <div class="btn-group me-2" role="group" aria-label="First group">
-      <button type="button" class="btn btn-outline-primary"
-              value="<%= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"
-              data-bs-toggle="collapse" href="#tournament_<%= tournament.id %>_collapse" role="button" aria-expanded="false" aria-controls="tournament_<%= tournament.id %>_collapse">
+      <button type="button" class="btn btn-outline-primary" role="button" aria-expanded="false"
+              data-bs-toggle="collapse" href="#tournament_<%= tournament.id %>_collapse"  aria-controls="tournament_<%= tournament.id %>_collapse">
         < <%= tournament.rating %>
       </button>
     </div>
@@ -24,8 +14,8 @@
 
   <% @club.trainings.each do |training| %>
     <div class="btn-group me-2" role="group" aria-label="Second group"  >
-      <button type="button" class="btn btn-outline-info" value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>"
-              data-bs-toggle="collapse" href="#training_<%= training.id %>_collapse" role="button" aria-expanded="false" aria-controls="training_<%= training.id %>_collapse">
+      <button type="button" class="btn btn-outline-info" role="button" aria-expanded="false"
+              data-bs-toggle="collapse" href="#training_<%= training.id %>_collapse"  aria-controls="training_<%= training.id %>_collapse">
         <%= training.trainer %>
       </button>
     </div>
@@ -34,29 +24,21 @@
 
 <br>
 
-<div class="collapse" id="setPrice" data-bs-parent="#traninngsTournaments">
-  <div id="eventAdditionalInfo" class="card card-body clearfix">
-    <div id="eventAdditionalInfo" class="clearfix">
-      <div class="row">
-        <div class="col-6">
-
-
-          <label for="formFile" class="form-label">Set price</label>
-          <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400" value="345" data-controller="hello" data-action="input->hello#setPrice">
-
-        </div>
-        <div class="col-6">
-          <button type="button" class="btn btn-outline-primary float-end btn-sm"
-                  data-controller="hello" data-action="click->hello#selectKind">
-            Set in calendar
-          </button>
+<div id="traninngsTournaments">
+  <div class="collapse" id="setPriceCollapse" data-bs-parent="#traninngsTournaments">
+    <div id="eventAdditionalInfo" class="card card-body clearfix">
+      <div id="eventAdditionalInfo" class="clearfix">
+        <div class="row">
+          <div class="col-6">
+            <label for="formFile" class="form-label">Set price</label>
+            <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400" value="345" data-controller="hello" data-action="input->hello#setPrice">
+          </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<div id="traninngsTournaments">
   <% @club.tournaments.each do |tournament| %>
     <div class="collapse" id="tournament_<%= tournament.id %>_collapse" data-bs-parent="#traninngsTournaments">
       <div id="eventAdditionalInfo" class="card card-body clearfix">
