@@ -35,9 +35,9 @@ class Timecell < ApplicationRecord
     elsif (751..3000) === price and bookable_type.nil?
       "cell-color-purple"
     elsif bookable_type == "Training"
-      "training-cell"
+      "cell-color-training"
     elsif bookable_type == "Tournament"
-      "tournament-cell"
+      "cell-color-tournament"
     end
   end
 
