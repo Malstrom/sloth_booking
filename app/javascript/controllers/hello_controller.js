@@ -47,8 +47,10 @@ export default class extends Controller {
     }).then(response => response.json()).then(timecell => {
 
       const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
+      console.log(timecell)
       this.element.classList.remove(tableClass);
       this.element.classList.add(timecell.color);
+
 
        this.element.innerHTML = timecell.display_value
       // this.element.querySelector('turbo-frame').innerHTML = timecell.display_value

@@ -24,19 +24,20 @@ class Timecell < ApplicationRecord
   end
 
   def define_color
-    case price.to_i
-    when 0..300
+    if (1..300) === price and bookable_type.nil?
       "cell-color-yellow"
-    when 301..450
+    elsif (301..450) === price and bookable_type.nil?
       "cell-color-blue"
-    when 451..600
+    elsif (451..600) === price and bookable_type.nil?
       "cell-color-green"
-    when 601..750
+    elsif (601..750) === price and bookable_type.nil?
       "cell-color-pink"
-    when 751..3000
+    elsif (751..3000) === price and bookable_type.nil?
       "cell-color-purple"
-    else
-      "cell-color-yellow"
+    elsif bookable_type == "Training"
+      "training-cell"
+    elsif bookable_type == "Tournament"
+      "tournament-cell"
     end
   end
 
