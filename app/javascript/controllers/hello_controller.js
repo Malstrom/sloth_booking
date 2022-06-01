@@ -35,7 +35,7 @@ export default class extends Controller {
     var timecell = JSON.parse(document.getElementById("params_to_send").value);
     const data = JSON.stringify({timecell});
 
-    fetch("timecells/" + this.element.id, {
+    fetch("../timecells/" + this.element.id, {
       method: "PUT",
       dataType: "json",
       headers: {

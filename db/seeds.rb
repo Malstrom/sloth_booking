@@ -34,7 +34,7 @@ end
 
 gametables = Array.new
 
-10.times do |index|
+20.times do |index|
   p index
   gametables << Gametable.create(club: @club, description: "Table 1", active: 1, display_description: 1)
 end

@@ -1,0 +1,25 @@
+<% @club.trainings.each do |training| %>
+  <div class="collapse" id="training_<%= training.id %>_collapse" data-bs-parent="#traninngsTournaments">
+    <div id="eventAdditionalInfo" class="card card-body clearfix">
+      <div id="eventAdditionalInfo" class="clearfix">
+        <div class="row">
+          <div class="col-6">
+            <%= form_with model: [@club, training] do |form| %>
+              <%= form.text_field :name %>
+              <%= form.text_field :trainer %>
+              <%= form.submit %>
+            <% end %>
+          </div>
+          <div class="col-6">
+            <button type="button" class="btn btn-outline-primary float-end btn-sm"
+                    value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>"
+                    data-controller="hello" data-action="click->hello#selectKind">
+              Set in calendar
+            </button>
+            <%= button_to "delete", club_training_path(@club,training), class:"btn btn-outline-danger float-end btn-sm", method: :delete %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+Tournaments
+<% @club.tournaments.each do |tournament| %>
+  <div class="btn-group me-2" role="group" aria-label="First group">
+    <button type="button" class="btn btn-outline-primary" role="button" aria-expanded="false"
+            data-bs-toggle="collapse" href="#tournament_<%= tournament.id %>_collapse"  aria-controls="tournament_<%= tournament.id %>_collapse">
+      < <%= tournament.rating %>
+    </button>
+  </div>
+<% end %>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tournamentModal" data-bs-whatever="tournament">+</button>
+<%= render 'tournaments/form_modal'  %>

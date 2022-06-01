@@ -1,0 +1,70 @@
+<style>
+    .css-grid-table-header,
+    .css-grid-table-body {
+        grid-template-columns: repeat(<%= @gametables.count + 1 %> , 100px);
+        line-height: 60px;
+    }
+</style>
+<%= render 'days_weeks_navbar' %>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col  text-center">
+      <h3>
+        TimeTable for <%= @selected_day.strftime('%A %d %b') %>
+      </h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col ">
+      <%= render 'working_time' %>
+      Day working time
+      <br>
+    </div>
+    <div class="col text-center">
+    </div>
+    <div class="col ">
+      Copy/paste timetable
+      <br><br><br>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class="col ">
+      <%= render 'tournaments_controls' %>
+    </div>
+    <div class="col ">
+      <%= render 'trainings_controls' %>
+    </div>
+    <div class="col">
+      <%= render 'set_price_control' %>
+    </div>
+  </div>
+  <div id="traninngsTournaments">
+    <div class="row">
+      <div class="col">
+        <%= render 'tournaments_collapse' %>
+      </div>
+      <div class="col ">
+        <%= render 'tranings_collapse' %>
+      </div>
+      <div class="col">
+        <input class="form-control" list="datalistOptions" id="params_to_send" placeholder="400" value="400" >
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+  <div class="row">
+    <div class="col-12">
+      <%= render 'timetable' %>
+    </div>
+  </div>
+
+

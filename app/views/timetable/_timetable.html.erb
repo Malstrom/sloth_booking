@@ -1,0 +1,23 @@
+<div class="css-grid-table">
+  <div class="css-grid-table-header">
+    <div class="sticky-left">time/table</div>
+    <% @gametables.each do |gametable| %>
+      <div id="<%= gametable.id %>">
+        <%= gametable.id %>
+        <p class="table-description mb-0 fw-normal">
+          <%= gametable.description %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+  <% @timecells.each do |cells| %>
+    <div class="css-grid-table-body">
+      <div class="sticky-left" data-controller="hello" data-action="click->hello#handleTime">
+        <%= cells.first.strftime("%H:%M") %>
+      </div>
+      <% cells.last.each do |timecell| %>
+        <%= render timecell %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

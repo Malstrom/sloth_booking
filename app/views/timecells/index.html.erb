@@ -40,7 +40,6 @@
   <br>
 
   <div class="css-grid-table">
-
     <div class="css-grid-table-header">
       <div class="sticky-left">time/table</div>
       <% @gametables.each do |gametable| %>
@@ -52,7 +51,6 @@
         </div>
       <% end %>
     </div>
-
     <% @timecells.each do |cells| %>
       <div class="css-grid-table-body">
         <div class="sticky-left" data-controller="hello" data-action="click->hello#handleTime">
