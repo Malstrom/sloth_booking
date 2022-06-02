@@ -5,6 +5,7 @@ class CreateTournaments < ActiveRecord::Migration[7.0]
       t.string :rating
       t.string :name
       t.integer :price
+      t.integer :state
 
       t.timestamps
     end
