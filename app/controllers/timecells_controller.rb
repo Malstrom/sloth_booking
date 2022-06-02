@@ -5,16 +5,6 @@ class TimecellsController < ApplicationController
 
   # GET /timecells or /timecells.json
   def index
-    @days = @selected_day.at_beginning_of_week..(@selected_day.at_end_of_week)
-    @gametables = Gametable.where(club: @club)
-    @timecells = Timecell.group_prices_by_hours(@club, @selected_day)
-    if @timecells.empty?
-      Timecell.generate_prices(@selected_day, @club.id)
-      @timecells = Timecell.group_prices_by_hours(@club, @selected_day)
-    end
-
-    @tournament = Tournament.new
-    @training = Training.new
   end
 
   # GET /timecells/1 or /timecells/1.json
@@ -63,6 +53,11 @@ class TimecellsController < ApplicationController
     else
       render json: @timecell.errors, status: :unprocessable_entity
     end
+  end
+
+  def set_working_time
+    raise
+
   end
 
   # DELETE /timecells/1 or /timecells/1.json

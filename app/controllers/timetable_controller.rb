@@ -2,13 +2,14 @@ class TimetableController < ApplicationController
   before_action :set_club, :selected_day
 
   def index
-    @days = @selected_day.at_beginning_of_week..(@selected_day.at_end_of_week)
+    @days = @selected_day.at_beginning_of_week..@selected_day.at_end_of_week
 
     @gametables = Gametable.where(club: @club)
-    @timecells = Timecell.group_prices_by_hours(@club, @selected_day)
-    if @timecells.empty?
-      Timecell.generate_prices(@selected_day, @club.id)
-      @timecells = Timecell.group_prices_by_hours(@club, @selected_day)
+
+    @slots_by_day_hours = Slot.by_club(@club).open_slot._group_by_day_hours(@selected_day)
+    if @slots_by_day_hours.empty?
+      Slot.generate_slots(@selected_day, @club.id)
+      @slots_by_day_hours = Slot.by_club(@club).open_slot._group_by_day_hours(@selected_day)
     end
 
     @tournament = Tournament.new

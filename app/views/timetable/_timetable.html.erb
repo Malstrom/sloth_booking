@@ -10,13 +10,13 @@
       </div>
     <% end %>
   </div>
-  <% @timecells.each do |cells| %>
+  <% @slots_by_day_hours.each do |row| %>
     <div class="css-grid-table-body">
       <div class="sticky-left" data-controller="hello" data-action="click->hello#handleTime">
-        <%= cells.first.strftime("%H:%M") %>
+        <%= row.first.strftime("%H:%M") %>
       </div>
-      <% cells.last.each do |timecell| %>
-        <%= render timecell %>
+      <% row.last.each do |slot| %>
+        <%= render slot %>
       <% end %>
     </div>
   <% end %>

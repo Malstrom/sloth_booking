@@ -1,4 +1,5 @@
 import {Controller} from "@hotwired/stimulus"
+import * as bootstrap from "bootstrap";
 
 export default class extends Controller {
 
@@ -30,12 +31,12 @@ export default class extends Controller {
     let time = this.element.value
   }
 
-  // update backend certain timecell with new timecell kind/value or kind/price
+  // update backend certain slot with new slot kind/value or kind/price
   handleClick() {
-    var timecell = JSON.parse(document.getElementById("params_to_send").value);
-    const data = JSON.stringify({timecell});
+    var slot = JSON.parse(document.getElementById("params_to_send").value);
+    const data = JSON.stringify({slot});
 
-    fetch("../timecells/" + this.element.id, {
+    fetch("../slots/" + this.element.id, {
       method: "PUT",
       dataType: "json",
       headers: {
@@ -44,16 +45,16 @@ export default class extends Controller {
         "Content-Type": 'application/json; charset=UTF-8',
       },
       body: data
-    }).then(response => response.json()).then(timecell => {
+    }).then(response => response.json()).then(slot => {
 
       const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
-      console.log(timecell)
+      console.log(slot)
       this.element.classList.remove(tableClass);
-      this.element.classList.add(timecell.color);
+      this.element.classList.add(slot.color);
 
 
-       this.element.innerHTML = timecell.display_value
-      // this.element.querySelector('turbo-frame').innerHTML = timecell.display_value
+       this.element.innerHTML = slot.display_value
+      // this.element.querySelector('turbo-frame').innerHTML = slot.display_value
     })
   }
 }

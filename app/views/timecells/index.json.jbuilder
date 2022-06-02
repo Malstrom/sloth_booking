@@ -1,1 +1,1 @@
-json.array! @timecells, partial: "timecells/timecell", as: :timecell
+json.array! @slots, partial: "timecells/timecell", as: :timecell

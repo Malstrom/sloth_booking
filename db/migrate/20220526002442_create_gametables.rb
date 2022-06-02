@@ -5,6 +5,8 @@ class CreateGametables < ActiveRecord::Migration[7.0]
       t.string :description
       t.integer :active
       t.integer :display_description
+      t.datetime :starts_at
+      t.datetime :ends_at
 
       t.timestamps
     end

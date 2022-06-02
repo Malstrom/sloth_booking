@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  gametable: one
+  time: 2022-06-02 16:21:00
+  price: 1
+  bookable: one
+  bookable_type: Bookable
+
+two:
+  gametable: two
+  time: 2022-06-02 16:21:00
+  price: 1
+  bookable: two
+  bookable_type: Bookable

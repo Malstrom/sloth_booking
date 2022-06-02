@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_30_123911) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_02_132100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
+    t.string "starts_at"
+    t.string "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -25,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_123911) do
     t.string "description"
     t.integer "active"
     t.integer "display_description"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["club_id"], name: "index_gametables_on_club_id"
@@ -40,12 +44,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_123911) do
     t.index ["trainer_id"], name: "index_rents_on_trainer_id"
   end
 
+  create_table "slots", force: :cascade do |t|
+    t.bigint "gametable_id", null: false
+    t.datetime "time"
+    t.integer "price"
+    t.integer "state", default: 0
+    t.string "bookable_type"
+    t.bigint "bookable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["bookable_type", "bookable_id"], name: "index_slots_on_bookable"
+    t.index ["gametable_id"], name: "index_slots_on_gametable_id"
+  end
+
   create_table "timecells", force: :cascade do |t|
     t.bigint "gametable_id", null: false
     t.datetime "time"
     t.integer "price"
-    t.integer "kind", default: 0
-    t.string "value"
     t.integer "tournament_rating"
     t.string "trainer"
     t.string "bookable_type"
@@ -58,10 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_123911) do
 
   create_table "tournaments", force: :cascade do |t|
     t.bigint "club_id", null: false
-    t.string "name"
     t.string "rating"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.string "name"
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -70,10 +83,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_123911) do
 
   create_table "trainings", force: :cascade do |t|
     t.bigint "club_id", null: false
-    t.string "name"
     t.string "trainer"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
+    t.string "name"
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -108,6 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_30_123911) do
 
   add_foreign_key "gametables", "clubs"
   add_foreign_key "rents", "users", column: "trainer_id"
+  add_foreign_key "slots", "gametables"
   add_foreign_key "timecells", "gametables"
   add_foreign_key "tournaments", "clubs"
   add_foreign_key "trainings", "clubs"

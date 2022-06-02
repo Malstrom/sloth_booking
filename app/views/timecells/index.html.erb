@@ -51,7 +51,7 @@
         </div>
       <% end %>
     </div>
-    <% @timecells.each do |cells| %>
+    <% @slots.each do |cells| %>
       <div class="css-grid-table-body">
         <div class="sticky-left" data-controller="hello" data-action="click->hello#handleTime">
           <%= cells.first.strftime("%H:%M") %>

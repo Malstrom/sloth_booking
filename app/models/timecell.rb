@@ -5,12 +5,12 @@ class Timecell < ApplicationRecord
 
   attr_accessor :color
 
-  scope :group_prices_by_hours, -> (club, selected_day) {
+  scope :grouped_by_day_hours, -> (club, selected_day) {
     joins(:gametable)
         .where("gametables.club_id = ?", club)
         .where(time: selected_day.beginning_of_day..selected_day.end_of_day)
         .order(:gametable_id, :time)
-        .group_by{ |cell| cell['time'].itself }
+        .group_by{ |cell| cell['time'].itself.localtime }
   }
 
   def display_value
