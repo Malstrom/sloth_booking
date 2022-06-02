@@ -76,7 +76,7 @@ class Slot < ApplicationRecord
   def already_booked
     if state.changed?
       unless bookable_type.nil?
-        errors.add(:self_join, I18n.t('activerecord.errors.models.slot.already_booked_not_closable'))
+        errors.add(:already_booked, I18n.t('activerecord.errors.models.slot.already_booked_not_closable'))
       end
     end
   end
