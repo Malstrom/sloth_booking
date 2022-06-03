@@ -57,25 +57,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_132100) do
     t.index ["gametable_id"], name: "index_slots_on_gametable_id"
   end
 
-  create_table "timecells", force: :cascade do |t|
-    t.bigint "gametable_id", null: false
-    t.datetime "time"
-    t.integer "price"
-    t.integer "tournament_rating"
-    t.string "trainer"
-    t.string "bookable_type"
-    t.bigint "bookable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["bookable_type", "bookable_id"], name: "index_timecells_on_bookable"
-    t.index ["gametable_id"], name: "index_timecells_on_gametable_id"
-  end
-
   create_table "tournaments", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.string "rating"
     t.string "name"
     t.integer "price"
+    t.integer "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["club_id"], name: "index_tournaments_on_club_id"
@@ -86,6 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_132100) do
     t.string "trainer"
     t.string "name"
     t.integer "price"
+    t.integer "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["club_id"], name: "index_trainings_on_club_id"
@@ -120,7 +108,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_132100) do
   add_foreign_key "gametables", "clubs"
   add_foreign_key "rents", "users", column: "trainer_id"
   add_foreign_key "slots", "gametables"
-  add_foreign_key "timecells", "gametables"
   add_foreign_key "tournaments", "clubs"
   add_foreign_key "trainings", "clubs"
 end
