@@ -2,46 +2,37 @@ require "application_system_test_case"
 
 class TimetablesTest < ApplicationSystemTestCase
   setup do
+    @today = Date.today
   end
 
   test "visiting the index" do
     visit timetable_index_url
+    assert_text "TimeTable for"
   end
-  #
-  # test "should create training" do
-  #   visit trainings_url
-  #   click_on "New training"
-  #
-  #   fill_in "Ends at", with: @training.ends_at
-  #   fill_in "Name", with: @training.name
-  #   fill_in "Price", with: @training.price
-  #   fill_in "Starts at", with: @training.starts_at
-  #   fill_in "Trainer", with: @training.trainer
-  #   click_on "Create Training"
-  #
-  #   assert_text "Training was successfully created"
-  #   click_on "Back"
-  # end
-  #
-  # test "should update Training" do
-  #   visit training_url(@training)
-  #   click_on "Edit this training", match: :first
-  #
-  #   fill_in "Ends at", with: @training.ends_at
-  #   fill_in "Name", with: @training.name
-  #   fill_in "Price", with: @training.price
-  #   fill_in "Starts at", with: @training.starts_at
-  #   fill_in "Trainer", with: @training.trainer
-  #   click_on "Update Training"
-  #
-  #   assert_text "Training was successfully updated"
-  #   click_on "Back"
-  # end
-  #
-  # test "should destroy Training" do
-  #   visit training_url(@training)
-  #   click_on "Destroy this training", match: :first
-  #
-  #   assert_text "Training was successfully destroyed"
-  # end
+
+  test "Navigate next/prev day" do
+    visit timetable_index_url
+
+    next_day = @today + 1.day
+    previous_day = @today - 1.day
+
+    click_on next_day.strftime('%A')
+    assert_text "TimeTable for #{next_day.strftime('%A')}"
+
+    click_on previous_day.strftime('%A')
+    assert_text "TimeTable for #{previous_day.strftime('%A')}"
+  end
+
+  test "navigate prev/next week" do
+    visit timetable_index_url
+
+    prev_week_day = @today - 1.week
+    next_week_day = @today + 1.week
+
+    click_on "prevWeek"
+    assert_text "TimeTable for #{prev_week_day.strftime('%A')}"
+
+    click_on "nextWeek"
+    assert_text "TimeTable for #{next_week_day.strftime('%A')}"
+  end
 end
