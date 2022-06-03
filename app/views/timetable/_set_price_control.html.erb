@@ -3,9 +3,9 @@
     Free price
   </div>
   <div class="col-3">
-    <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400" value="345" data-controller="hello" data-action="input->hello#setPrice">
+    <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400" value="345">
   </div>
   <div class="col-6">
-    <button type="button" class="btn btn-primary">Set in calendar</button>
+    <button type="button" class="btn btn-primary" data-controller="hello" data-action="click->hello#setPrice">Set in calendar</button>
   </div>
 </div>

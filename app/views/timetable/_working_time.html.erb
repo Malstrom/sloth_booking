@@ -5,5 +5,4 @@
   <%= form.select :ends_at, options_for_select(selected_day_hours_for_select(@selected_day), Time.at(@slots_by_day_hours.keys.last) + 1.hour) %>
 
   <%= form.submit "for day", class:"btn btn-primary btn-sm" %>
-  <%= form.submit "for club", formaction: club_path(@club, selected_day:@selected_day), class:"btn btn-primary btn-sm" %>
 <% end %>

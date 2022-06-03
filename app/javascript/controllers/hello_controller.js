@@ -6,6 +6,10 @@ export default class extends Controller {
   connect() {
     var data = {bookable_id: null, bookable_type: null, price: document.getElementById("price").value}
     document.getElementById("params_to_send").value = JSON.stringify(data);
+
+    document.querySelectorAll('.toast').forEach((toastTarget) => {
+      return new bootstrap.Toast(toastTarget).show();
+    })
   }
 
   presetValue(){
@@ -22,7 +26,7 @@ export default class extends Controller {
 
   // triggered when fill in input price and trigger hidden input
   setPrice(){
-    var data = {bookable_id: null, bookable_type: null, price: this.element.value}
+    var data = {bookable_id: null, bookable_type: null, price: document.getElementById("price").value }
     document.getElementById("params_to_send").value = JSON.stringify(data);
   }
 
