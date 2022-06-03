@@ -57,13 +57,6 @@ gametables.each do |gametable|
   end
 end
 
-
-# starts = DateTime.now.beginning_of_day + 7.hours
-# ends = DateTime.now.beginning_of_day + 23.hours
-
-
-# DateTime.parse(hour)
 #
-# @hours = (starts.to_i..ends.to_i).step(1.hour).map do |hour|
-#   DateTime.parse(Time.at(hour).strftime("%H:%M"))
-# end
+# slots = Slot.all
+# slots.each(&:dump_fixture)

@@ -27,8 +27,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_132100) do
     t.string "description"
     t.integer "active"
     t.integer "display_description"
-    t.datetime "starts_at"
-    t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["club_id"], name: "index_gametables_on_club_id"
