@@ -6,7 +6,7 @@ class Slot < ApplicationRecord
 
   enum :state, %i[open close]
 
-  validate :already_booked, on: :update
+  # validate :already_booked, on: :update
 
   # validates_comparison_of :time, greater_than: -> { Date.today }
 
@@ -72,9 +72,9 @@ class Slot < ApplicationRecord
 
   private
 
-  def already_booked
-    return unless state.changed?
-
-    errors.add(:already_booked, I18n.t('activerecord.errors.models.slot.already_booked_not_closable')) unless bookable_type.nil?
-  end
+  # def already_booked
+  #   return unless state.changed?
+  #
+  #   errors.add(:already_booked, I18n.t('activerecord.errors.models.slot.already_booked_not_closable')) unless bookable_type.nil?
+  # end
 end
