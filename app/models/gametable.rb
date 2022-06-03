@@ -1,6 +1,6 @@
 class Gametable < ApplicationRecord
   belongs_to :club
-  has_many :timecells, dependent: :delete_all
+  has_many :slots, dependent: :delete_all
 
   # after_create :default_prices
 
