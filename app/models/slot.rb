@@ -11,7 +11,7 @@ class Slot < ApplicationRecord
 
   scope :by_club, -> (club) { joins(:gametable).where("gametables.club_id = ?", club).order(:gametable_id, :time) }
   scope :open_slot, -> { where(state: :open) }
-  scope :_group_by_day_hours, -> (selected_day) {
+  scope :group_by_day_hours, -> (selected_day) {
     where(time: selected_day.beginning_of_day..selected_day.end_of_day)
         .group_by{ |cell| cell['time'].itself.localtime }
   }

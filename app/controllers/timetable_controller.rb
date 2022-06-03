@@ -6,10 +6,10 @@ class TimetableController < ApplicationController
 
     @gametables = Gametable.where(club: @club)
 
-    @slots_by_day_hours = Slot.by_club(@club).open_slot._group_by_day_hours(@selected_day)
+    @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
     if @slots_by_day_hours.empty?
       Slot.generate_slots(@selected_day, @club.id)
-      @slots_by_day_hours = Slot.by_club(@club).open_slot._group_by_day_hours(@selected_day)
+      @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
     end
 
     @tournament = Tournament.new

@@ -45,7 +45,7 @@ class SlotsController < ApplicationController
   end
 
   def set_working_time
-    @slots_by_day_hours = Slot.by_club(@club)._group_by_day_hours(@selected_day)
+    @slots_by_day_hours = Slot.by_club(@club).group_by_day_hours(@selected_day)
     @slots_by_day_hours.keys.each do |hour|
         if hour < @starts_at or hour >= @ends_at
           @slots_by_day_hours[hour].each(&:close!)
