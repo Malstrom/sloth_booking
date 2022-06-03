@@ -18,30 +18,23 @@ class Slot < ApplicationRecord
   }
 
   def display_value
-    if bookable_type == 'Training'
-      bookable.trainer
-    elsif bookable_type == 'Tournament'
-      bookable.rating
-    else
-      price
+    case bookable_type
+      when 'Training' then bookable.trainer
+      when 'Tournament' then bookable.rating
+      else
+        price
     end
   end
 
   def define_color
     if bookable_type.nil?
       case price.to_i
-      when 0..300
-        'cell-color-yellow'
-      when 301..450
-        'cell-color-blue'
-      when 451..600
-        'cell-color-green'
-      when 601..750
-        'cell-color-pink'
-      when 751..3000
-        'cell-color-purple'
-      else
-        'cell-color-yellow'
+        when 0..300    then 'cell-color-yellow'
+        when 301..450  then 'cell-color-blue'
+        when 451..600  then 'cell-color-green'
+        when 601..750  then 'cell-color-pink'
+        when 751..3000 then 'cell-color-purple'
+        else 'cell-color-yellow'
       end
     else
       bookable_type == 'Training' ? 'cell-color-training' : 'cell-color-tournament'
