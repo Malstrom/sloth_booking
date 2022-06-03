@@ -62,9 +62,9 @@ class Slot < ApplicationRecord
     club.gametables.each do |gametable|
       hours.each do |hour|
         if hour.strftime('%H:%M') < club_start.strftime('%H:%M') || hour.strftime('%H:%M').to_s >= club_end.strftime('%H:%M')
-          next if hour.strftime('%H:%M').to_s == '05:00'
+          Slot.create gametable: gametable, time: hour, price: 400, state: :close
         else
-          Slot.create gametable: gametable, time: hour, price: 400
+          Slot.create gametable: gametable, time: hour, price: 400, state: :open
         end
       end
     end
