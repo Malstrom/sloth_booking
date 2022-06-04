@@ -52,13 +52,10 @@ export default class extends Controller {
     }).then(response => response.json()).then(slot => {
 
       const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
-      console.log(slot)
+
       this.element.classList.remove(tableClass);
       this.element.classList.add(slot.color);
-
-
-       this.element.innerHTML = slot.display_value
-      // this.element.querySelector('turbo-frame').innerHTML = slot.display_value
+      this.element.innerHTML = slot.display_value
     })
   }
 }

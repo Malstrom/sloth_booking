@@ -6,10 +6,9 @@ class Slot < ApplicationRecord
 
   enum :state, %i[open close]
 
-  # validate :already_booked, on: :update
-  #
+  before_update :toggle_bookable
 
-  validates :time, comparison: { greater_than:  Time.now }, on: :update
+  validates :time, comparison: { greater_than: Time.now }, on: :update
 
   scope :by_club, ->(club) { joins(:gametable).where('gametables.club_id = ?', club).order(:gametable_id, :time) }
   scope :open_slot, -> { where(state: :open) }
@@ -18,27 +17,27 @@ class Slot < ApplicationRecord
   }
   scope :group_by_day_hours, ->(selected_day) {
     where(time: selected_day.beginning_of_day..selected_day.end_of_day)
-      .group_by{ |cell| cell['time'].itself.localtime }
+      .group_by { |cell| cell['time'].itself.localtime }
   }
 
   def display_value
     case bookable_type
-      when 'Training' then bookable.trainer
-      when 'Tournament' then bookable.rating
-      else
-        price
+    when 'Training' then bookable.trainer
+    when 'Tournament' then bookable.rating
+    else
+      price
     end
   end
 
   def define_color
     if bookable_type.nil?
       case price.to_i
-        when 0..300    then 'cell-color-yellow'
-        when 301..450  then 'cell-color-blue'
-        when 451..600  then 'cell-color-green'
-        when 601..750  then 'cell-color-pink'
-        when 751..3000 then 'cell-color-purple'
-        else 'cell-color-yellow'
+      when 0..300    then 'cell-color-yellow'
+      when 301..450  then 'cell-color-blue'
+      when 451..600  then 'cell-color-green'
+      when 601..750  then 'cell-color-pink'
+      when 751..3000 then 'cell-color-purple'
+      else 'cell-color-yellow'
       end
     else
       bookable_type == 'Training' ? 'cell-color-training' : 'cell-color-tournament'
@@ -67,11 +66,23 @@ class Slot < ApplicationRecord
     end
   end
 
+  def self.update_working_date(club, selected_day, starts_at, ends_at)
+    if starts_at.to_date >= Date.today
+      slots_to_close = Slot.by_club(club).by_day(selected_day).where("time < ? OR time > ?", starts_at,
+                                                                     ends_at).open_slot
+      slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at..ends_at)
+      if !slots_to_close.any? { |slot| slot.bookable_id? }
+        slots_to_close.update_all(state: :close)
+        slots_to_open.where(state: :close).update_all(state: :open)
+      else
+        false
+      end
+    end
+  end
+
   private
 
-  # def already_booked
-  #   return unless state.changed?
-  #
-  #   errors.add(:already_booked, I18n.t('activerecord.errors.models.slot.already_booked_not_closable')) unless bookable_type.nil?
-  # end
+  def toggle_bookable
+    assign_attributes(bookable_type: nil, bookable_id: nil) unless changed?
+  end
 end
