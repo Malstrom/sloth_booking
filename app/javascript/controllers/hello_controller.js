@@ -49,13 +49,22 @@ export default class extends Controller {
         "Content-Type": 'application/json; charset=UTF-8',
       },
       body: data
-    }).then(response => response.json()).then(slot => {
-
-      const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
-
-      this.element.classList.remove(tableClass);
-      this.element.classList.add(slot.color);
-      this.element.innerHTML = slot.display_value
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Something went wrong');
     })
+      .then((slot) => {
+          const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
+
+          this.element.classList.remove(tableClass);
+          this.element.classList.add(slot.color);
+          this.element.innerHTML = slot.display_value
+      })
+      .catch((error) => {
+        alert("not in past")
+        console.log(error)
+      });
   }
 }

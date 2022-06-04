@@ -6,6 +6,7 @@
       </div>
       <%= form_with(model: [@club, @training]) do |form| %>
         <div class="modal-body">
+          <%= hidden_field_tag :selected_day, @selected_day %>
 
           <div class="mb-3">
             <%= form.label :name, class: "col-form-label" %>
