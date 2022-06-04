@@ -45,15 +45,15 @@ class SlotsController < ApplicationController
   end
 
   def set_working_time
-    @slots_by_day_hours = Slot.by_club(@club).group_by_day_hours(@selected_day)
-    @slots_by_day_hours.keys.each do |hour|
-        if hour < @starts_at or hour >= @ends_at
-          @slots_by_day_hours[hour].each(&:close!)
-        else
-          @slots_by_day_hours[hour].each(&:open!)
-        end
-      end
-    redirect_to timetable_index_path(selected_day: @selected_day)
+    if @starts_at.to_date <= Date.today
+      redirect_to timetable_index_path(selected_day: @selected_day), alert: "You can't update in past or today"
+    else
+      @slots_to_close = Slot.by_club(@club).by_day(@selected_day).where("time < ? OR time > ?", @starts_at, @ends_at)
+      @slots_to_open = Slot.by_club(@club).by_day(@selected_day).where("time > ? OR time < ?", @starts_at, @ends_at)
+      @slots_to_open.update_all(state: :open)
+      @slots_to_close.update_all(state: :close)
+      redirect_to timetable_index_path(selected_day: @selected_day), notice:"Working time day updated"
+    end
   end
 
   # DELETE /slots/1 or /slots/1.json

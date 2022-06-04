@@ -7,11 +7,15 @@ class Slot < ApplicationRecord
   enum :state, %i[open close]
 
   # validate :already_booked, on: :update
+  #
 
-  # validates_comparison_of :time, greater_than: -> { Date.today }
+  validates :time, comparison: { greater_than:  Time.now }, on: :update
 
   scope :by_club, ->(club) { joins(:gametable).where('gametables.club_id = ?', club).order(:gametable_id, :time) }
   scope :open_slot, -> { where(state: :open) }
+  scope :by_day, ->(selected_day) {
+    where(time: selected_day.beginning_of_day..selected_day.end_of_day)
+  }
   scope :group_by_day_hours, ->(selected_day) {
     where(time: selected_day.beginning_of_day..selected_day.end_of_day)
       .group_by{ |cell| cell['time'].itself.localtime }
