@@ -51,16 +51,14 @@ class Slot < ApplicationRecord
     starts = selected_day.beginning_of_day
     ends = selected_day.end_of_day
 
-    hours = (starts.to_i..ends.to_i).step(1.hour).map do |hour|
-      Time.at(hour)
-    end
+    hours = (starts.to_i..ends.to_i).step(1.hour).map { |hour| Time.at(hour) }
 
     club.gametables.each do |gametable|
       hours.each do |hour|
         if hour.strftime('%H:%M') < club_start.strftime('%H:%M') || hour.strftime('%H:%M').to_s >= club_end.strftime('%H:%M')
-          Slot.create gametable: gametable, time: hour, price: 400, state: :close
+          gametable.slots.build(time: hour, price: 400).close!
         else
-          Slot.create gametable: gametable, time: hour, price: 400, state: :open
+          gametable.slots.build(time: hour, price: 400).open!
         end
       end
     end

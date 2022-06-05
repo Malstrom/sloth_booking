@@ -1,108 +1,12 @@
-slot_1:
+yesterday_slot:
   gametable: gametable_1
-  time: <%= "01:00".to_time %>
+  time: <%= "14:00".to_time - 1.day  %>
   price: 400
   state: open
   bookable_type:
   bookable_id:
 
-slot_2:
-  gametable: gametable_1
-  time: <%= "02:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_3:
-  gametable: gametable_1
-  time: <%= "03:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_4:
-  gametable: gametable_1
-  time: <%= "04:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_5:
-  gametable: gametable_1
-  time: <%= "05:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_6:
-  gametable: gametable_1
-  time: <%= "06:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_7:
-  gametable: gametable_1
-  time: <%= "07:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_8:
-  gametable: gametable_1
-  time: <%= "08:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_9:
-  gametable: gametable_1
-  time: <%= "09:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_10:
-  gametable: gametable_1
-  time: <%= "10:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_11:
-  gametable: gametable_1
-  time: <%= "11:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_12:
-  gametable: gametable_1
-  time: <%= "12:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_13:
-  gametable: gametable_1
-  time: <%= "13:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
-
-slot_14:
+today_slot:
   gametable: gametable_1
   time: <%= "14:00".to_time %>
   price: 400
@@ -110,82 +14,268 @@ slot_14:
   bookable_type:
   bookable_id:
 
-slot_15:
+tomorrow_slot:
   gametable: gametable_1
-  time: <%= "15:00".to_time %>
+  time: <%= "14:00".to_time + 1.day  %>
   price: 400
   state: open
   bookable_type:
   bookable_id:
 
-slot_16:
+training_slot:
   gametable: gametable_1
-  time: <%= "16:00".to_time %>
+  time: <%= "14:00".to_time  %>
   price: 400
+  state: open
+  bookable: first_training (Training)
+
+tournament_slot:
+  gametable: gametable_1
+  time: <%= "14:00".to_time  %>
+  price: 400
+  state: open
+  bookable: first_tournament (Tournament)
+
+slot_price_300:
+  gametable: gametable_1
+  time: <%= "01:00".to_time %>
+  price: 300
   state: open
   bookable_type:
   bookable_id:
 
-slot_17:
+slot_price_450:
   gametable: gametable_1
-  time: <%= "17:00".to_time %>
-  price: 400
+  time: <%= "02:00".to_time %>
+  price: 450
   state: open
   bookable_type:
   bookable_id:
 
-slot_18:
+slot_price_600:
   gametable: gametable_1
-  time: <%= "18:00".to_time %>
-  price: 400
+  time: <%= "03:00".to_time %>
+  price: 600
   state: open
   bookable_type:
   bookable_id:
 
-slot_19:
+slot_price_750:
   gametable: gametable_1
-  time: <%= "19:00".to_time %>
-  price: 400
+  time: <%= "04:00".to_time %>
+  price: 750
   state: open
   bookable_type:
   bookable_id:
 
-slot_20:
+slot_price_3000:
   gametable: gametable_1
-  time: <%= "20:00".to_time %>
-  price: 400
+  time: <%= "05:00".to_time %>
+  price: 3000
   state: open
   bookable_type:
   bookable_id:
 
-slot_21:
+slot_price_3001:
   gametable: gametable_1
-  time: <%= "21:00".to_time %>
-  price: 400
+  time: <%= "06:00".to_time %>
+  price: 3001
   state: open
   bookable_type:
   bookable_id:
 
-slot_22:
-  gametable: gametable_1
-  time: <%= "22:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
 
-slot_23:
-  gametable: gametable_1
-  time: <%= "23:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
 
-slot_24:
-  gametable: gametable_1
-  time: <%= "24:00".to_time %>
-  price: 400
-  state: open
-  bookable_type:
-  bookable_id:
+#--------
+#
+#slot_1:
+#  gametable: gametable_1
+#  time: <%= "01:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_2:
+#  gametable: gametable_1
+#  time: <%= "02:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_3:
+#  gametable: gametable_1
+#  time: <%= "03:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_4:
+#  gametable: gametable_1
+#  time: <%= "04:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_5:
+#  gametable: gametable_1
+#  time: <%= "05:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_6:
+#  gametable: gametable_1
+#  time: <%= "06:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_7:
+#  gametable: gametable_1
+#  time: <%= "07:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_8:
+#  gametable: gametable_1
+#  time: <%= "08:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_9:
+#  gametable: gametable_1
+#  time: <%= "09:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_10:
+#  gametable: gametable_1
+#  time: <%= "10:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_11:
+#  gametable: gametable_1
+#  time: <%= "11:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_12:
+#  gametable: gametable_1
+#  time: <%= "12:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_13:
+#  gametable: gametable_1
+#  time: <%= "13:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_14:
+#  gametable: gametable_1
+#  time: <%= "14:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_15:
+#  gametable: gametable_1
+#  time: <%= "15:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_16:
+#  gametable: gametable_1
+#  time: <%= "16:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_17:
+#  gametable: gametable_1
+#  time: <%= "17:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_18:
+#  gametable: gametable_1
+#  time: <%= "18:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_19:
+#  gametable: gametable_1
+#  time: <%= "19:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_20:
+#  gametable: gametable_1
+#  time: <%= "20:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_21:
+#  gametable: gametable_1
+#  time: <%= "21:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_22:
+#  gametable: gametable_1
+#  time: <%= "22:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_23:
+#  gametable: gametable_1
+#  time: <%= "23:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:
+#
+#slot_24:
+#  gametable: gametable_1
+#  time: <%= "24:00".to_time %>
+#  price: 400
+#  state: open
+#  bookable_type:
+#  bookable_id:

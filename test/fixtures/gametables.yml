@@ -10,3 +10,9 @@ gametable_1:
   description: Table 1
   active: 1
   display_description: 0
+
+gametable_2:
+  club: sokol
+  description: Table 1
+  active: 1
+  display_description: 0

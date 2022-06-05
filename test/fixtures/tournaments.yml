@@ -1,8 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-#one:
-#  name: Five beers
-#  rating: 200
-#  starts_at: <%= 5.day.ago %>
-#  ends_at: 2022-05-30 15:39:11
-#  price: 1
+first_tournament:
+  club: sokol
+  name: first_tournament
+  rating: 200
+  price: 400
