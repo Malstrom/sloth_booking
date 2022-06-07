@@ -5,3 +5,15 @@ first_training:
   name: first_training
   trainer: Igor
   price: 500
+
+training_not_assigned:
+  club: sokol
+  name: first_training
+  trainer: Igor
+  price: 500
+
+new_training:
+  club: sokol
+  name: training_test
+  trainer: Test
+  price: 777

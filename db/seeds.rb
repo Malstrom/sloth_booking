@@ -28,13 +28,11 @@ ends = "23:00".to_time
 
 @hours = (starts.to_i..ends.to_i).step(1.hour).map do |hour|
   time = Time.at(hour)
-  p time
 end
 
 gametables = Array.new
 
 10.times do |index|
-  p index
   gametables << Gametable.create(club: @club, description: "Table 1", active: 1, display_description: 1)
 end
 
@@ -43,7 +41,6 @@ gametables.each do |gametable|
   print gametable.id
   @hours.each do |hour|
     local_hour = hour
-    p local_hour
     case hour.strftime("%H").to_i
     when 0..12
       Slot.create gametable: gametable, time: local_hour, price: 400

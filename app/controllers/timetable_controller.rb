@@ -12,7 +12,7 @@ class TimetableController < ApplicationController
       Slot.generate_slots(@selected_day, @club.id)
       @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
     end
-
+    
     @tournament = Tournament.new
     @training = Training.new
   end

@@ -5,6 +5,7 @@
         <div class="row">
           <div class="col-6">
             <%= form_with model: [@club, tournament] do |form| %>
+              <%= hidden_field_tag :selected_day, @selected_day %>
               <%= form.text_field :name %>
               <%= form.text_field :rating %>
               <%= form.submit %>
@@ -15,7 +16,7 @@
                     value="<%= {bookable_id: tournament.id, bookable_type: "Tournament", tournament_rating: tournament.rating }.to_json %>"
                     data-controller="hello" data-action="click->hello#selectKind"> Set in calendar
             </button>
-            <%= button_to "delete", club_tournament_path(@club, tournament), class:"btn btn-outline-danger float-end btn-sm", method: :delete %>
+            <%= button_to "delete", club_tournament_path(@club, tournament, selected_day: @selected_day), id:"tournament_#{tournament.id}_delete", class:"btn btn-outline-danger float-end btn-sm", method: :delete %>
           </div>
         </div>
       </div>

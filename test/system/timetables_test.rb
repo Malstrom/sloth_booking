@@ -35,4 +35,22 @@ class TimetablesTest < ApplicationSystemTestCase
     click_on "nextWeek"
     assert_text "TimeTable for #{next_week_day.strftime('%A')}"
   end
+
+  #
+  # test "set price for all tables in specific hour" do
+  #   visit timetable_index_url
+  #
+  #   fill_in "free_price", with: 777
+  #   next_week_day = @today + 1.week
+  #
+  #
+  #   click_on next_week_day.strftime('%A')
+  #   click_on "15:00"
+  #
+  #   tables = Gametable.all
+  #   gametables.each do |table|
+  #     table.slots.where(time: )
+  #     assert_selector "table_", text: "777"
+  #   end
+
 end

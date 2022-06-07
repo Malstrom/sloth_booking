@@ -1,5 +1,5 @@
 class TrainingsController < ApplicationController
-  before_action :set_club
+  before_action :set_club, :selected_day
   before_action :set_training, only: %i[ show edit update destroy ]
 
   # GET /trainings or /trainings.json
@@ -39,24 +39,19 @@ class TrainingsController < ApplicationController
 
   # PATCH/PUT /trainings/1 or /trainings/1.json
   def update
-    respond_to do |format|
-      if @training.update(training_params)
-        # format.html { redirect_to training_url(@training), notice: "Training was successfully updated." }
-        format.json { render :show, status: :ok, location: @training }
-      else
-        # format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @training.errors, status: :unprocessable_entity }
-      end
+    if @training.update(training_params)
+      redirect_to timetable_index_path(selected_day: @selected_day), notice: "Training updated"
+    else
+      redirect_to timetable_index_path(selected_day: @selected_day), alert: @training.errors
     end
   end
 
   # DELETE /trainings/1 or /trainings/1.json
   def destroy
-    @training.destroy
-
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: "Training was successfully destroyed." }
-      format.json { head :no_content }
+    if @training.destroy
+      redirect_to timetable_index_path(selected_day: @selected_day), notice: "Training deleted"
+    else
+      redirect_to timetable_index_path(selected_day: @selected_day), alert: @training.errors
     end
   end
 
@@ -69,6 +64,11 @@ class TrainingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_training
       @training = Training.find(params[:id])
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def selected_day
+      @selected_day = params[:selected_day]
     end
 
     # Only allow a list of trusted parameters through.

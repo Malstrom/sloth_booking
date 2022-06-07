@@ -5,6 +5,7 @@
         <div class="row">
           <div class="col-6">
             <%= form_with model: [@club, training] do |form| %>
+              <%= hidden_field_tag :selected_day, @selected_day %>
               <%= form.text_field :name %>
               <%= form.text_field :trainer %>
               <%= form.submit %>
@@ -16,7 +17,7 @@
                     data-controller="hello" data-action="click->hello#selectKind">
               Set in calendar
             </button>
-            <%= button_to "delete", club_training_path(@club,training), class:"btn btn-outline-danger float-end btn-sm", method: :delete %>
+            <%= button_to "delete", club_training_path(@club,training, selected_day: @selected_day), id:"training_#{training.id}_delete", class:"btn btn-outline-danger float-end btn-sm", method: :delete %>
           </div>
         </div>
       </div>
