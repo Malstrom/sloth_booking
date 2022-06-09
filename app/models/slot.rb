@@ -65,16 +65,13 @@ class Slot < ApplicationRecord
   end
 
   def self.update_working_date(club, selected_day, starts_at, ends_at)
-    if starts_at.to_date >= Date.today
-      slots_to_close = Slot.by_club(club).by_day(selected_day).where("time < ? OR time > ?", starts_at,
-                                                                     ends_at).open_slot
-      slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at..ends_at)
-      if !slots_to_close.any? { |slot| slot.bookable_id? }
-        slots_to_close.update_all(state: :close)
-        slots_to_open.where(state: :close).update_all(state: :open)
-      else
-        false
-      end
+    slots_to_close = Slot.by_club(club).by_day(selected_day).where("time < ? OR time > ?", starts_at, ends_at).open_slot
+    slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at...ends_at)
+    if !slots_to_close.any?(&:bookable_id?)
+      slots_to_close.update_all(state: :close)
+      slots_to_open.where(state: :close).update_all(state: :open)
+    else
+      false
     end
   end
 
