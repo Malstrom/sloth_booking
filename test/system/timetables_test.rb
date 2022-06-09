@@ -1,7 +1,11 @@
 require "application_system_test_case"
 
 class TimetablesTest < ApplicationSystemTestCase
+  include Devise::Test::IntegrationHelpers # Rails >= 5
+
   setup do
+    @user = users(:client)
+    sign_in @user
     @today = Date.today
   end
 

@@ -1,7 +1,11 @@
 require "application_system_test_case"
 
 class TrainingsTest < ApplicationSystemTestCase
+  include Devise::Test::IntegrationHelpers # Rails >= 5
+
   setup do
+    @user = users(:client)
+    sign_in @user
     @new_training = trainings(:new_training)
     @training_assigned = trainings(:first_training)
     @training_not_assigned = trainings(:training_not_assigned)

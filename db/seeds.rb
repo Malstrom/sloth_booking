@@ -17,9 +17,11 @@
 #
 #
 
+
 Slot.destroy_all
 Gametable.destroy_all
 Club.destroy_all
+User.destroy_all
 
 starts = "00:00".to_time # 2022-06-02 23:00:00 +0300
 ends = "23:00".to_time

@@ -1,7 +1,13 @@
 require "application_system_test_case"
 
 class TournamentsTest < ApplicationSystemTestCase
+  include Devise::Test::IntegrationHelpers # Rails >= 5
+
   setup do
+
+
+    @user = users(:client)
+    sign_in @user
     @new_tournament = tournaments(:new_tournament)
     @tournament_assigned = tournaments(:first_tournament)
     @tournament_not_assigned = tournaments(:tournament_not_assigned)

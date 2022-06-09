@@ -20,9 +20,9 @@
             <div class="toast-header">
               <strong class="me-auto d-inline">
                 <% if type == "alert" %>
-                  <% msg.each do |m| %>
-                    <%= m.last[0] %>
-                  <% end %>
+                  <%# msg.each do |m| %>
+                    <%#= m.last[0] %>
+                  <%# end %>
                 <% else %>
                   <%= msg.html_safe %>
               <% end %>
@@ -35,6 +35,7 @@
     <% end %>
 
   <%= yield %>
+    <%= link_to "log_out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>      </h3>
 
   </body>
 </html>

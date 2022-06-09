@@ -1,4 +1,6 @@
 class TimetableController < ApplicationController
+  before_action :authenticate_user!
+
   before_action :set_club, :selected_day
 
   def index
@@ -15,11 +17,9 @@ class TimetableController < ApplicationController
   end
 
     private
-
     # Use callbacks to share common setup or constraints between actions.
     def set_club
-      # @club = Price.find(params[:club_id])
-      @club = Club.first
+      @club = current_user.club
     end
 
     # Use callbacks to share common setup or constraints between actions.

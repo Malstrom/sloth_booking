@@ -1,29 +1,46 @@
-<h2>Sign up</h2>
+
+<style>
+    body{
+        background-size: 100% auto;
+        background-image: url( /assets/login_background.jpg)
+    }
+</style>
+<main class="form-signin w-100 m-auto">
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%# render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <h1 class="h3 mb-3 fw-normal text-white">Please sign up</h1>
+  <div class="form-floating">
+
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+    <%= f.label :email %>
   </div>
 
-  <div class="field">
+  <div class="form-floating">
+
+    <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
     <%= f.label :password %>
+
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+        <em class="text-white">(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="form-floating">
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+    <%= f.label :password_confirmation %>
+
   </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+
+  <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
 <% end %>
+  <br>
+  <div class="rounded" style="background-color: white">
+    <%= render "devise/shared/links" %>
+  </div>
 
-<%= render "devise/shared/links" %>
+
+
+</main>

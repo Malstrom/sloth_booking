@@ -1,6 +1,12 @@
+<style>
+    body{
+        background-size: 100% auto;
+        background-image: url( /assets/login_background.jpg)
+    }
+</style>
 <main class="form-signin w-100 m-auto">
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 fw-normal text-white">Please sign in</h1>
 
     <div class="form-floating">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder:"name@example.com" %>
@@ -14,13 +20,16 @@
     <% if devise_mapping.rememberable? %>
       <div class="checkbox mb-3">
         <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
+        <%= f.label :remember_me, class:"text-white" %>
       </div>
     <% end %>
 
     <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
   <% end %>
 
+  <br>
+  <div class="rounded" style="background-color: white">
+    <%= render "devise/shared/links" %>
+  </div>
 
-  <%= render "devise/shared/links" %>
 </main>
