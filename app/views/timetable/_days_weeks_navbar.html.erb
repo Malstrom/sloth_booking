@@ -6,27 +6,9 @@
   </div>
   <% @days.each do |day| %>
     <div class="col text-center <%= "border-bottom border-3 border-success padding-10" if day == @selected_day  %> ">
-      <%= link_to(day.strftime('%A'), timetable_index_path(selected_day: day),
-                  class: (
-                  if day == @selected_day
-                    "link-success fw-bold link-date"
-                  elsif day.on_weekend?() == true
-                    "text-danger link-date"
-                  else
-                     "link-secondary link-date"
-                  end),
-                  remote:true) %>
+      <%= link_to(day.strftime('%A'), timetable_index_path(selected_day: day), class: define_day_color(@selected_day, day), remote:true) %>
       <br>
-      <%= link_to(day.strftime('%d %b'), timetable_index_path(selected_day: day),
-                  class:  (
-                    if day == @selected_day
-                      "link-success fw-bold link-date"
-                    elsif day.on_weekend? == true
-                      "text-danger link-date"
-                    else
-                       "link-secondary link-date"
-                    end),
-                  remote:true) %>
+      <%= link_to(day.strftime('%d %b'), timetable_index_path(selected_day: day), class: define_day_color(@selected_day, day), remote:true) %>
     </div>
   <% end %>
   <div class="col-1 text-center">
