@@ -47,7 +47,7 @@ class SlotTest < ActiveSupport::TestCase
     slot = slots(:tournament_slot)
     tournament = tournaments(:first_tournament)
 
-    assert slot.display_value == tournament.rating
+    assert slot.display_value == "< " + tournament.rating.to_s
     assert slot.define_color == "cell-color-tournament"
   end
 
