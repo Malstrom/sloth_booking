@@ -23,7 +23,7 @@ class Slot < ApplicationRecord
   def display_value
     case bookable_type
     when 'Training' then bookable.trainer
-    when 'Tournament' then bookable.rating
+    when 'Tournament' then "< " + bookable.rating.to_s
     else
       price
     end
