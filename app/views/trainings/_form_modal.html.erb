@@ -4,7 +4,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create new training</h5>
       </div>
-      <%= form_with(model: [@club, @training]) do |form| %>
+      <%= form_with(model: Training.new, url: club_trainings_path(@club)) do |form| %>
         <div class="modal-body">
           <%= hidden_field_tag :selected_day, @selected_day %>
 
