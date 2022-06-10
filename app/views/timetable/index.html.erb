@@ -1,7 +1,7 @@
 <style>
     .css-grid-table-header,
     .css-grid-table-body {
-        grid-template-columns: repeat(<%= @gametables.count + 1 %> , 100px);
+        grid-template-columns: 60px repeat(<%= @gametables.count %>, 130px);
         line-height: 60px;
     }
 </style>
@@ -10,60 +10,43 @@
 <br>
 <br>
 <br>
-<div class="container">
+<div class="container padding-10">
   <div class="row">
     <div class="col  text-center">
       <h3>
-        TimeTable for <%= @selected_day.strftime('%A %d %b') %>
+        <%= @selected_day.strftime('%A %d %b') %>
       </h3>
     </div>
   </div>
-  <div class="row">
-    <div class="col ">
-      <%= render 'working_time' %>
-      <br>
-    </div>
-    <div class="col text-center">
-    </div>
-    <div class="col ">
-      Copy/paste timetable
-      <br><br><br>
-    </div>
-  </div>
-  <div class="row">
 
-    <div class="col ">
+  <div class="fw-bold mb-1 col padding-10 text-center">
+      <%= render 'working_time' %>
+  </div>
+
+  <div id="traninngsTournaments" class="d-flex flex-wrap justify-content-between" style="margin: auto">
+    <div class="menu-containers">
       <%= render 'tournaments_controls' %>
     </div>
-    <div class="col ">
+
+    <div class="menu-containers">
       <%= render 'trainings_controls' %>
     </div>
-    <div class="col">
+
+    <div class="menu-containers">
       <%= render 'set_price_control' %>
     </div>
-  </div>
-  <div id="traninngsTournaments">
-    <div class="row">
-      <div class="col">
-        <%= render 'tournaments_collapse' %>
-      </div>
-      <div class="col ">
-        <%= render 'tranings_collapse' %>
-      </div>
-      <div class="col">
-        <input class="form-control d-none" list="datalistOptions" id="params_to_send">
-      </div>
-    </div>
+
+    <input class="form-control d-none" list="datalistOptions" id="params_to_send">
+
+
   </div>
 </div>
 <br>
 <br>
 <br>
 
-  <div class="row">
-    <div class="col-12">
+  <div class="table-container">
+
       <%= render 'timetable' %>
-    </div>
+
   </div>
-
-
