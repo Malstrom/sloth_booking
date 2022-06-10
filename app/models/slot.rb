@@ -25,7 +25,8 @@ class Slot < ApplicationRecord
     case bookable_type
     when 'Training' then bookable.trainer
     when 'Tournament' then "< " + bookable.rating.to_s
-    else price
+    else
+      price
     end
   end
 
