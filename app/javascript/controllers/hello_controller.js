@@ -4,9 +4,6 @@ import * as bootstrap from "bootstrap";
 export default class extends Controller {
 
   connect() {
-    var data = {bookable_id: null, bookable_type: null, price: document.getElementById("price").value}
-    document.getElementById("params_to_send").value = JSON.stringify(data);
-
     document.querySelectorAll('.toast').forEach((toastTarget) => {
       return new bootstrap.Toast(toastTarget).show();
     })
