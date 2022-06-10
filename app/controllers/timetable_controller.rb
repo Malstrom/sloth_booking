@@ -1,5 +1,5 @@
 class TimetableController < ApplicationController
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   before_action :set_club, :selected_day
 
@@ -21,7 +21,7 @@ class TimetableController < ApplicationController
     private
     # Use callbacks to share common setup or constraints between actions.
     def set_club
-      @club = current_user.club
+      @club = Club.first
     end
 
     # Use callbacks to share common setup or constraints between actions.
