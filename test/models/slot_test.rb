@@ -72,8 +72,9 @@ class SlotTest < ActiveSupport::TestCase
     day = 1.months.after
 
     gametables = Slot.generate_slots(day, club.id)
+    p gametables.last.slots.count
     
-    assert gametables.last.slots.count == 24
+    assert gametables.last.slots.count == 48
   end
 
   test 'update valid working date' do
@@ -86,7 +87,7 @@ class SlotTest < ActiveSupport::TestCase
     Slot.generate_slots(selected_day, club.id)
     Slot.update_working_date(club, selected_day, starts_at, ends_at)
 
-    assert Slot.by_club(club).open_slot.group_by_day_hours(selected_day).count == hour_to_add + 1
+    assert Slot.by_club(club).open_slot.group_by_day_hours(selected_day).count == 8
   end
 
   test 'update invalid working date' do

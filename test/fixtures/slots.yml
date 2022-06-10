@@ -3,24 +3,18 @@ yesterday_slot:
   time: <%= "14:00".to_time - 1.day  %>
   price: 400
   state: open
-  bookable_type:
-  bookable_id:
 
 today_slot:
   gametable: gametable_1
   time: <%= "14:00".to_time %>
   price: 400
   state: open
-  bookable_type:
-  bookable_id:
 
 tomorrow_slot:
   gametable: gametable_1
   time: <%= "14:00".to_time + 1.day  %>
   price: 400
   state: open
-  bookable_type:
-  bookable_id:
 
 training_slot:
   gametable: gametable_1
@@ -41,48 +35,37 @@ slot_price_300:
   time: <%= "01:00".to_time %>
   price: 300
   state: open
-  bookable_type:
-  bookable_id:
 
 slot_price_450:
   gametable: gametable_1
   time: <%= "02:00".to_time %>
   price: 450
   state: open
-  bookable_type:
-  bookable_id:
 
 slot_price_600:
   gametable: gametable_1
   time: <%= "03:00".to_time %>
   price: 600
   state: open
-  bookable_type:
-  bookable_id:
 
 slot_price_750:
   gametable: gametable_1
   time: <%= "04:00".to_time %>
   price: 750
   state: open
-  bookable_type:
-  bookable_id:
 
 slot_price_3000:
   gametable: gametable_1
   time: <%= "05:00".to_time %>
   price: 3000
   state: open
-  bookable_type:
-  bookable_id:
+
 
 slot_price_3001:
   gametable: gametable_1
   time: <%= "06:00".to_time %>
   price: 3001
   state: open
-  bookable_type:
-  bookable_id:
 
 
 

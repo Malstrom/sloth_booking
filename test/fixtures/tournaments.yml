@@ -5,15 +5,18 @@ first_tournament:
   name: first_tournament
   rating: 200
   price: 400
+  day: <%= Date.today %>
 
 tournament_not_assigned:
   club: sokol
   name: first_tournament
   rating: 200
   price: 500
+  day: <%= Date.today %>
 
 new_tournament:
   club: sokol
   name: tournament_test
   rating: 200
   price: 777
+  day: <%= Date.today %>

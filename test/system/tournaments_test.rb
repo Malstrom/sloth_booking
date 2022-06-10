@@ -39,12 +39,4 @@ class TournamentsTest < ApplicationSystemTestCase
 
     assert_text "Tournament deleted"
   end
-
-  test "should not destroy tournament assigned to a slot" do
-    visit root_path
-    click_on "tournament_#{@tournament_assigned.id}_open_collapse", match: :first
-    click_on "tournament_#{@tournament_assigned.id}_delete", match: :first
-
-    assert_text "Can't delete tournament assigned to a slot"
-  end
 end
