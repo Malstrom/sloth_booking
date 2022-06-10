@@ -76,6 +76,10 @@ class Slot < ApplicationRecord
     end
   end
 
+  def remove_bookable
+    update(bookable_type:nil, bookable_id:nil)
+  end
+
   private
 
   def toggle_bookable
