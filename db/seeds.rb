@@ -28,7 +28,7 @@ ends = "23:00".to_time
 
 @club = Club.create name: "Sokol", starts_at: "05:00", ends_at: "07:00"
 
-@hours = (starts.to_i..ends.to_i).step(1.hour).map do |hour|
+@hours = (starts.to_i..ends.to_i).step(30.minutes).map do |hour|
   time = Time.at(hour)
 end
 

@@ -183,11 +183,19 @@ background-color: #FFFACE;
 }
 
 .zoom:hover{
-  transform: scale(1.1);
-  transition: all ease 500ms;
-  background-color: #3e8e41;
-  color: white;
+background-color: #inherit;
+transition: .1s ease;
+      -webkit-box-shadow:inset 0px 0px 0px 3px #527A40;
+      -moz-box-shadow:inset 0px 0px 0px 3px #527A40;
+      box-shadow:inset 0px 0px 0px 3px #527A40;
+    }
+
+.zoom:active {
+
+background-color: #527A40;
+color: white;
 }
+
 
 .table-description{
   font-size: 12px;

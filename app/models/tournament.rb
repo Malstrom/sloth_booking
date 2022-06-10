@@ -2,16 +2,15 @@ class Tournament < ApplicationRecord
   belongs_to :club
   has_many :slots, as: :bookable
 
-  validates_presence_of :name, :rating, :price
+  validates_presence_of :name, :rating, :price, :day
 
-  before_destroy :booked?, prepend: true
+  before_destroy :destroy_bookable, prepend: true
+
+  scope :by_selected_day, ->(selected_day) { where(day: selected_day) }
 
   private
 
-  def booked?
-    unless slots.empty?
-      errors.add(:booked, "Can't delete tournament assigned to a slot")
-      throw :abort
-    end
+  def destroy_bookable
+    slots.each(&:remove_bookable)
   end
 end

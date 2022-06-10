@@ -1,5 +1,5 @@
 Tournaments
-<% @club.tournaments.each do |tournament| %>
+<% @tournaments.each do |tournament| %>
   <div class="btn-group me-2" role="group" aria-label="First group">
     <button type="button" class="btn btn-outline-primary" role="button" aria-expanded="false" id="tournament_<%= tournament.id %>_open_collapse"
             data-bs-toggle="collapse" href="#tournament_<%= tournament.id %>_collapse"  aria-controls="tournament_<%= tournament.id %>_collapse">

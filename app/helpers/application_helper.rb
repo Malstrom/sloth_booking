@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def selected_day_hours_for_select(day)
-    hours = (day.to_time.to_i..day.to_time.at_end_of_day.to_i).step(1.hour).map do |hour|
+    hours = (day.to_time.to_i..day.to_time.at_end_of_day.to_i).step(30.minutes).map do |hour|
       [(Time.at(hour)).strftime("%H:%M"), Time.at(hour)]
     end
     p hours

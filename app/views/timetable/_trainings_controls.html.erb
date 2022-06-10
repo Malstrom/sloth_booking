@@ -1,5 +1,5 @@
 Trainings
-<% @club.trainings.each do |training| %>
+<% @trainings.each do |training| %>
   <div class="btn-group me-2" role="group" aria-label="Second group"  >
     <button type="button" class="btn btn-outline-info" role="button" aria-expanded="false" id="training_<%= training.id %>_open_collapse"
             data-bs-toggle="collapse" href="#training_<%= training.id %>_collapse"  aria-controls="training_<%= training.id %>_collapse">

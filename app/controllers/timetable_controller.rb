@@ -7,8 +7,10 @@ class TimetableController < ApplicationController
     @days = @selected_day.at_beginning_of_week..@selected_day.at_end_of_week
 
     @gametables = Gametable.where(club: @club)
-
     @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
+
+    @trainings = @club.trainings.by_selected_day(@selected_day)
+    @tournaments = @club.tournaments.by_selected_day(@selected_day)
 
     if @slots_by_day_hours.empty?
       Slot.generate_slots(@selected_day, @club.id)

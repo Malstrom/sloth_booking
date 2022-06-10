@@ -5,7 +5,7 @@ class CreateTrainings < ActiveRecord::Migration[7.0]
       t.string :trainer
       t.string :name
       t.integer :price
-      t.integer :state
+      t.date :day
 
       t.timestamps
     end

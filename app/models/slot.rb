@@ -12,6 +12,7 @@ class Slot < ApplicationRecord
 
   scope :by_club, ->(club) { joins(:gametable).where('gametables.club_id = ?', club).order(:gametable_id, :time) }
   scope :open_slot, -> { where(state: :open) }
+  scope :close_slot, -> { where(state: :close) }
   scope :by_day, ->(selected_day) {
     where(time: selected_day.beginning_of_day..selected_day.end_of_day)
   }
@@ -51,7 +52,7 @@ class Slot < ApplicationRecord
     starts = selected_day.beginning_of_day
     ends = selected_day.end_of_day
 
-    hours = (starts.to_i..ends.to_i).step(1.hour).map { |hour| Time.at(hour) }
+    hours = (starts.to_i..ends.to_i).step(30.minutes).map { |hour| Time.at(hour) }
 
     club.gametables.each do |gametable|
       hours.each do |hour|
@@ -65,17 +66,18 @@ class Slot < ApplicationRecord
   end
 
   def self.update_working_date(club, selected_day, starts_at, ends_at)
-    if starts_at.to_date >= Date.today
-      slots_to_close = Slot.by_club(club).by_day(selected_day).where("time < ? OR time > ?", starts_at,
-                                                                     ends_at).open_slot
-      slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at..ends_at)
-      if !slots_to_close.any? { |slot| slot.bookable_id? }
-        slots_to_close.update_all(state: :close)
-        slots_to_open.where(state: :close).update_all(state: :open)
-      else
-        false
-      end
+    slots_to_close = Slot.by_club(club).by_day(selected_day).where("time < ? OR time >= ?", starts_at, ends_at).open_slot
+    slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at...ends_at).close_slot
+    if !slots_to_close.any?(&:bookable_id?)
+      slots_to_close.update_all(state: :close)
+      slots_to_open.update_all(state: :open)
+    else
+      false
     end
+  end
+
+  def remove_bookable
+    update(bookable_type:nil, bookable_id:nil)
   end
 
   private

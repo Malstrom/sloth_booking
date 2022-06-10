@@ -28,9 +28,10 @@ class TournamentsController < ApplicationController
     respond_to do |format|
       if @tournament.save
         value = {bookable_id:@tournament.id,bookable_type:"Tournament"}.to_json
-        format.html { redirect_to root_path(selected_day:@selected_day),
-                                  notice: "Tournament saved! #{view_context.button_tag('Set in calendar', class:'btn btn-primary btn-sm',value: value,
-                                                                                     data: {controller: "hello", action: "click->hello#selectKind"})}" }
+        format.html { 
+          redirect_to root_path(selected_day:@selected_day),
+                      notice: "Tournament saved! #{view_context.button_tag('Set in calendar', class:'btn btn-primary btn-sm',value: value,
+                                                                           data: {controller: "hello", action: "click->hello#selectKind"})}" }
         format.json { render json: @tournament }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -79,6 +80,6 @@ class TournamentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tournament_params
-      params.require(:tournament).permit(:name, :rating, :starts_at, :ends_at, :price)
+      params.require(:tournament).permit(:name, :rating, :price, :day)
     end
 end

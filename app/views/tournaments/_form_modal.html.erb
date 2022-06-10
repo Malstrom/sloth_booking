@@ -8,6 +8,8 @@
         <div class="modal-body">
           <%= hidden_field_tag :selected_day, @selected_day %>
 
+          <%= form.hidden_field(:day, value: @selected_day) %>
+
           <div class="mb-3">
             <%= form.label :name, class: "col-form-label" %>
             <%= form.text_field :name, class: "form-control" %>
