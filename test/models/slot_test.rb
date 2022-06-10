@@ -99,7 +99,7 @@ class SlotTest < ActiveSupport::TestCase
     Slot.generate_slots(selected_day, club.id)
     Slot.update_working_date(club, selected_day, starts_at, ends_at)
 
-    assert Slot.by_club(club).open_slot.group_by_day_hours(selected_day).count != hour_to_add + 1
+    assert Slot.by_club(club).open_slot.group_by_day_hours(selected_day).count != hour_to_add
   end
 
   test 'deny update working time for booked slot' do
