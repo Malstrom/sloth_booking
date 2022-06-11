@@ -1,11 +1,9 @@
-<div class="row">
-  <div class="col-3">
-    Free price
+<div class="fw-bold mb-1">Free price</div>
+<div class="d-flex align-items-center" style="gap: 12px;">
+  <div class="pr-2">
+    <input class="form-control no-input-arrows" style="width:65px;" type="number" list="datalistOptions" id="price" placeholder="400">
   </div>
-  <div class="col-3">
-    <input class="form-control" type="number" list="datalistOptions" id="price" placeholder="400">
-  </div>
-  <div class="col-6">
-    <button type="button" class="btn btn-primary" data-controller="hello" data-action="click->hello#setPrice">Set in calendar</button>
+  <div>
+    <button type="button px-4" class="btn btn-primary" data-controller="hello" data-action="click->hello#setPrice">Set in calendar</button>
   </div>
 </div>
