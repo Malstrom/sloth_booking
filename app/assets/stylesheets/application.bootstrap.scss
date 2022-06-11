@@ -251,11 +251,6 @@ padding-top: 10px;
   color: black;
 }
 
-.scroll-inside {
-  overflow-y: scroll;
-  min-width: 320px;
-  height: 600px;
-}
 
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -270,4 +265,12 @@ padding-top: 10px;
     margin: auto;
     overflow-y: scroll;
     height: calc(100vh - 330px);
+  }
+
+  @media (max-width: 768px) {
+    .table-container {
+      margin: auto;
+      overflow-y: scroll;
+      height: calc(100vh - 130px);
+    }
   }
