@@ -1,9 +1,12 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: %i[ show edit update destroy ]
-
+  
   # GET /clubs or /clubs.json
   def index
     @clubs = Club.all
+
+    @duration = params[:duration]
+    @selected_day = params[:selected_day]
   end
 
   # GET /clubs/1 or /clubs/1.json

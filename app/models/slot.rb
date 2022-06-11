@@ -21,6 +21,8 @@ class Slot < ApplicationRecord
       .group_by { |cell| cell['time'].itself.localtime }
   }
 
+  scope :booked, -> { where.not(bookable_id: nil ) }
+
   def display_value
     case bookable_type
     when 'Training' then bookable.trainer
@@ -78,6 +80,25 @@ class Slot < ApplicationRecord
 
   def remove_bookable
     update(bookable_type:nil, bookable_id:nil)
+  end
+
+  def self.available_times(club, selected_day = Date.today, duration = 1)
+    raise
+    duration_in_minutes =  duration.to_i.hours.to_i / 60
+    club_open_slots = Slot.by_club(club).open_slot
+
+    slots_by_day_hours = club_open_slots.group_by_day_hours(selected_day)
+    booked_slots = club_open_slots.booked.group_by_day_hours(selected_day)
+
+    booked_hours = booked_slots.map { |time| time.first if time.last.count == @club.gametables.count }.compact
+
+    not_available_times = Array.new
+    booked_hours.append(slots_by_day_hours.keys.last + 30.minutes).each do |time|
+      start = time - duration_in_minutes.minutes
+      (start.to_i..time.to_i).step(30.minutes).map {|t| not_available_times << Time.at(t) }
+    end
+
+    slots_by_day_hours.keys.delete_if {|time| not_available_times.include? time  }
   end
 
   private
