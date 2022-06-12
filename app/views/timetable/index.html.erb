@@ -7,22 +7,22 @@
 </style>
 <%= render 'days_weeks_navbar' %>
 
+<div class="row justify-content-end" style="margin-top: 90px;">
 
-    <div class="col-md-4">
-      </div>
-    <div class="col-md-4  text-center">
-      <h3>
+
+    <div class="col-md-4  text-center" style="min-width: 330px;">
+      <h4>
         <%= @selected_day.strftime('%A %d %b') %>
-      </h3>
+      </h4>
     </div>
-    <div class="fw-bold col-md-3 offset-md-1" style="min-width: 330px;">
+    <div class="fw-bold col-md-3 offset-md-1 " style="min-width: 330px;">
       <%= render 'working_time' %>
     </div>
-  </div>
+</div>
 
 
 
-  <div id="traninngsTournaments" class="d-flex flex-wrap p-3 sticky-menu" style="max-width: 1360px; margin: 0 auto;">
+  <div id="traninngsTournaments" class="d-flex flex-wrap p-3" style="max-width: 1360px; margin: 0 auto;">
     <div class="menu-containers menu-containers-width">
       <%= render 'tournaments_controls' %>
     </div>

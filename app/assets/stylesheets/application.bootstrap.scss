@@ -97,7 +97,7 @@
 }
 
 .css-grid-table {
-  width: 100vw;
+  width: fit-content ;
   margin: auto;
 }
 
@@ -220,14 +220,14 @@
 .zoom:hover{
   background-color: #inherit;
   transition: .1s ease;
-  -webkit-box-shadow:inset 0px 0px 0px 3px #ffffff;
-  -moz-box-shadow:inset 0px 0px 0px 3px #ffffff;
-  box-shadow:inset 0px 0px 0px 3px #ffffff;
+  -webkit-box-shadow:inset 0px 0px 0px 3px #4289bb;
+  -moz-box-shadow:inset 0px 0px 0px 3px #4289bb;
+  box-shadow:inset 0px 0px 0px 3px #4289bb;
 }
 
 .zoom:active {
 
-  background-color: #527A40;
+  background-color: #4289bb;
   color: white;
 }
 
