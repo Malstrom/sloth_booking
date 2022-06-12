@@ -85,7 +85,9 @@
 //---------------------------+
 
 
+.timetable-container {
 
+}
 
 
 .css-grid-table,
@@ -95,7 +97,7 @@
 }
 
 .css-grid-table {
-  width: fit-content;
+  width: fit-content ;
   margin: auto;
 }
 
@@ -108,15 +110,11 @@
 .css-grid-table-header {
   grid-template-rows: auto;
   position: sticky;
-  top:74px;
+  top: 74px;
   z-index: 3;
 }
 
-@media screen and (max-width: 583px) {
-  .css-grid-table-header {
-    top: 96px;
-  }
-}
+
 
 .css-grid-table-body {
   grid-template-rows: auto
@@ -150,13 +148,6 @@
 
 }
 
-.box1 {
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 1;
-  grid-row-end: 3;
-}
-
 .cell-color-training {
   border-left: 8px solid !important;
   border-left-color: orange !important;
@@ -174,7 +165,7 @@
 }
 
 .truncate {
-  overflow: hidden !important;
+  overflow: hidden;
 }
 
 .sticky-left {
@@ -182,19 +173,20 @@
   position: sticky;
   z-index: 2;
   background-color: white;
-  font-weight: bold;
+  font-weight: normal !important;
   margin-top: -5px;
   line-height: 1;
   border: 0px !important;
   text-align: right !important;
   align-items: unset !important;
-  color: grey;
+  color: black !important;
 }
 
-.sticky-left-navbar {
+.sticky-menu {
   left: 0px;
   position: sticky;
 }
+
 
 .no-bg {
   background-color: none !important
@@ -228,14 +220,14 @@
 .zoom:hover{
   background-color: #inherit;
   transition: .1s ease;
-  -webkit-box-shadow:inset 0px 0px 0px 3px #ffffff;
-  -moz-box-shadow:inset 0px 0px 0px 3px #ffffff;
-  box-shadow:inset 0px 0px 0px 3px #ffffff;
+  -webkit-box-shadow:inset 0px 0px 0px 3px #4289bb;
+  -moz-box-shadow:inset 0px 0px 0px 3px #4289bb;
+  box-shadow:inset 0px 0px 0px 3px #4289bb;
 }
 
 .zoom:active {
 
-  background-color: #527A40;
+  background-color: #4289bb;
   color: white;
 }
 
@@ -281,9 +273,6 @@
   color: black;
 }
 
-.table-container {
-
-}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
