@@ -110,7 +110,7 @@ class Slot < ApplicationRecord
   def self.times_not_bookable(booked_times, closing_time, duration_in_minutes)
     not_available_times = []
     booked_times.append(closing_time).each do |time|
-      start = time - duration_in_minutes.minutes
+      start = (time - duration_in_minutes.minutes) + 30.minutes
       (start.to_i..time.to_i).step(30.minutes).map { |t| not_available_times << Time.at(t) }
     end
     not_available_times
