@@ -23,38 +23,32 @@ Gametable.destroy_all
 Club.destroy_all
 User.destroy_all
 
-starts = "00:00".to_time # 2022-06-02 23:00:00 +0300
-ends = "23:00".to_time
+starts = "00:00".to_time.yesterday # 2022-06-02 23:00:00 +0300
+ends = "23:00".to_time.tomorrow
+@hours = (starts.to_i..ends.to_i).step(30.minutes).map { |hour| time = Time.at(hour) }
 
-@club = Club.create name: "Sokol", starts_at: "05:00", ends_at: "07:00"
+clubs = Array.new
 
-@hours = (starts.to_i..ends.to_i).step(30.minutes).map do |hour|
-  time = Time.at(hour)
+10.times do
+  clubs << Club.create(name: "Sokol", starts_at: "05:00", ends_at: "07:00")
 end
 
-gametables = Array.new
+clubs.each do |club|
+  gametables = Array.new
 
-10.times do |index|
-  gametables << Gametable.create(club: @club, description: "Table 1", active: 1, display_description: 1)
-end
+  10.times do |index|
+    gametables << Gametable.create(club: club, description: "Table 1", active: 1, display_description: 1)
+  end
 
-gametables.each do |gametable|
-
-  print gametable.id
-  @hours.each do |hour|
-    local_hour = hour
-    case hour.strftime("%H").to_i
-    when 0..12
-      Slot.create gametable: gametable, time: local_hour, price: 400
-    when 13..16
-      Slot.create gametable: gametable, time: local_hour, price: 500
-    when 17..24
-      Slot.create gametable: gametable, time: local_hour, price: 600
-    else
-      Slot.create gametable: gametable, time: local_hour, price: 100
+  gametables.each do |gametable|
+    print gametable.id
+    @hours.each do |hour|
+      Slot.create gametable: gametable, time: hour, price: 500
     end
   end
+
 end
+
 
 #
 # slots = Slot.all

@@ -17,11 +17,14 @@
 
   <br>
 
-  <div id="clubs">
+  <div class="row">
     <% @clubs.each do |club| %>
-      <%= render club %>
+      <div class="col-sm-3">
+        <%= render club %>
+      </div>
     <% end %>
   </div>
+
 
 </div>
 
