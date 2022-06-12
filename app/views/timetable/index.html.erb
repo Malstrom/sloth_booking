@@ -1,33 +1,33 @@
 <style>
-    .css-grid-table-header,
-    .css-grid-table-body {
-        grid-template-columns: 60px repeat(<%= @gametables.count %>, 130px);
-    }
+  .css-grid-table-header,
+  .css-grid-table-body {
+    grid-template-columns: 60px repeat(<%= @gametables.count %>, 130px);
+      }
+
 </style>
 <%= render 'days_weeks_navbar' %>
-<br>
-<br>
-<br>
-<br>
-<div class="container padding-10">
-  <div class="row">
-    <div class="col  text-center">
-      <h3>
+
+<div class="row justify-content-end" style="margin-top: 90px;">
+
+
+    <div class="col-md-4  text-center" style="min-width: 330px;">
+      <h4>
         <%= @selected_day.strftime('%A %d %b') %>
-      </h3>
+      </h4>
     </div>
-  </div>
-
-  <div class="fw-bold mb-1 col padding-10 text-center">
+    <div class="fw-bold col-md-3 offset-md-1 " style="min-width: 330px;">
       <%= render 'working_time' %>
-  </div>
+    </div>
+</div>
 
-  <div id="traninngsTournaments" class="d-flex flex-wrap justify-content-between" style="margin: auto">
-    <div class="menu-containers">
+
+
+  <div id="traninngsTournaments" class="d-flex flex-wrap p-3" style="max-width: 1360px; margin: 0 auto;">
+    <div class="menu-containers menu-containers-width">
       <%= render 'tournaments_controls' %>
     </div>
 
-    <div class="menu-containers">
+    <div class="menu-containers menu-containers-width">
       <%= render 'trainings_controls' %>
     </div>
 
@@ -39,8 +39,8 @@
 
 
   </div>
-</div>
 
-  <div class="table-container">
-      <%= render 'timetable' %>
-  </div>
+
+<div class="timetable-container">
+    <%= render 'timetable' %>
+    </div>
