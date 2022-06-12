@@ -60,7 +60,7 @@ class Slot < ApplicationRecord
     starts = selected_day.beginning_of_day
     ends = selected_day.end_of_day
 
-    hours = (starts.to_i..ends.to_i).step(30.minutes).map { |hour| Time.at(hour) }
+    hours = (starts.to_i..ends.to_i).step(30.minutes).map { |hour| Time.zone.at(hour) }
 
     club.gametables.each do |gametable|
       hours.each do |hour|
@@ -111,7 +111,7 @@ class Slot < ApplicationRecord
     not_available_times = []
     booked_times.append(closing_time).each do |time|
       start = (time - duration_in_minutes.minutes) + 30.minutes
-      (start.to_i..time.to_i).step(30.minutes).map { |t| not_available_times << Time.at(t) }
+      (start.to_i..time.to_i).step(30.minutes).map { |t| not_available_times << Time.zone.at(t) }
     end
     not_available_times
   end
