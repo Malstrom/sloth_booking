@@ -2,7 +2,6 @@
     .css-grid-table-header,
     .css-grid-table-body {
         grid-template-columns: 60px repeat(<%= @gametables.count %>, 130px);
-        
     }
 </style>
 <%= render 'days_weeks_navbar' %>
@@ -43,9 +42,5 @@
 </div>
 
   <div class="table-container">
-
-      <%= @slots_by_day_hours.keys.last%>
-      <%= @available_slot.map{|t| t.strftime("%H:%M") } %>
       <%= render 'timetable' %>
-
   </div>

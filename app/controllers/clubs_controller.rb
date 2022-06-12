@@ -3,14 +3,15 @@ class ClubsController < ApplicationController
   
   # GET /clubs or /clubs.json
   def index
-    @clubs = Club.all
-
+    @clubs = Club.where(nil)
     @duration = params[:duration]
     @selected_day = params[:selected_day]
   end
 
   # GET /clubs/1 or /clubs/1.json
   def show
+    @duration = params[:duration]
+    @selected_day = params[:selected_day]
   end
 
   # GET /clubs/new

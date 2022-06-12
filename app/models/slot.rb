@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Slot < ApplicationRecord
   belongs_to :gametable
   belongs_to :bookable, polymorphic: true, optional: true
@@ -13,20 +15,24 @@ class Slot < ApplicationRecord
   scope :by_club, ->(club) { joins(:gametable).where('gametables.club_id = ?', club).order(:gametable_id, :time) }
   scope :open_slot, -> { where(state: :open) }
   scope :close_slot, -> { where(state: :close) }
-  scope :by_day, ->(selected_day) {
-    where(time: selected_day.beginning_of_day..selected_day.end_of_day)
-  }
-  scope :group_by_day_hours, ->(selected_day) {
+
+  scope :by_day, ->(selected_day) { where(time: selected_day.beginning_of_day..selected_day.end_of_day) }
+  scope :group_by_hours, -> { group_by { |cell| cell['time'].itself.localtime } }
+
+  scope :group_by_day_hours, lambda { |selected_day|
     where(time: selected_day.beginning_of_day..selected_day.end_of_day)
       .group_by { |cell| cell['time'].itself.localtime }
   }
 
-  scope :booked, -> { where.not(bookable_id: nil ) }
+  scope :only_available, ->(not_available_times) { where.not(time: not_available_times) }
+
+  scope :not_booked, -> { where(bookable_id: nil) }
+  scope :booked, -> { where.not(bookable_id: nil) }
 
   def display_value
     case bookable_type
     when 'Training' then bookable.trainer
-    when 'Tournament' then "< " + bookable.rating.to_s
+    when 'Tournament' then "< #{bookable.rating}"
     else
       price
     end
@@ -68,9 +74,10 @@ class Slot < ApplicationRecord
   end
 
   def self.update_working_date(club, selected_day, starts_at, ends_at)
-    slots_to_close = Slot.by_club(club).by_day(selected_day).where("time < ? OR time >= ?", starts_at, ends_at).open_slot
+    slots_to_close = Slot.by_club(club).by_day(selected_day).where('time < ? OR time >= ?', starts_at,
+                                                                   ends_at).open_slot
     slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at...ends_at).close_slot
-    if !slots_to_close.any?(&:bookable_id?)
+    if slots_to_close.none?(&:bookable_id?)
       slots_to_close.update_all(state: :close)
       slots_to_open.update_all(state: :open)
     else
@@ -79,26 +86,34 @@ class Slot < ApplicationRecord
   end
 
   def remove_bookable
-    update(bookable_type:nil, bookable_id:nil)
+    update(bookable_type: nil, bookable_id: nil)
   end
 
-  def self.available_times(club, selected_day = Date.today, duration = 1)
-    raise
-    duration_in_minutes =  duration.to_i.hours.to_i / 60
-    club_open_slots = Slot.by_club(club).open_slot
+  def self.available_slots(club, selected_day = nil, duration = nil)
+    selected_day ||= Date.tomorrow
+    duration     ||= 1
 
-    slots_by_day_hours = club_open_slots.group_by_day_hours(selected_day)
-    booked_slots = club_open_slots.booked.group_by_day_hours(selected_day)
+    open_slots          = Slot.by_club(club).open_slot.by_day(selected_day)
+    duration_in_minutes = duration.to_i.hours.to_i / 60
+    closing_time        = open_slots.group_by_hours.keys.last + 30.minutes
+    booked_slots        = open_slots.booked.by_day(selected_day).group_by_hours
 
-    booked_hours = booked_slots.map { |time| time.first if time.last.count == @club.gametables.count }.compact
+    not_available_times = times_not_bookable(unavailable_hours(booked_slots), closing_time, duration_in_minutes)
 
-    not_available_times = Array.new
-    booked_hours.append(slots_by_day_hours.keys.last + 30.minutes).each do |time|
+    open_slots.only_available(not_available_times)
+  end
+
+  def self.unavailable_hours(booked_slots)
+    booked_slots.map { |time| time.first if time.last.count >= time.last.first.gametable.club.gametables.count }.compact
+  end
+
+  def self.times_not_bookable(booked_times, closing_time, duration_in_minutes)
+    not_available_times = []
+    booked_times.append(closing_time).each do |time|
       start = time - duration_in_minutes.minutes
-      (start.to_i..time.to_i).step(30.minutes).map {|t| not_available_times << Time.at(t) }
+      (start.to_i..time.to_i).step(30.minutes).map { |t| not_available_times << Time.at(t) }
     end
-
-    slots_by_day_hours.keys.delete_if {|time| not_available_times.include? time  }
+    not_available_times
   end
 
   private

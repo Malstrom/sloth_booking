@@ -1,11 +1,13 @@
 
 <div id="<%= dom_id club %>" class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title"><%= club.name %></h5>
+    <h5 class="card-title"><%= link_to club.name, club_path(club) %></h5>
     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
     <p class="card-text">
     </p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
+    <% Slot.available_slots(club,params[:selected_day],params[:duration]).pluck(:time, :price).uniq.sort.each do |slot| %>
+      <%= link_to slot[0].strftime("%H:%M") %>
+      <%= slot[1] %>
+    <% end %>
   </div>
 </div>
