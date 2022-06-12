@@ -1,14 +1,13 @@
 <style>
   .css-grid-table-header,
   .css-grid-table-body {
-    grid-template-columns: 60px repeat(10, 130px);
+    grid-template-columns: 60px repeat(<%= @gametables.count %>, 130px);
       }
 
 </style>
 <%= render 'days_weeks_navbar' %>
 
 
-  <div class="row" style="max-width: 1360px; margin: 120px auto 0px;">
     <div class="col-md-4">
       </div>
     <div class="col-md-4  text-center">
@@ -23,7 +22,7 @@
 
 
 
-  <div id="traninngsTournaments" class="d-flex flex-wrap p-3" style="max-width: 1360px; margin: 0 auto;">
+  <div id="traninngsTournaments" class="d-flex flex-wrap p-3 sticky-menu" style="max-width: 1360px; margin: 0 auto;">
     <div class="menu-containers menu-containers-width">
       <%= render 'tournaments_controls' %>
     </div>
@@ -42,7 +41,6 @@
   </div>
 
 
-<div class="table-container">
-
-  <%= render 'timetable' %>
-</div>
+<div class="timetable-container">
+    <%= render 'timetable' %>
+    </div>
