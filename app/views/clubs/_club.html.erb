@@ -7,7 +7,7 @@
     </p>
     <% Slot.available_slots(club,params[:selected_day],params[:duration]).pluck(:time, :price).uniq.sort.each do |slot| %>
 
-      <%= link_to slot[0].strftime("%H:%M") %>
+      <%= link_to slot[0].localtime.strftime("%H:%M") %>
       <%= slot[1] %>
     <% end %>
   </div>
