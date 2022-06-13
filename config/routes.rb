@@ -7,9 +7,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'timetable/index'
+  resources :timetable
   resources :clubs do
-
     resources :tournaments
     resources :trainings
   end
