@@ -17,9 +17,8 @@ class TournamentsTest < ApplicationSystemTestCase
     visit root_path
     click_on "newTournament"
 
-    fill_in "Name", with: @new_tournament.name
-    fill_in "Price", with: @new_tournament.price
     fill_in "Rating", with: @new_tournament.rating
+    fill_in "Price", with: @new_tournament.price
 
     click_on "Save tournament"
 
@@ -30,7 +29,6 @@ class TournamentsTest < ApplicationSystemTestCase
     visit root_path
     click_on "tournament_#{@tournament_not_assigned.id}_open_collapse", match: :first
 
-    fill_in "Name", with: "test"
     fill_in "Rating", with: 340
 
     click_on "Update Tournament"

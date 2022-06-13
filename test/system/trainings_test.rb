@@ -15,7 +15,6 @@ class TrainingsTest < ApplicationSystemTestCase
     visit root_path
     click_on "newTraining"
 
-    fill_in "Name", with: @new_training.name
     fill_in "Price", with: @new_training.price
     fill_in "Trainer", with: @new_training.trainer
 
@@ -28,7 +27,6 @@ class TrainingsTest < ApplicationSystemTestCase
     visit root_path
     click_on "training_#{@training_not_assigned.id}_open_collapse", match: :first
 
-    fill_in "Name", with: "test"
     fill_in "Trainer", with: "new trainer"
 
     click_on "Update Training"

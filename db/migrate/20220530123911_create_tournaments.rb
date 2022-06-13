@@ -3,7 +3,6 @@ class CreateTournaments < ActiveRecord::Migration[7.0]
     create_table :tournaments do |t|
       t.belongs_to :club, null: false, foreign_key: true
       t.string :rating
-      t.string :name
       t.integer :price
       t.date :day
 

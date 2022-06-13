@@ -58,7 +58,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_132733) do
   create_table "tournaments", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.string "rating"
-    t.string "name"
     t.integer "price"
     t.date "day"
     t.datetime "created_at", null: false
@@ -69,7 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_132733) do
   create_table "trainings", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.string "trainer"
-    t.string "name"
     t.integer "price"
     t.date "day"
     t.datetime "created_at", null: false

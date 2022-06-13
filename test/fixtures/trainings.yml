@@ -2,21 +2,18 @@
 
 first_training:
   club: sokol
-  name: first_training
   trainer: Igor
   price: 500
   day: <%= Date.today %>
 
 training_not_assigned:
   club: sokol
-  name: first_training
   trainer: Igor
   price: 500
   day: <%= Date.today %>
 
 new_training:
   club: sokol
-  name: training_test
   trainer: Test
   price: 777
   day: <%= Date.today %>
