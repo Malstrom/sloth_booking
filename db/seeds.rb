@@ -15,8 +15,8 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 #
-#
 
+require 'faker'
 
 Slot.destroy_all
 Gametable.destroy_all
@@ -24,16 +24,17 @@ Club.destroy_all
 User.destroy_all
 
 starts = "00:00".to_time.yesterday # 2022-06-02 23:00:00 +0300
-ends = "23:00".to_time.tomorrow
+ends = "23:00".to_time + 1.month
 @hours = (starts.to_i..ends.to_i).step(30.minutes).map { |hour| time = Time.at(hour) }
 
 clubs = Array.new
 
-10.times do
-  clubs << Club.create(name: "Sokol", starts_at: "05:00", ends_at: "07:00")
+5.times do
+  clubs << Club.create(name: Faker::Company.unique.name, starts_at: "05:00", ends_at: "07:00")
 end
 
 clubs.each do |club|
+  p club.name
   gametables = Array.new
 
   10.times do |index|
@@ -41,15 +42,8 @@ clubs.each do |club|
   end
 
   gametables.each do |gametable|
-    print gametable.id
     @hours.each do |hour|
       Slot.create gametable: gametable, time: hour, price: 500
     end
   end
-
 end
-
-
-#
-# slots = Slot.all
-# slots.each(&:dump_fixture)
