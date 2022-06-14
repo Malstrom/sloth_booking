@@ -1,0 +1,14 @@
+<div class="fw-bold mb-1">events</div>
+<% @events.each do |event| %>
+  <div class="btn-group menu-margin" role="group" aria-label="Second group">
+    <button type="button" class="btn btn-outline-warning tour-train-btn" role="button" aria-expanded="false" id="event_<%= event.id %>_open_collapse"
+            data-bs-toggle="collapse" href="#event_<%= event.id %>_collapse"  aria-controls="event_<%= event.id %>_collapse">
+      <%= event.email %>
+    </button>
+  </div>
+<% end %>
+<button type="button" id="newEvent" class="btn btn-warning menu-margin" data-bs-toggle="modal" data-bs-target="#eventModal" data-bs-whatever="group event">+</button>
+<%= render 'events/form_modal'  %>
+<div class="col ">
+  <%= render 'events_collapse' %>
+</div>

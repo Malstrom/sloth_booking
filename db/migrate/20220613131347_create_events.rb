@@ -5,9 +5,7 @@ class CreateEvents < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :email
       t.string :phone
-      t.string :tables
-      t.datetime :starts_at
-      t.datetime :ends_at
+      t.date :day
 
       t.timestamps
     end

@@ -11,6 +11,7 @@ class TimetableController < ApplicationController
 
     @trainings = @club.trainings.by_selected_day(@selected_day)
     @tournaments = @club.tournaments.by_selected_day(@selected_day)
+    @events = @club.events.by_selected_day(@selected_day)
 
     if @slots_by_day_hours.empty?
       Slot.generate_slots(@selected_day, @club.id)

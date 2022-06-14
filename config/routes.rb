@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :events
   resources :clubs
   resources :slots do
     collection do
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :timetable
   resources :clubs do
+    resources :events
     resources :tournaments
     resources :trainings
   end
