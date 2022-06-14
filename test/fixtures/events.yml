@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  club: sokol
+  name: MyString
+  email: MyString
+  phone: MyString
+  day: <%= Date.today %>
+
+two:
+  club: sokol
+  name: MyString
+  email: MyString
+  phone: MyString
+  day: <%= Date.today %>

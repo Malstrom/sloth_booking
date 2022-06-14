@@ -9,7 +9,7 @@ class Slot < ApplicationRecord
 
   before_update :toggle_bookable
 
-  validates :time, comparison: { greater_than: Time.now }, on: :update
+  validates :time, comparison: { greater_than: Time.now.localtime }, on: :update
 
   INTERVAL = 30.minutes
 
@@ -28,7 +28,7 @@ class Slot < ApplicationRecord
   scope :only_available, ->(not_available_times) { where.not(time: not_available_times) }
 
   scope :not_booked, -> { where(bookable_id: nil) }
-  scope :booked, -> { where.not(bookable_id: nil) }
+  scope :booked,     -> { where.not(bookable_id: nil) }
 
   def display_value
     case bookable_type
@@ -133,6 +133,10 @@ class Slot < ApplicationRecord
 
   def self.time_interval_in_day(selected_day)
     (selected_day.beginning_of_day.to_i..selected_day.end_of_day.to_i).step(INTERVAL).map { |hour| Time.at(hour) }
+  end
+
+  def reserve_slots
+    raise
   end
 
   private

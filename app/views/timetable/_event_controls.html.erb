@@ -8,7 +8,7 @@
   </div>
 <% end %>
 <button type="button" id="newEvent" class="btn btn-warning menu-margin" data-bs-toggle="modal" data-bs-target="#eventModal" data-bs-whatever="group event">+</button>
-<%= render 'events/form_modal'  %>
+<%= render 'events/form_modal', club:@club  %>
 <div class="col ">
   <%= render 'events_collapse' %>
 </div>
