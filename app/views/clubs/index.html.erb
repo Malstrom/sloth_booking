@@ -4,7 +4,7 @@
   <%= form_with(url: clubs_path, method: :get) do |form| %>
     <div class="row g-3">
       <div class="col-2">
-        <%= form.date_field :selected_date, value: Date.tomorrow, class:"form-control" %>
+        <%= form.date_field :selected_day, value: @selected_day, class:"form-control" %>
       </div>
       <div class="col-2">
         <%= form.text_field :duration, value: 1, class: "form-control" %>
