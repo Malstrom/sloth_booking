@@ -10,16 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_09_132733) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_13_131347) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
-    t.string "starts_at"
-    t.string "ends_at"
+    t.time "starts_at"
+    t.time "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "club_id", null: false
+    t.string "name"
+    t.string "email"
+    t.string "phone"
+    t.date "day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["club_id"], name: "index_events_on_club_id"
   end
 
   create_table "gametables", force: :cascade do |t|
@@ -103,6 +114,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_132733) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "events", "clubs"
   add_foreign_key "gametables", "clubs"
   add_foreign_key "rents", "users", column: "trainer_id"
   add_foreign_key "slots", "gametables"
