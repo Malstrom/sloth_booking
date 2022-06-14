@@ -41,10 +41,10 @@ class Slot < ApplicationRecord
   end
 
   def define_color
-    if bookable_id?
-      define_color_by_bookable
-    else
+    if bookable_type.nil?
       define_color_by_price
+    else
+      define_color_by_bookable
     end
   end
 
@@ -60,7 +60,12 @@ class Slot < ApplicationRecord
   end
 
   def define_color_by_bookable
-    bookable_type == 'Training' or bookable_type == 'Event' ? 'cell-color-training' : 'cell-color-tournament'
+    case bookable_type
+    when 'Training'    then 'cell-color-training'
+    when 'Tournament'  then 'cell-color-tournament'
+    when 'Event'       then 'cell-color-training'
+    else 'cell-color-yellow'
+    end
   end
 
   def self.update_working_date(club, selected_day, starts_at, ends_at)
