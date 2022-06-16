@@ -1,6 +1,12 @@
 <div class="css-grid-table">
   <div class="css-grid-table-header">
-    <div class="sticky-left no-bg"></div>
+    <div class="sticky-left no-bg">
+        <div class="timetable-current-day">
+      <%= @selected_day.strftime('%a') %>
+      <br>
+      <%= @selected_day.strftime('%d %b') %>
+      </div>
+    </div>
     <% @gametables.each do |gametable| %>
       <div style="background-color: white" id="<%= gametable.id %>">
         <%= gametable.id %>
