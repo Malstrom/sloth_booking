@@ -1,8 +1,8 @@
 <%= form_with url: set_working_time_slots_path(selected_day:@selected_day), method: :put do |form| %>
   <%=  form.label :query, "Open:" %>
 
-  <%= form.select :starts_at, options_for_select(selected_day_hours_for_select(@selected_day), Time.at(@slots_by_day_hours.keys.first))%>
-  <%= form.select :ends_at, options_for_select(selected_day_hours_for_select(@selected_day), Time.at(@slots_by_day_hours.keys.last) + 30.minutes) %>
+  <%= form.select :starts_at, options_for_select(selected_day_hours_for_select(@selected_day), @slots_by_day_hours.keys.first)%>
+  <%= form.select :ends_at, options_for_select(selected_day_hours_for_select(@selected_day), @slots_by_day_hours.keys.last  + 30.minutes) %>
 
   <%= form.submit "Set", class:"btn btn-primary" %>
 <% end %>

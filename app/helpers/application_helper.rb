@@ -7,18 +7,18 @@ module ApplicationHelper
   end
 
   def selected_day_hours_for_select(day)
-    hours = (day.to_time.to_i..day.to_time.at_end_of_day.to_i).step(30.minutes).map do |hour|
-      [(Time.at(hour)).strftime("%H:%M"), Time.at(hour)]
+    hours = (day.at_beginning_of_day.to_i..day.at_end_of_day.to_i).step(30.minutes).map do |hour|
+      [(Time.at(hour).utc).strftime("%H:%M"), Time.at(hour).utc]
     end
     p hours
     hours.sort
   end
 
   def device
-  agent = request.user_agent
-  return "tablet" if agent =~ /(tablet|ipad)|(android(?!.*mobile))/i
-  return "mobile" if agent =~ /Mobile/
-  return "desktop"
-end
+    agent = request.user_agent
+    "tablet" if agent =~ /(tablet|ipad)|(android(?!.*mobile))/i
+    "mobile" if agent =~ /Mobile/
+    "desktop"
+  end
 
 end

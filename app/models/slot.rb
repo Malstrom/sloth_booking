@@ -18,11 +18,11 @@ class Slot < ApplicationRecord
   scope :close_slot, -> { where(state: :close) }
 
   scope :by_day, ->(selected_day) { where(time: selected_day.beginning_of_day..selected_day.end_of_day) }
-  scope :group_by_hours, -> { group_by { |cell| cell['time'].itself.localtime } }
+  scope :group_by_hours, -> { group_by { |cell| cell['time'].itself } }
 
   scope :group_by_day_hours, lambda { |selected_day|
     where(time: selected_day.beginning_of_day..selected_day.end_of_day)
-      .group_by { |cell| cell['time'].itself.localtime }
+      .group_by { |cell| cell['time'].itself }
   }
 
   scope :only_available, ->(not_available_times) { where.not(time: not_available_times) }
@@ -69,9 +69,9 @@ class Slot < ApplicationRecord
   end
 
   def self.update_working_date(club, selected_day, starts_at, ends_at)
-    slots_to_close = Slot.by_club(club).by_day(selected_day).where('time < ? OR time >= ?', starts_at,
-                                                                   ends_at).open_slot
-    slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at...ends_at).close_slot
+    slots_to_close = Slot.by_club(club).by_day(selected_day).where('time < ? OR time >= ?', starts_at.utc,
+                                                                   ends_at.utc).open_slot
+    slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: (starts_at.utc)...(ends_at.utc)).close_slot
     if slots_to_close.none?(&:bookable_id?)
       slots_to_close.update_all(state: :close)
       slots_to_open.update_all(state: :open)
