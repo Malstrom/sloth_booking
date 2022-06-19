@@ -11,4 +11,5 @@ class Gametable < ApplicationRecord
   #     price.save
   #   end
   # end
+  #
 end

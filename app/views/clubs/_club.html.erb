@@ -5,13 +5,11 @@
   <div id="<%= dom_id club %>" class="card-body">
     <h5 class="card-title"><%= link_to club.name, club_path(club) %></h5>
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <% Slot.available_slots(club, @selected_day, @duration).pluck(:time, :price).uniq.sort.each do |slot| %>
-      <button type="button" id="newEvent" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#eventModal" data-bs-whatever="<%= slot[0].localtime %>">
-        <%= slot[0].localtime.strftime("%H:%M") %>, <%= slot[1] %>
-      </button>
 
-      <%= render 'events/form_modal', club:club %>
-  <% end %>
+    <% Slot.available_slots(club, @selected_day, @duration).pluck(:time, :price).uniq.sort.each do |slot| %>
+      <%= link_to slot[0].localtime.strftime("%H:%M"), new_club_event_path(club, starts_at: slot[0].localtime, duration: @duration, selected_day: params[:selected_day] ), class: "btn btn-sm btn-outline-primary" %>
+    <% end %>
+
   </div>
   <div class="card-footer text-muted">
     2 km away
