@@ -44,7 +44,7 @@ class TournamentsController < ApplicationController
   def update
     respond_to do |format|
       if @tournament.update(tournament_params)
-        format.html { redirect_to root_path, notice: "Tournament updated" }
+        format.html { redirect_to root_path(selected_day:@selected_day), notice: "Tournament updated" }
         format.json { render :show, status: :ok, location: @tournament }
       else
         format.html { render :edit, status: :unprocessable_entity }

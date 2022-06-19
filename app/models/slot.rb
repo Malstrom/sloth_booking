@@ -34,7 +34,7 @@ class Slot < ApplicationRecord
     case bookable_type
     when 'Training' then bookable.trainer
     when 'Tournament' then "< #{bookable.rating}"
-    when 'Event' then bookable.email
+    when 'Event' then "#{bookable.name} #{ bookable.phone} #{bookable.price}"
     else
       price
     end

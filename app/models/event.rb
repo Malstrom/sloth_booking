@@ -2,7 +2,7 @@ class Event < ApplicationRecord
   belongs_to :club
   has_many :slots, as: :bookable
 
-  validates_presence_of :email, :phone, :name
+  validates_presence_of :phone, :name
 
   before_destroy :destroy_bookable, prepend: true
 

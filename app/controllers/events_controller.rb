@@ -41,7 +41,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to root_path, notice: "Tournament updated" }
+        format.html { redirect_to root_path(selected_day:@selected_day), notice: "Tournament updated" }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -75,6 +75,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
   def event_params
-    params.require(:event).permit(:club_id, :name, :email, :phone, :tables, :day)
+    params.require(:event).permit(:club_id, :name, :email, :phone, :tables, :day, :price)
   end
 end
