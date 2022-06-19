@@ -1,6 +1,12 @@
 <div class="css-grid-table">
   <div class="css-grid-table-header">
-    <div class="sticky-left no-bg"></div>
+    <div class="sticky-left no-bg">
+        <div class="timetable-current-day">
+      <%= @selected_day.strftime('%a') %>
+      <br>
+      <%= @selected_day.strftime('%d %b') %>
+      </div>
+    </div>
     <% @gametables.each do |gametable| %>
       <div style="background-color: white" id="<%= gametable.id %>">
         <%= gametable.id %>
@@ -20,4 +26,7 @@
       <% end %>
     </div>
   <% end %>
+  <div>
+    <button type="button" id="newTraining" class="btn btn-outline-secondary new-table-button" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">+</button>
+  </div>
 </div>

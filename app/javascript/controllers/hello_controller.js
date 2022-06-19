@@ -60,7 +60,7 @@ export default class extends Controller {
           this.element.innerHTML = slot.display_value
       })
       .catch((error) => {
-        alert("not in past")
+        alert("Время ячейки уже прошло")
         console.log(error)
       });
   }
