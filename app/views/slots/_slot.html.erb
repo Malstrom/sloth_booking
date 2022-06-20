@@ -1,3 +1,4 @@
-<div class="zoom pointer <%= slot.define_color %>"  id="<%= slot.id %>" data-controller="hello" data-action="click->hello#handleClick" >
+<div class="zoom pointer <%= slot.define_color %>" id="<%= slot.id %>"
+     data-state="<%= "booked" if slot.bookable %>" data-controller="hello" data-action="click->hello#handleClick" >
   <%= slot.display_value %>
 </div>

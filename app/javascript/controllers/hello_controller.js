@@ -34,7 +34,25 @@ export default class extends Controller {
 
   // update backend certain slot with new slot kind/value or kind/price
   handleClick() {
-    var slot = JSON.parse(document.getElementById("params_to_send").value);
+    let state = this.element.dataset.state
+    let slot = document.getElementById("params_to_send").value
+
+    if (state === 'booked'){
+      this.editBooking()
+    }
+    else {
+      slot === '' ? this.newEvent() : this.sendToBack(slot)
+    }
+  }
+
+  newEvent(){
+    new bootstrap.Modal(document.getElementById('eventModal')).show();
+  }
+
+  editBooking(){}
+
+  sendToBack(slot){
+    slot = JSON.parse(slot)
     const data = JSON.stringify({slot});
 
     fetch("../slots/" + this.element.id, {
@@ -53,11 +71,11 @@ export default class extends Controller {
       throw new Error('Something went wrong');
     })
       .then((slot) => {
-          const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
+        const tableClass = this.element.className.match(new RegExp(/\bcell-color-.+?\b/, 'g'))
 
-          this.element.classList.remove(tableClass);
-          this.element.classList.add(slot.color);
-          this.element.innerHTML = slot.display_value
+        this.element.classList.remove(tableClass);
+        this.element.classList.add(slot.color);
+        this.element.innerHTML = slot.display_value
       })
       .catch((error) => {
         alert("Время ячейки уже прошло")
