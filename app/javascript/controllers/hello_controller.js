@@ -4,10 +4,11 @@ import * as bootstrap from "bootstrap";
 export default class extends Controller {
 
   connect() {
-    document.querySelectorAll('.toast').forEach((toastTarget) => {
+    document.querySelectorAll('.toastAlert').forEach((toastTarget) => {
       return new bootstrap.Toast(toastTarget).show();
     })
-    new bootstrap.Toast(document.getElementById('setInCalendar')).hide();
+
+    // new bootstrap.Toast(document.getElementById('setInCalendar')).hide();
   }
 
   flushParamToSend(){
@@ -19,7 +20,6 @@ export default class extends Controller {
   selectKind(){
     // document.getElementById("eventAdditionalInfo").innerHTML = this.element.value
     document.getElementById("params_to_send").value = this.element.value;
-
     document.getElementById('toastBody').innerHTML = this.element.value;
 
     new bootstrap.Toast(document.getElementById('setInCalendar')).show();

@@ -26,7 +26,7 @@
       <%= render 'set_price_control' %>
     </div>
 
-    <input class="form-control d-none" list="datalistOptions" id="params_to_send">
+    <input class="form-control" list="datalistOptions" id="params_to_send" value="<%= params[:params_to_send] %>">
 
 
   </div>
@@ -36,14 +36,13 @@
 </div>
 
 
-<div class=" toast-container position-fixed p-3 top-0 start-50 translate-middle-x sticky-top" style="z-index: 100">
-  <div id="setInCalendar" class="toast  text-white bg-info " role="alert" aria-live="assertive" aria-atomic="false" data-bs-autohide="false" >
+<div class="toast-container position-fixed p-3 top-0 start-50 translate-middle-x sticky-top" style="z-index: 100">
+  <div id="setInCalendar" class="toast text-white bg-info <%= "show" if params[:params_to_send] %>" role="alert" aria-live="assertive" aria-atomic="false" data-bs-autohide="false" >
     <div class="toast-header">
       <strong class="me-auto">Set in Calendar mode</strong>
       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" data-controller="hello" data-action="click->hello#flushParamToSend"></button>
     </div>
     <div id="toastBody" class="toast-body">
-      <%= params[:params_to_send] %>
     </div>
   </div>
 </div>
