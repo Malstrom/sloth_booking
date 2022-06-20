@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Slot < ApplicationRecord
   belongs_to :gametable
   belongs_to :bookable, polymorphic: true, optional: true
@@ -34,7 +35,7 @@ class Slot < ApplicationRecord
     case bookable_type
     when 'Training' then bookable.trainer
     when 'Tournament' then "< #{bookable.rating}"
-    when 'Event' then "#{bookable.name} #{ bookable.phone} #{bookable.price}"
+    when 'Event' then "#{bookable.name} #{bookable.phone} #{bookable.price}"
     else
       price
     end
@@ -101,7 +102,9 @@ class Slot < ApplicationRecord
     closing_time = open_slots.group_by_hours.keys.last + INTERVAL
     booked_slots = open_slots.booked.group_by_hours
 
-    booked_time_range = booked_slots.map { |time| time.first if time.last.count >= time.last.first.gametable.club.gametables.count }.compact
+    booked_time_range = booked_slots.map do |time|
+      time.first if time.last.count >= time.last.first.gametable.club.gametables.count
+    end.compact
 
     times_not_bookable(booked_time_range, closing_time, duration_in_minutes)
   end

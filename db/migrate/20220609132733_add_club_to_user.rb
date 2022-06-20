@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddClubToUser < ActiveRecord::Migration[7.0]
   def change
     add_reference :users, :club, null: false, foreign_key: true

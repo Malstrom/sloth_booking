@@ -1,1 +1,3 @@
-json.partial! "slots/slot", slot: @slot
+# frozen_string_literal: true
+
+json.partial! 'slots/slot', slot: @slot

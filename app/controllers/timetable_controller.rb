@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TimetableController < ApplicationController
   # before_action :authenticate_user!
 
@@ -17,14 +19,15 @@ class TimetableController < ApplicationController
     end
   end
 
-    private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_club
-      @club = Club.first
-    end
+  private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def selected_day
-      @selected_day = params[:selected_day] ? params[:selected_day].to_date : Date.today
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_club
+    @club = Club.first
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def selected_day
+    @selected_day = params[:selected_day] ? params[:selected_day].to_date : Date.today
+  end
 end

@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class TournamentsController < ApplicationController
   before_action :set_club, :selected_day
-  before_action :set_tournament , only: %i[ show edit update destroy ]
-
+  before_action :set_tournament, only: %i[show edit update destroy]
 
   # GET /tournaments or /tournaments.json
   def index
@@ -9,8 +10,7 @@ class TournamentsController < ApplicationController
   end
 
   # GET /tournaments/1 or /tournaments/1.json
-  def show
-  end
+  def show; end
 
   # GET /tournaments/new
   def new
@@ -18,8 +18,7 @@ class TournamentsController < ApplicationController
   end
 
   # GET /tournaments/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /tournaments or /tournaments.json
   def create
@@ -27,11 +26,12 @@ class TournamentsController < ApplicationController
 
     respond_to do |format|
       if @tournament.save
-        value = {bookable_id:@tournament.id,bookable_type:"Tournament"}.to_json
-        format.html { 
-          redirect_to root_path(selected_day:@selected_day),
-                      notice: "Tournament saved! #{view_context.button_tag('Set in calendar', class:'btn btn-primary btn-sm',value: value,
-                                                                           data: {controller: "hello", action: "click->hello#selectKind"})}" }
+        value = { bookable_id: @tournament.id, bookable_type: 'Tournament' }.to_json
+        format.html do
+          redirect_to root_path(selected_day: @selected_day),
+                      notice: "Tournament saved! #{view_context.button_tag('Set in calendar', class: 'btn btn-primary btn-sm', value: value,
+                                                                                              data: { controller: 'hello', action: 'click->hello#selectKind' })}"
+        end
         format.json { render json: @tournament }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -44,7 +44,7 @@ class TournamentsController < ApplicationController
   def update
     respond_to do |format|
       if @tournament.update(tournament_params)
-        format.html { redirect_to root_path(selected_day:@selected_day), notice: "Tournament updated" }
+        format.html { redirect_to root_path(selected_day: @selected_day), notice: 'Tournament updated' }
         format.json { render :show, status: :ok, location: @tournament }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -56,30 +56,31 @@ class TournamentsController < ApplicationController
   # DELETE /tournaments/1 or /tournaments/1.json
   def destroy
     if @tournament.destroy
-      redirect_to timetable_index_path(selected_day: @selected_day), notice: "Tournament deleted"
+      redirect_to timetable_index_path(selected_day: @selected_day), notice: 'Tournament deleted'
     else
       redirect_to timetable_index_path(selected_day: @selected_day), alert: @tournament.errors
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tournament
-      @tournament = Tournament.find(params[:id])
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_club
-      @club = Club.find(params[:club_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tournament
+    @tournament = Tournament.find(params[:id])
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def selected_ay
-      @selected_day = params[:selected_ay]
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_club
+    @club = Club.find(params[:club_id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def tournament_params
-      params.require(:tournament).permit( :rating, :price, :day)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def selected_ay
+    @selected_day = params[:selected_ay]
+  end
+
+  # Only allow a list of trusted parameters through.
+  def tournament_params
+    params.require(:tournament).permit(:rating, :price, :day)
+  end
 end

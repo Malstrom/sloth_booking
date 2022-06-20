@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Tournament < ApplicationRecord
   belongs_to :club
   has_many :slots, as: :bookable
 
-  validates_presence_of  :rating, :day
+  validates_presence_of :rating, :day
 
   before_destroy :destroy_bookable, prepend: true
 

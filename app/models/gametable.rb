@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Gametable < ApplicationRecord
   belongs_to :club
   has_many :slots, dependent: :delete_all
