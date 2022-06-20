@@ -25,11 +25,8 @@ class EventsController < ApplicationController
     @event = @club.events.build(event_params)
     respond_to do |format|
       if @event.save
-        value = { bookable_id:@event.id, bookable_type:"Event" }.to_json
-        format.html {
-          redirect_to root_path(selected_day:@selected_day),
-                      notice: "Tournament saved! #{view_context.button_tag('Set in calendar', class:'btn btn-primary btn-sm',value: value,
-                                                                           data: {controller: "hello", action: "click->hello#selectKind"})}" }
+        bookable = { bookable_id: @event.id, bookable_type: "Event"}.to_json
+        format.html { redirect_to root_path(selected_day:@selected_day, params_to_send: bookable)}
         format.json { render json: @event }
       else
         format.json { render json: @event.errors, status: :unprocessable_entity }
@@ -41,7 +38,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to root_path(selected_day:@selected_day), notice: "Tournament updated" }
+        format.html { redirect_to root_path(selected_day:@selected_day), notice: "Event updated" }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -51,7 +48,7 @@ class EventsController < ApplicationController
   # DELETE /events/1 or /events/1.json
   def destroy
     if @event.destroy
-      redirect_to timetable_index_path(selected_day: @selected_day), notice: "Tournament deleted"
+      redirect_to timetable_index_path(selected_day: @selected_day), notice: "Event deleted"
     else
       redirect_to timetable_index_path(selected_day: @selected_day), alert: @event.errors
     end
