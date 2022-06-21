@@ -86,36 +86,63 @@
 
 
 .timetable-container {
-position:relative;
+  width: 100vw;
+  position: sticky;
+
+top: 0;
+left: 0;
 }
 
 
 .css-grid-table,
-.css-grid-table-header,
 .css-grid-table-body {
   display: grid;
   position:relative
 }
 
 .css-grid-table {
-  width: fit-content ;
-  margin: auto;
+    margin: auto;
+}
+
+.wrap {
+  position: relative;
+  margin: 10em auto 30em;
+  max-width: 460px;
+  overscroll-behavior: contain;
+}
+
+.scroller {
+  display: flex;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .css-grid-table-header,
 .css-grid-table-body {
-
-  height: 60px;
+height: 60px;
 }
 
 .css-grid-table-header {
   grid-template-rows: auto;
+  display: grid;
   position: sticky;
   top: 0;
   z-index: 3;
+  margin: auto;
 }
 
+.table-header {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 3;
+  width: 100vw;
+  margin: auto;
+}
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 .css-grid-table-body {
   grid-template-rows: auto

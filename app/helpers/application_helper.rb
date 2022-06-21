@@ -18,8 +18,8 @@ module ApplicationHelper
 
   def device
     agent = request.user_agent
-    'tablet' if agent =~ /(tablet|ipad)|(android(?!.*mobile))/i
-    'mobile' if agent =~ /Mobile/
+    return 'tablet' if agent =~ /(tablet|ipad)|(android(?!.*mobile))/i
+    return 'mobile' if agent =~ /Mobile/
     'desktop'
   end
 end
