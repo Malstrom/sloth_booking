@@ -49,7 +49,14 @@ export default class extends Controller {
     let slot = document.getElementById("params_to_send").value
 
     if (state === 'booked'){
-      slot === '' ?  this.editBooking(bookable_id) : this.sendToBack(slot)
+      if (slot === ''){
+        this.editBooking(bookable_id)
+      }else {
+        let json_slot = JSON.parse(slot)
+        console.log(json_slot)
+        console.log(id,type)
+        if (json_slot.bookable_type.toLowerCase() === type && json_slot.bookable_id == id ){this.sendToBack(slot)}
+      }
     }
     else {
       slot === '' ? this.newEvent() : this.sendToBack(slot)
