@@ -3,7 +3,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Create new event</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Редактирование бронирования</h5>
         </div>
         <%= form_with model: [@club, event] do |form| %>
           <div class="modal-body">
@@ -12,26 +12,26 @@
             <%= form.hidden_field(:day, value: @selected_day) %>
 
             <div class="mb-3">
-              <%= form.label :name, class: "col-form-label" %>
+              <%= form.label :Имя, class: "col-form-label" %>
               <%= form.text_field :name, class: "form-control" %>
             </div>
 
             <div class="mb-3">
-              <%= form.label :phone, class: "col-form-label" %>
+              <%= form.label :Телефон, class: "col-form-label" %>
               <%= form.text_field :phone, class: "form-control" %>
             </div>
 
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary btn-sm">Update</button>
+            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Закрыть</button>
+            <button type="submit" class="btn btn-primary btn-sm">Сохранить</button>
         <% end %>
-            <%= button_to "Delete from all slots", club_event_path(@club,event, selected_day: @selected_day), id:"event_#{event.id}_delete", class:"btn btn-danger btn-sm", method: :delete %>
+            <%= button_to "Удалить бронь", club_event_path(@club,event, selected_day: @selected_day), id:"event_#{event.id}_delete", class:"btn btn-danger btn-sm", method: :delete %>
             <button type="button" class="btn btn-outline-primary float-end btn-sm" data-bs-dismiss="modal"
                     value="<%= {bookable_id: event.id, bookable_type: "Event"}.to_json %>"
                     data-controller="hello" data-action="click->hello#selectKind">
-              Set in calendar
+              Выбрать ячейки
             </button>
         </div>
 

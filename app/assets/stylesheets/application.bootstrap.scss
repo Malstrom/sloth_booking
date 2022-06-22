@@ -204,7 +204,7 @@ height: 60px;
 .background-overlay {
   background-color: black;
   content: "";
-  position: absolute;
+  position: fixed;
   opacity: 70%;
   top: 0;
   right: 0;
