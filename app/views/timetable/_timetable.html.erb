@@ -1,8 +1,8 @@
-<div class="table-header">
-  <div class="scroller syncscroll hide-scrollbar" name=myElements>
+<div class="table-header no-overscroll">
+  <div class="scroller syncscroll hide-scrollbar no-overscroll" name=myElements>
     <div class="css-grid-table-header">
 
-      <div class="sticky-left no-bg">
+      <div class="sticky-left fix-height">
         <div class="timetable-current-day">
           <%= @selected_day.strftime('%a') %>
           <br>
@@ -22,8 +22,8 @@
     </div>
   </div>
 </div>
-<div class="scroller syncscroll" name=myElements>
-  <div class="css-grid-table">
+<div class="scroller syncscroll hide-scrollbar" name=myElements>
+  <div class="css-grid-table no-overscroll">
 
     <% @slots_by_day_hours.each do |row| %>
     <div class="css-grid-table-body">

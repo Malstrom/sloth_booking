@@ -102,6 +102,7 @@ left: 0;
 
 .css-grid-table {
     margin: auto;
+    z-index: 8;
 }
 
 .wrap {
@@ -117,6 +118,10 @@ left: 0;
   -webkit-overflow-scrolling: touch;
 }
 
+.timetable-wrapper {
+z-index: 10;
+}
+
 .css-grid-table-header,
 .css-grid-table-body {
 height: 60px;
@@ -127,7 +132,7 @@ height: 60px;
   display: grid;
   position: sticky;
   top: 0;
-  z-index: 3;
+  z-index: 8;
   margin: auto;
 }
 
@@ -135,7 +140,7 @@ height: 60px;
   position: sticky;
   position: -webkit-sticky;
   top: 0;
-  z-index: 3;
+  z-index: 9;
   width: 100vw;
   margin: auto;
 }
@@ -196,6 +201,18 @@ height: 60px;
   overflow: hidden;
 }
 
+.background-overlay {
+  background-color: black;
+  content: "";
+  position: absolute;
+  opacity: 70%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
 .sticky-left {
   left: 0px;
   position: sticky;
@@ -227,9 +244,17 @@ height: 60px;
   position: sticky;
 }
 
+.toast-container {
+width: 320px;
+}
 
-.no-bg {
-  background-color: none !important
+
+.no-overscroll {
+  overscroll-behavior: none;
+}
+
+.fix-height {
+  height: 64px !important;
 }
 
 .cell-color-green{

@@ -13,6 +13,7 @@ export default class extends Controller {
 
   flushParamToSend(){
     document.getElementById("params_to_send").value = null;
+    document.getElementById("overlay").classList.remove("background-overlay");
   }
 
   // todo: open collapse and show additional information about event
@@ -23,6 +24,7 @@ export default class extends Controller {
     document.getElementById('toastBody').innerHTML = this.element.value;
 
     new bootstrap.Toast(document.getElementById('setInCalendar')).show();
+    document.getElementById("overlay").classList.add("background-overlay");
   }
 
   // triggered when fill in input price and trigger hidden input
@@ -32,6 +34,7 @@ export default class extends Controller {
     document.getElementById('toastBody').innerHTML = "Updating price to: " + data.price;
 
     new bootstrap.Toast(document.getElementById('setInCalendar')).show();
+    document.getElementById("overlay").classList.add("background-overlay");
   }
 
   // function for change price for table in certain hour

@@ -2,7 +2,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Create new event</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Новое бронирование</h5>
       </div>
       <%= form_with(model: Event.new, url: club_events_path(@club)) do |form| %>
         <div class="modal-body">
@@ -11,19 +11,19 @@
           <%= form.hidden_field(:day, value: @selected_day) %>
 
           <div class="mb-3">
-            <%= form.label :name, class: "col-form-label" %>
+            <%= form.label :Имя, class: "col-form-label" %>
             <%= form.text_field :name, class: "form-control" %>
           </div>
 
           <div class="mb-3">
-            <%= form.label :phone, class: "col-form-label" %>
+            <%= form.label :Телефон, class: "col-form-label" %>
             <%= form.text_field :phone, class: "form-control" %>
           </div>
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">"N E X T"</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          <button type="submit" class="btn btn-primary">Далее</button>
         </div>
       <% end %>
     </div>
