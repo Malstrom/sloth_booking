@@ -4,6 +4,8 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Редактирование бронирования</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
         </div>
         <%= form_with model: [@club, event] do |form| %>
           <div class="modal-body">
@@ -24,7 +26,6 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Закрыть</button>
             <button type="submit" class="btn btn-primary btn-sm">Сохранить</button>
         <% end %>
             <%= button_to "Удалить бронь", club_event_path(@club,event, selected_day: @selected_day), id:"event_#{event.id}_delete", class:"btn btn-danger btn-sm", method: :delete %>

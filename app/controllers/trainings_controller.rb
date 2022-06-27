@@ -28,7 +28,7 @@ class TrainingsController < ApplicationController
         value = { bookable_id: @training.id, bookable_type: 'Training' }.to_json
         format.html do
           redirect_to root_path(selected_day: @selected_day),
-                      notice: "Training saved! #{view_context.button_tag('Set in calendar', class: 'btn btn-primary btn-sm', value: value,
+                      notice: "Training saved!  #{view_context.button_tag('Set in calendar', class: 'btn btn-primary btn-sm', value: value,
                                                                                             data: { controller: 'hello', action: 'click->hello#selectKind' })}"
         end
         format.json { render :show, status: :created, location: @training }
