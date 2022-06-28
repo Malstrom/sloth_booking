@@ -12,6 +12,13 @@ export default class extends Controller {
   }
 
   flushParamToSend(){
+    let url = new URL(location.href);
+    let params = new URLSearchParams(url.search);
+
+    params.delete('params_to_send');
+    window.history.replaceState({}, '', `${location.pathname}?${params}`);
+
+    // this.URLSearchParams.delete('params_to_send')
     document.getElementById("params_to_send").value = null;
     document.getElementById("overlay").classList.remove("background-overlay");
   }
@@ -56,9 +63,10 @@ export default class extends Controller {
         this.editBooking(bookable_id)
       }else {
         let json_slot = JSON.parse(slot)
-        console.log(json_slot)
-        console.log(id,type)
-        if (json_slot.bookable_type.toLowerCase() === type && json_slot.bookable_id == id ){this.sendToBack(slot)}
+        if (json_slot.bookable_type.toLowerCase() === type && json_slot.bookable_id == id ){
+          this.sendToBack(slot)
+          console.log(slot)
+        }
       }
     }
     else {

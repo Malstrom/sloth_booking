@@ -25,12 +25,8 @@ class TrainingsController < ApplicationController
     @training = @club.trainings.build(training_params)
     respond_to do |format|
       if @training.save
-        value = { bookable_id: @training.id, bookable_type: 'Training' }.to_json
-        format.html do
-          redirect_to root_path(selected_day: @selected_day),
-                      notice: "Training saved! #{view_context.button_tag('Set in calendar', class: 'btn btn-primary btn-sm', value: value,
-                                                                                            data: { controller: 'hello', action: 'click->hello#selectKind' })}"
-        end
+        bookable = { bookable_id: @training.id, bookable_type: 'Training' }.to_json
+        format.html { redirect_to root_path(selected_day: @selected_day, params_to_send: bookable) }
         format.json { render :show, status: :created, location: @training }
       else
         format.html { render :new, status: :unprocessable_entity }

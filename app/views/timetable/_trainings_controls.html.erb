@@ -6,9 +6,11 @@
       <%= training.trainer %>
     </button>
   </div>
+  <%= render 'trainings/edit_form', training: training %>
 <% end %>
+
 <button type="button" id="newTraining" class="btn btn-warning menu-margin" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">+</button>
+
 <%= render 'trainings/form_modal'  %>
-<div class="col ">
-  <%= render 'tranings_collapse' %>
-</div>
+
+

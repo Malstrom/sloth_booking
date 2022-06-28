@@ -1,2 +1,5 @@
 <%= render 'events/form_modal'  %>
-<%= render 'events_modals' %>
+
+<% @club.events.each do |event| %>
+  <%= render 'events/edit_form', event:event %>
+<% end %>

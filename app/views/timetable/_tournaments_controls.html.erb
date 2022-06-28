@@ -6,11 +6,9 @@
       < <%= tournament.rating %>
     </button>
   </div>
+  <%= render 'tournaments/edit_form', tournament:tournament  %>
 <% end %>
+
 <button type="button" id="newTournament" class="btn btn-success menu-margin" data-bs-toggle="modal" data-bs-target="#tournamentModal" data-bs-whatever="tournament">+</button>
+
 <%= render 'tournaments/form_modal'  %>
-
-
-  <div style="max-width: 350px">
-    <%= render 'tournaments_collapse' %>
-  </div>
