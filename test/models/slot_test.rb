@@ -13,7 +13,7 @@ class SlotTest < ActiveSupport::TestCase
 
   test 'invalid without name' do
     @slot.gametable = nil
-    refute @slot.valid?, 'saved user without a gametable'
+    assert_not @slot.valid?, 'saved user without a gametable'
     assert_not_nil @slot.errors[:gametable], 'no validation error for gametable present'
   end
 
@@ -54,24 +54,24 @@ class SlotTest < ActiveSupport::TestCase
   end
 
   test 'display colors for slot' do
-    slot_300 = slots(:slot_price_300)
-    slot_450 = slots(:slot_price_450)
-    slot_600 = slots(:slot_price_600)
-    slot_750 = slots(:slot_price_750)
-    slot_3000 = slots(:slot_price_3000)
-    slot_3001 = slots(:slot_price_3001)
+    slot300 = slots('slot_price_300')
+    slot450 = slots('slot_price_450')
+    slot600 = slots('slot_price_600')
+    slot750 = slots('slot_price_750')
+    slot3000 = slots('slot_price_3000')
+    slot3001 = slots('slot_price_3001')
 
-    assert slot_300.define_color == 'cell-color-yellow'
-    assert slot_450.define_color == 'cell-color-blue'
-    assert slot_600.define_color == 'cell-color-green'
-    assert slot_750.define_color == 'cell-color-pink'
-    assert slot_3000.define_color == 'cell-color-purple'
-    assert slot_3001.define_color == 'cell-color-yellow'
+    assert slot300.define_color == 'cell-color-yellow'
+    assert slot450.define_color == 'cell-color-blue'
+    assert slot600.define_color == 'cell-color-green'
+    assert slot750.define_color == 'cell-color-pink'
+    assert slot3000.define_color == 'cell-color-purple'
+    assert slot3001.define_color == 'cell-color-yellow'
   end
 
   test 'generate slots for empty day' do
     club = clubs(:sokol)
-    day = 1.months.after
+    day = 1.month.after
 
     gametables = Slot.generate_slots(day, club.id)
     p gametables.last.slots.count
@@ -81,9 +81,9 @@ class SlotTest < ActiveSupport::TestCase
 
   test 'update valid working date' do
     club = clubs(:sokol)
-    selected_day = 1.months.after
+    selected_day = 1.month.after
     hour_to_add = 4
-    starts_at = '14:00'.to_time + 1.months
+    starts_at = '14:00'.to_time + 1.month
     ends_at = starts_at + hour_to_add.hours
 
     Slot.generate_slots(selected_day, club.id)
@@ -94,9 +94,9 @@ class SlotTest < ActiveSupport::TestCase
 
   test 'update invalid working date' do
     club = clubs(:sokol)
-    selected_day = 1.months.ago
+    selected_day = 1.month.ago
     hour_to_add = 4
-    starts_at = '14:00'.to_time - 1.months
+    starts_at = '14:00'.to_time - 1.month
     ends_at = starts_at + hour_to_add.hours
 
     Slot.generate_slots(selected_day, club.id)
@@ -107,9 +107,9 @@ class SlotTest < ActiveSupport::TestCase
 
   test 'deny update working time for booked slot' do
     club = clubs(:sokol)
-    selected_day = 1.months.after
+    selected_day = 1.month.after
     hour_to_add = 4
-    starts_at = '14:00'.to_time + 1.months
+    starts_at = '14:00'.to_time + 1.month
     ends_at = starts_at + hour_to_add.hours
 
     gametables = Slot.generate_slots(selected_day, club.id)

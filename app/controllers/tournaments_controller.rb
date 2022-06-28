@@ -2,50 +2,25 @@
 
 class TournamentsController < ApplicationController
   before_action :set_club, :selected_day
-  before_action :set_tournament, only: %i[show edit update destroy]
-
-  # GET /tournaments or /tournaments.json
-  def index
-    @tournaments = Tournament.all
-  end
-
-  # GET /tournaments/1 or /tournaments/1.json
-  def show; end
-
-  # GET /tournaments/new
-  def new
-    @tournament = Tournament.new
-  end
-
-  # GET /tournaments/1/edit
-  def edit; end
+  before_action :set_tournament, only: %i[update destroy]
 
   # POST /tournaments or /tournaments.json
   def create
     @tournament = @club.tournaments.build(tournament_params)
-
-    respond_to do |format|
-      if @tournament.save
-        bookable = { bookable_id: @tournament.id, bookable_type: 'Tournament' }.to_json
-        format.html { redirect_to root_path(selected_day: @selected_day, params_to_send: bookable) }
-        format.json { render json: @tournament }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tournament.errors, status: :unprocessable_entity }
-      end
+    bookable = { bookable_id: @tournament.id, bookable_type: 'Tournament' }.to_json
+    if @tournament.save
+      redirect_to root_path(selected_day: @selected_day, params_to_send: bookable)
+    else
+      redirect_to root_path(selected_day: @selected_day), status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /tournaments/1 or /tournaments/1.json
   def update
-    respond_to do |format|
-      if @tournament.update(tournament_params)
-        format.html { redirect_to root_path(selected_day: @selected_day), notice: 'Tournament updated' }
-        format.json { render :show, status: :ok, location: @tournament }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tournament.errors, status: :unprocessable_entity }
-      end
+    if @tournament.update(tournament_params)
+      redirect_to timetable_index_path(selected_day: @selected_day), notice: 'Tournament updated'
+    else
+      redirect_to timetable_index_path(selected_day: @selected_day), alert: @tournament.errors
     end
   end
 

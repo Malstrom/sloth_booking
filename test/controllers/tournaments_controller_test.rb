@@ -1,49 +1,29 @@
 # frozen_string_literal: true
-# require "test_helper"
-#
-# class TournamentsControllerTest < ActionDispatch::IntegrationTest
-#   setup do
-#     @tournament = tournaments(:one)
-#   end
-#
-#   test "should get index" do
-#     get tournaments_url
-#     assert_response :success
-#   end
-#
-#   test "should get new" do
-#     get new_tournament_url
-#     assert_response :success
-#   end
-#
-#   test "should create tournament" do
-#     assert_difference("Tournament.count") do
-#       post tournaments_url, params: { tournament: { ends_at: @tournament.ends_at, name: @tournament.name, price: @tournament.price, rating: @tournament.rating, starts_at: @tournament.starts_at } }
-#     end
-#
-#     assert_redirected_to tournament_url(Tournament.last)
-#   end
-#
-#   test "should show tournament" do
-#     get tournament_url(@tournament)
-#     assert_response :success
-#   end
-#
-#   test "should get edit" do
-#     get edit_tournament_url(@tournament)
-#     assert_response :success
-#   end
-#
-#   test "should update tournament" do
-#     patch tournament_url(@tournament), params: { tournament: { ends_at: @tournament.ends_at, name: @tournament.name, price: @tournament.price, rating: @tournament.rating, starts_at: @tournament.starts_at } }
-#     assert_redirected_to tournament_url(@tournament)
-#   end
-#
-#   test "should destroy tournament" do
-#     assert_difference("Tournament.count", -1) do
-#       delete tournament_url(@tournament)
-#     end
-#
-#     assert_redirected_to tournaments_url
-#   end
-# end
+
+require 'test_helper'
+
+class TournamentsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @club = clubs(:sokol)
+    @tournament = tournaments(:first_tournament)
+    @tomorrow = Date.tomorrow
+  end
+
+  test 'should create tournament' do
+    assert_difference('Tournament.count') do
+      post club_tournaments_url(@club),
+           params: { tournament: { price: @tournament.price, rating: @tournament.rating, day: @tomorrow } }
+    end
+  end
+
+  test 'should update tournament' do
+    patch club_tournament_url(@club, @tournament), params: { tournament: { rating: '700' } }
+    assert_equal('700', Tournament.find(@tournament.id).rating)
+  end
+
+  test 'should destroy tournament' do
+    assert_difference('Tournament.count', -1) do
+      delete club_tournament_url(@club, @tournament)
+    end
+  end
+end

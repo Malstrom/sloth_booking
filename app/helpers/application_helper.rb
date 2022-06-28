@@ -12,7 +12,7 @@ module ApplicationHelper
     hours = (day.at_beginning_of_day.to_i..day.at_end_of_day.to_i).step(30.minutes).map do |hour|
       [(Time.at(hour).utc).strftime('%H:%M'), Time.at(hour).utc]
     end
-    p hours
+    Rails.logger.debug hours
     hours.sort
   end
 
@@ -20,6 +20,7 @@ module ApplicationHelper
     agent = request.user_agent
     return 'tablet' if agent =~ /(tablet|ipad)|(android(?!.*mobile))/i
     return 'mobile' if agent =~ /Mobile/
+
     'desktop'
   end
 end

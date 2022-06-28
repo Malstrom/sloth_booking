@@ -25,15 +25,15 @@ Club.destroy_all
 User.destroy_all
 
 starts = '00:00'.to_time.yesterday # 2022-06-02 23:00:00 +0300
-ends = '23:00'.to_time + 2.week
-@hours = (starts.to_i..ends.to_i).step(30.minutes).map { |hour| Time.at(hour) }
+ends = '23:00'.to_time + 2.weeks
+@hours = (starts.to_i..ends.to_i).step(30.minutes).map { |hour| Time.zone.at(hour) }
 
 clubs = []
 
 clubs << Club.create(name: Faker::Company.unique.name, starts_at: '05:00', ends_at: '07:00')
 
 clubs.each do |club|
-  p club.name
+  Rails.logger.debug club.name
   gametables = []
 
   10.times do

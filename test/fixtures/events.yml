@@ -1,0 +1,5 @@
+first_event:
+  club: sokol
+  name: Igor
+  phone: 7234927329
+  day: <%= Date.today %>

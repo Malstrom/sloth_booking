@@ -13,13 +13,16 @@ class TimetableController < ApplicationController
     @trainings = @club.trainings.by_selected_day(@selected_day)
     @tournaments = @club.tournaments.by_selected_day(@selected_day)
     @events = @club.events.by_selected_day(@selected_day)
-    if @slots_by_day_hours.empty?
-      Slot.generate_slots(@selected_day, @club.id)
-      @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
-    end
+
+    generate_slots if @slots_by_day_hours.empty?
   end
 
   private
+
+  def generate_slots
+    Slot.generate_slots(@selected_day, @club.id)
+    @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_club

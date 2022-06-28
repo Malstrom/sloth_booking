@@ -2,9 +2,9 @@
 
 class Tournament < ApplicationRecord
   belongs_to :club
-  has_many :slots, as: :bookable
+  has_many :slots, as: :bookable, dependent: :nullify
 
-  validates_presence_of :rating, :day
+  validates :rating, :day, presence: true
 
   before_destroy :destroy_bookable, prepend: true
 

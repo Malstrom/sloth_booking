@@ -10,7 +10,7 @@ class Slot < ApplicationRecord
 
   before_update :toggle_bookable
 
-  validates :time, comparison: { greater_than: Time.now }, on: :update
+  validates :time, comparison: { greater_than: Time.zone.now }, on: :update
 
   INTERVAL = 30.minutes
 
@@ -114,7 +114,7 @@ class Slot < ApplicationRecord
     booked_times.append(closing_time).each do |time|
       start = time - duration_in_minutes.minutes
       start += INTERVAL if duration_in_minutes.minutes > INTERVAL
-      (start.to_i..time.to_i).step(INTERVAL).map { |t| not_available_times << Time.at(t) }
+      (start.to_i..time.to_i).step(INTERVAL).map { |t| not_available_times << Time.zone.at(t) }
     end
     not_available_times
   end
@@ -125,7 +125,8 @@ class Slot < ApplicationRecord
 
     club.gametables.each do |gametable|
       hours.each do |hour|
-        if hour.strftime('%H:%M') < club.starts_at.strftime('%H:%M') || hour.strftime('%H:%M').to_s >= club.ends_at.strftime('%H:%M')
+        if hour.strftime('%H:%M') < club.starts_at.strftime('%H:%M') ||
+           hour.strftime('%H:%M').to_s >= club.ends_at.strftime('%H:%M')
           gametable.slots.build(time: hour, price: 400).close!
         else
           gametable.slots.build(time: hour, price: 400).open!
@@ -135,7 +136,7 @@ class Slot < ApplicationRecord
   end
 
   def self.time_interval_in_day(selected_day)
-    (selected_day.beginning_of_day.to_i..selected_day.end_of_day.to_i).step(INTERVAL).map { |hour| Time.at(hour) }
+    (selected_day.beginning_of_day.to_i..selected_day.end_of_day.to_i).step(INTERVAL).map { |hour| Time.zone.at(hour) }
   end
 
   private

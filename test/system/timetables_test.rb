@@ -9,7 +9,6 @@ class TimetablesTest < ApplicationSystemTestCase
     @user = users(:client)
     sign_in @user
     @today = Date.today
-
   end
 
   test 'visiting the index' do

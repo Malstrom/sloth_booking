@@ -2,23 +2,7 @@
 
 class TrainingsController < ApplicationController
   before_action :set_club, :selected_day
-  before_action :set_training, only: %i[show edit update destroy]
-
-  # GET /trainings or /trainings.json
-  def index
-    @trainings = Training.all
-  end
-
-  # GET /trainings/1 or /trainings/1.json
-  def show; end
-
-  # GET /trainings/new
-  def new
-    @training = Training.new
-  end
-
-  # GET /trainings/1/edit
-  def edit; end
+  before_action :set_training, only: %i[update destroy]
 
   # POST /trainings or /trainings.json
   def create
@@ -29,7 +13,6 @@ class TrainingsController < ApplicationController
         format.html { redirect_to root_path(selected_day: @selected_day, params_to_send: bookable) }
         format.json { render :show, status: :created, location: @training }
       else
-        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @training.errors, status: :unprocessable_entity }
       end
     end

@@ -2,23 +2,7 @@
 
 class EventsController < ApplicationController
   before_action :set_club, :selected_day
-  before_action :set_event, only: %i[show edit update destroy]
-
-  # GET /events or /events.json
-  def index
-    @events = Event.all
-  end
-
-  # GET /events/1 or /events/1.json
-  def show; end
-
-  # GET /events/new
-  def new
-    @event = Event.new
-  end
-
-  # GET /events/1/edit
-  def edit; end
+  before_action :set_event, only: %i[update destroy]
 
   # POST /events or /events.json
   def create
