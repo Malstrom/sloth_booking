@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   resources :slots do
     collection do
       put :set_working_time
-      put :set_working_time_club
     end
   end
 

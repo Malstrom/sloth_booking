@@ -10,6 +10,8 @@ class Slot < ApplicationRecord
 
   before_update :toggle_bookable
 
+  validates :price, presence: true
+
   validates :time, comparison: { greater_than: Time.zone.now }, on: :update
 
   INTERVAL = 30.minutes
