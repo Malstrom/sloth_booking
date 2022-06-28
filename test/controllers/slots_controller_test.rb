@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require "test_helper"
+
+require 'test_helper'
 
 class SlotsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -25,7 +26,7 @@ class SlotsControllerTest < ActionDispatch::IntegrationTest
       [(Time.at(hour).utc).strftime('%H:%M'), Time.at(hour).utc]
     end
 
-    put set_working_time_slots_url(selected_day:@tomorrow), params: { starts_at: hours[20][1], ends_at: hours[30][1] }
+    put set_working_time_slots_url(selected_day: @tomorrow), params: { starts_at: hours[20][1], ends_at: hours[30][1] }
     assert_equal('open', Slot.by_day(@tomorrow).first.state)
   end
 
@@ -34,7 +35,7 @@ class SlotsControllerTest < ActionDispatch::IntegrationTest
       [(Time.at(hour).utc).strftime('%H:%M'), Time.at(hour).utc]
     end
 
-    put set_working_time_slots_url(selected_day:@yesterday), params: { starts_at: hours[0][1], ends_at: hours[5][1] }
+    put set_working_time_slots_url(selected_day: @yesterday), params: { starts_at: hours[0][1], ends_at: hours[5][1] }
     assert_equal('open', Slot.by_day(@yesterday).first.state)
   end
 
@@ -43,7 +44,7 @@ class SlotsControllerTest < ActionDispatch::IntegrationTest
       [(Time.at(hour).utc).strftime('%H:%M'), Time.at(hour).utc]
     end
 
-    put set_working_time_slots_url(selected_day:@tomorrow), params: { starts_at: hours[0][1], ends_at: hours[10][1] }
+    put set_working_time_slots_url(selected_day: @tomorrow), params: { starts_at: hours[0][1], ends_at: hours[10][1] }
     assert_equal('open', @slot_booked.state)
   end
 end
