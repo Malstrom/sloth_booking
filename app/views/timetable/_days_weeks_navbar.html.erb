@@ -1,4 +1,4 @@
-<div class="navbar fixed-top bg-light shadow mb-3 bg-body padding-0">
+<div class="navbar bg-light border-bottom mg-3 bg-body padding-0">
   <div class="col-1 text-center">
     <%= link_to(timetable_index_path( selected_day: @selected_day.to_date.prev_week ), id:"prevWeek", class: "link-secondary link-date", remote:true) do %>
       <i class='bi bi-caret-left-fill navbar_arrows' width="60" height="60"></i>

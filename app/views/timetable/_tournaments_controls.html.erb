@@ -1,16 +1,12 @@
 <div class="fw-bold mb-1">Tournaments</div>
 <% @tournaments.each do |tournament| %>
-  <div class="btn-group menu-margin" role="group" aria-label="First group">
-    <button type="button" class="btn btn-outline-success ml-3 tour-train-btn " role="button" aria-expanded="false" id="tournament_<%= tournament.id %>_open_collapse"
-            data-bs-toggle="collapse" href="#tournament_<%= tournament.id %>_collapse"  aria-controls="tournament_<%= tournament.id %>_collapse">
-      < <%= tournament.rating %>
-    </button>
-  </div>
+  <button type="button" id="newTournament" class="btn btn-outline-success ml-3 tour-train-btn" data-bs-toggle="modal" data-bs-target="#<%= dom_id(tournament) %>" data-bs-whatever="tournament">
+    < <%= tournament.rating %>
+  </button>
+
+  <%= render 'tournaments/edit_form', tournament:tournament  %>
 <% end %>
+
 <button type="button" id="newTournament" class="btn btn-success menu-margin" data-bs-toggle="modal" data-bs-target="#tournamentModal" data-bs-whatever="tournament">+</button>
+
 <%= render 'tournaments/form_modal'  %>
-
-
-  <div style="max-width: 350px">
-    <%= render 'tournaments_collapse' %>
-  </div>

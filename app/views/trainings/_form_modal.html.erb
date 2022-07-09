@@ -3,6 +3,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Create new training</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <%= form_with(model: Training.new, url: club_trainings_path(@club)) do |form| %>
         <div class="modal-body">
@@ -17,11 +18,10 @@
 
           <div class="mb-3">
             <%= form.label :price, class: "col-form-label" %>
-            <%= form.number_field :price, class: "form-control" %>
+            <%= form.number_field :price, class: "form-control w-25" %>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-primary">Save training</button>
         </div>
       <% end %>

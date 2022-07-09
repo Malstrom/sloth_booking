@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TimetableController < ApplicationController
   # before_action :authenticate_user!
 
@@ -8,25 +10,27 @@ class TimetableController < ApplicationController
 
     @gametables = Gametable.where(club: @club)
     @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
-
     @trainings = @club.trainings.by_selected_day(@selected_day)
     @tournaments = @club.tournaments.by_selected_day(@selected_day)
     @events = @club.events.by_selected_day(@selected_day)
 
-    if @slots_by_day_hours.empty?
-      Slot.generate_slots(@selected_day, @club.id)
-      @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
-    end
+    generate_slots if @slots_by_day_hours.empty?
   end
 
-    private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_club
-      @club = Club.first
-    end
+  private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def selected_day
-      @selected_day = params[:selected_day] ? params[:selected_day].to_date : Date.today
-    end
+  def generate_slots
+    Slot.generate_slots(@selected_day, @club.id)
+    @slots_by_day_hours = Slot.by_club(@club).open_slot.group_by_day_hours(@selected_day)
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_club
+    @club = Club.first
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def selected_day
+    @selected_day = params[:selected_day] ? params[:selected_day].to_date : Date.today
+  end
 end

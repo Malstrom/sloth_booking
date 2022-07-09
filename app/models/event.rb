@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class Event < ApplicationRecord
   belongs_to :club
-  has_many :slots, as: :bookable
+  has_many :slots, as: :bookable, dependent: :nullify
 
   before_validation :define_ends_at, if: :duration
 

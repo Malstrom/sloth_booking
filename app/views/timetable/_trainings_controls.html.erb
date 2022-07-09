@@ -1,14 +1,14 @@
 <div class="fw-bold mb-1">Trainings</div>
 <% @trainings.each do |training| %>
-  <div class="btn-group menu-margin" role="group" aria-label="Second group">
-    <button type="button" class="btn btn-outline-warning tour-train-btn" role="button" aria-expanded="false" id="training_<%= training.id %>_open_collapse"
-            data-bs-toggle="collapse" href="#training_<%= training.id %>_collapse"  aria-controls="training_<%= training.id %>_collapse">
-      <%= training.trainer %>
-    </button>
-  </div>
+  <button type="button" id="newTournament" class="btn btn-outline-warning tour-train-btn" data-bs-toggle="modal" data-bs-target="#<%= dom_id(training) %>" data-bs-whatever="tournament">
+    <%= training.trainer %>
+  </button>
+
+  <%= render 'trainings/edit_form', training: training %>
 <% end %>
+
 <button type="button" id="newTraining" class="btn btn-warning menu-margin" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">+</button>
+
 <%= render 'trainings/form_modal'  %>
-<div class="col ">
-  <%= render 'tranings_collapse' %>
-</div>
+
+

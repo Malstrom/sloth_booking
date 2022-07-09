@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Training < ApplicationRecord
   belongs_to :club
-  has_many :slots, as: :bookable
+  has_many :slots, as: :bookable, dependent: :nullify
 
-  validates_presence_of :trainer, :day
+  validates :trainer, :day, presence: true
 
   before_destroy :destroy_bookable, prepend: true
 

@@ -1,0 +1,35 @@
+<div class="modal fade" id="<%= dom_id(training) %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Редактирование бронирования</h5>
+      </div>
+      <%= form_with model: [@club, training] do |form| %>
+        <div class="modal-body">
+          <%= hidden_field_tag :selected_day, @selected_day %>
+
+          <%= form.hidden_field(:day, value: @selected_day) %>
+
+          <div class="mb-3">
+            <%= form.label :trainer, class: "col-form-label" %>
+            <%= form.text_field :trainer, class: "form-control" %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :price, class: "col-form-label" %>
+            <%= form.text_field :price, class: "form-control" %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Закрыть</button>
+          <button type="submit" class="btn btn-primary btn-sm">Сохранить</button>
+      <% end %>
+      <%= button_to "Удалить бронь", club_training_path(@club, training, selected_day: @selected_day), id:"training_#{training.id}_delete", class:"btn btn-danger btn-sm", method: :delete, remote: true %>
+      <button type="button" class="btn btn-outline-primary float-end btn-sm" data-bs-dismiss="modal"
+              value="<%= {bookable_id: training.id, bookable_type: "Training"}.to_json %>"
+              data-controller="hello" data-action="click->hello#selectKind">
+        Выбрать ячейки
+      </button>
+      </div>
+    </div>
+  </div>
+</div>

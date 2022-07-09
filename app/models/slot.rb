@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class Slot < ApplicationRecord
   belongs_to :gametable
   belongs_to :bookable, polymorphic: true, optional: true
@@ -9,7 +10,7 @@ class Slot < ApplicationRecord
 
   before_update :toggle_bookable
 
-  validates :time, comparison: { greater_than: Time.now.localtime }, on: :update
+  validates :time, comparison: { greater_than: Time.zone.now }, on: :update
 
   INTERVAL = 30.minutes
 
@@ -17,13 +18,13 @@ class Slot < ApplicationRecord
   scope :open_slot, ->  { where(state: :open) }
   scope :close_slot, -> { where(state: :close) }
 
-  scope :by_day,  ->(selected_day) { where(time: selected_day.beginning_of_day..selected_day.end_of_day) }
   scope :by_time_range, ->(starts, ends) { where(time: starts...ends) }
-  scope :group_by_hours, -> { group_by { |cell| cell['time'].itself.localtime } }
+  scope :by_day, ->(selected_day) { where(time: selected_day.beginning_of_day..selected_day.end_of_day) }
+  scope :group_by_hours, -> { group_by { |cell| cell['time'].itself } }
 
   scope :group_by_day_hours, lambda { |selected_day|
     where(time: selected_day.beginning_of_day..selected_day.end_of_day)
-      .group_by { |cell| cell['time'].itself.localtime }
+      .group_by { |cell| cell['time'].itself }
   }
 
   scope :only_available, ->(not_available_times) { where.not(time: not_available_times) }
@@ -35,7 +36,7 @@ class Slot < ApplicationRecord
     case bookable_type
     when 'Training' then bookable.trainer
     when 'Tournament' then "< #{bookable.rating}"
-    when 'Event' then bookable.email
+    when 'Event' then "#{bookable.name} #{bookable.phone} #{bookable.price}"
     else
       price
     end
@@ -70,9 +71,9 @@ class Slot < ApplicationRecord
   end
 
   def self.update_working_date(club, selected_day, starts_at, ends_at)
-    slots_to_close = Slot.by_club(club).by_day(selected_day).where('time < ? OR time >= ?', starts_at,
-                                                                   ends_at).open_slot
-    slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: starts_at...ends_at).close_slot
+    slots_to_close = Slot.by_club(club).by_day(selected_day).where('time < ? OR time >= ?', starts_at.utc,
+                                                                   ends_at.utc).open_slot
+    slots_to_open = Slot.by_club(club).by_day(selected_day).where(time: (starts_at.utc)...(ends_at.utc)).close_slot
     if slots_to_close.none?(&:bookable_id?)
       slots_to_close.update_all(state: :close)
       slots_to_open.update_all(state: :open)
@@ -100,7 +101,9 @@ class Slot < ApplicationRecord
     closing_time = open_slots.group_by_hours.keys.last + INTERVAL
     booked_slots = open_slots.booked.group_by_hours
 
-    booked_time_range = booked_slots.map { |time| time.first if time.last.count >= time.last.first.gametable.club.gametables.count }.compact
+    booked_time_range = booked_slots.map do |time|
+      time.first if time.last.count >= time.last.first.gametable.club.gametables.count
+    end.compact
 
     times_not_bookable(booked_time_range, closing_time, duration)
   end
@@ -111,7 +114,7 @@ class Slot < ApplicationRecord
     booked_times.append(closing_time).each do |time|
       start = time - duration_in_minutes.minutes
       start += INTERVAL if duration_in_minutes.minutes > INTERVAL
-      (start.to_i..time.to_i).step(INTERVAL).map { |t| not_available_times << Time.at(t) }
+      (start.to_i..time.to_i).step(INTERVAL).map { |t| not_available_times << Time.zone.at(t) }
     end
     not_available_times
   end
@@ -122,7 +125,8 @@ class Slot < ApplicationRecord
 
     club.gametables.each do |gametable|
       hours.each do |hour|
-        if hour.strftime('%H:%M') < club.starts_at.strftime('%H:%M') || hour.strftime('%H:%M').to_s >= club.ends_at.strftime('%H:%M')
+        if hour.strftime('%H:%M') < club.starts_at.strftime('%H:%M') ||
+           hour.strftime('%H:%M').to_s >= club.ends_at.strftime('%H:%M')
           gametable.slots.build(time: hour, price: 400).close!
         else
           gametable.slots.build(time: hour, price: 400).open!
@@ -132,7 +136,7 @@ class Slot < ApplicationRecord
   end
 
   def self.time_interval_in_day(selected_day)
-    (selected_day.beginning_of_day.to_i..selected_day.end_of_day.to_i).step(INTERVAL).map { |hour| Time.at(hour) }
+    (selected_day.beginning_of_day.to_i..selected_day.end_of_day.to_i).step(INTERVAL).map { |hour| Time.zone.at(hour) }
   end
 
   private

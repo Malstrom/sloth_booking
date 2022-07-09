@@ -1,4 +1,6 @@
-require "application_system_test_case"
+# frozen_string_literal: true
+
+require 'application_system_test_case'
 
 class TimetablesTest < ApplicationSystemTestCase
   include Devise::Test::IntegrationHelpers # Rails >= 5
@@ -9,9 +11,9 @@ class TimetablesTest < ApplicationSystemTestCase
     @today = Date.today
   end
 
-  test "visiting the index" do
+  test 'visiting the index' do
     visit timetable_index_url
-    assert_selector "h4", text: @today.strftime('%A %d %b')
+    assert_selector 'h4', text: @today.strftime('%A %d %b')
 
     # assert_text "TimeTable for"
   end
@@ -32,19 +34,18 @@ class TimetablesTest < ApplicationSystemTestCase
   #   assert_selector "h4", text: previous_day.strftime('%A %d %b')
   # end
 
-  test "navigate prev/next week" do
+  test 'navigate prev/next week' do
     visit timetable_index_url
 
     prev_week_day = @today - 1.week
     next_week_day = @today + 1.week
 
+    click_on 'prevWeek'
+    assert_selector 'h4', text: prev_week_day.strftime('%A %d %b')
 
-    click_on "prevWeek"
-    assert_selector "h4", text: prev_week_day.strftime('%A %d %b')
-
-    click_on "nextWeek"
-    click_on "nextWeek"
-    assert_selector "h4", text: next_week_day.strftime('%A %d %b')
+    click_on 'nextWeek'
+    click_on 'nextWeek'
+    assert_selector 'h4', text: next_week_day.strftime('%A %d %b')
   end
 
   #
@@ -63,5 +64,4 @@ class TimetablesTest < ApplicationSystemTestCase
   #     table.slots.where(time: )
   #     assert_selector "table_", text: "777"
   #   end
-
 end

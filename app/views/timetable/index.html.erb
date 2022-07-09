@@ -5,23 +5,11 @@
       }
 
 </style>
+
 <%= render 'days_weeks_navbar' %>
-
-<div class="row justify-content-end" style="margin-top: 90px;">
-
-
-    <div class="col-md-4  text-center" style="min-width: 330px;">
-      <h4>
-        <%= @selected_day.strftime('%A %d %b') %>
-      </h4>
-    </div>
-    <div class="fw-bold col-md-3 offset-md-1 " style="min-width: 330px;">
-      <%= render 'working_time' %>
-    </div>
+<div class="fw-bold p-3 text-center">
+  <%= render 'working_time' %>
 </div>
-
-
-
   <div id="traninngsTournaments" class="d-flex flex-wrap p-3" style="max-width: 1360px; margin: 0 auto;">
     <div class="menu-containers menu-containers-width">
       <%= render 'tournaments_controls' %>
@@ -31,20 +19,34 @@
       <%= render 'trainings_controls' %>
     </div>
 
-    <div class="menu-containers menu-containers-width">
+
       <%= render 'event_controls' %>
-    </div>
+
+
 
     <div class="menu-containers">
       <%= render 'set_price_control' %>
     </div>
 
-    <input class="form-control d-none" list="datalistOptions" id="params_to_send">
+    <input class="form-control d-none" list="datalistOptions" id="params_to_send" value="<%= params[:params_to_send] %>">
 
 
   </div>
 
+<div class="timetable-wrapper">
+  <%= render 'timetable' %>
+</div>
 
-<div class="timetable-container">
-    <%= render 'timetable' %>
+<div id="overlay" class="<%= "background-overlay" if params[:params_to_send] %>"></div>
+<div class="toast-container position-fixed p-3 top-0 start-50 translate-middle-x sticky-top" style="z-index: 100">
+  <div id="setInCalendar" class="toast bg-light <%= "show" if params[:params_to_send] %>" role="alert" aria-live="assertive" aria-atomic="false" data-bs-autohide="false" >
+    <div class="toast-header">
+      <strong class="me-auto">Шаг 2 из 2</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" data-controller="hello" data-action="click->hello#flushParamToSend"></button>
     </div>
+    <div id="toastBody" class="toast-body">Выберите свободные ячейки для брони и сохраните её</div>
+    <div class="p-2">
+      <button type="button" class="btn btn-primary" data-bs-dismiss="toast" aria-label="Close" data-controller="hello" data-action="click->hello#flushParamToSend">Сохранить</button>
+    </div>
+  </div>
+</div>

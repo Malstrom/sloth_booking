@@ -86,35 +86,68 @@
 
 
 .timetable-container {
+  width: 100vw;
+  position: sticky;
 
+top: 0;
+left: 0;
 }
 
 
 .css-grid-table,
-.css-grid-table-header,
 .css-grid-table-body {
   display: grid;
+  position:relative
 }
 
 .css-grid-table {
-  width: fit-content ;
-  margin: auto;
+    margin: auto;
+    z-index: 8;
+}
+
+.wrap {
+  position: relative;
+  margin: 10em auto 30em;
+  max-width: 460px;
+  overscroll-behavior: contain;
+}
+
+.scroller {
+  display: flex;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.timetable-wrapper {
+z-index: 10;
 }
 
 .css-grid-table-header,
 .css-grid-table-body {
-
-  height: 60px;
+height: 60px;
 }
 
 .css-grid-table-header {
   grid-template-rows: auto;
+  display: grid;
   position: sticky;
-  top: 74px;
-  z-index: 3;
+  top: 0;
+  z-index: 8;
+  margin: auto;
 }
 
+.table-header {
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 9;
+  width: 100vw;
+  margin: auto;
+}
 
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 .css-grid-table-body {
   grid-template-rows: auto
@@ -168,6 +201,18 @@
   overflow: hidden;
 }
 
+.background-overlay {
+  background-color: black;
+  content: "";
+  position: fixed;
+  opacity: 70%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
 .sticky-left {
   left: 0px;
   position: sticky;
@@ -182,14 +227,34 @@
   color: black !important;
 }
 
+
+
+.timetable-current-day {
+  text-align: center !important;
+  color: #198754 !important;
+  padding-top: 13px !important;
+  line-height: 1.2;
+  font-size: 14px;
+  font-weight: 600 !important;
+  border: 0px !important;
+}
+
 .sticky-menu {
   left: 0px;
   position: sticky;
 }
 
+.toast-container {
+width: 320px;
+}
 
-.no-bg {
-  background-color: none !important
+
+.no-overscroll {
+  overscroll-behavior: none;
+}
+
+.fix-height {
+  height: 64px !important;
 }
 
 .cell-color-green{
@@ -252,7 +317,7 @@
 
 .menu-containers {
   padding-top: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   Max-width: 450px;
   margin-right: 30px;
 }
@@ -281,4 +346,10 @@ input::-webkit-inner-spin-button {
 }
 input[type=number]{
   -moz-appearance: textfield;
+}
+
+.new-table-button {
+  position: absolute;
+  top: 10px;
+  right: -50px;
 }

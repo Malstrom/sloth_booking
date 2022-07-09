@@ -1,23 +1,43 @@
-<div class="css-grid-table">
-  <div class="css-grid-table-header">
-    <div class="sticky-left no-bg"></div>
-    <% @gametables.each do |gametable| %>
+<div class="table-header no-overscroll">
+  <div class="scroller syncscroll hide-scrollbar no-overscroll" name=myElements>
+    <div class="css-grid-table-header">
+
+      <div class="sticky-left fix-height">
+        <div class="timetable-current-day">
+          <%= @selected_day.strftime('%a') %>
+          <br>
+          <%= @selected_day.strftime('%d %b') %>
+        </div>
+      </div>
+
+
+      <% @gametables.each do |gametable| %>
       <div style="background-color: white" id="<%= gametable.id %>">
         <%= gametable.id %>
         <p class="table-description mb-0 fw-normal">
           <%= gametable.description %>
         </p>
       </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
-  <% @slots_by_day_hours.each do |row| %>
+</div>
+<div class="scroller syncscroll hide-scrollbar" name=myElements>
+  <div class="css-grid-table no-overscroll">
+
+    <% @slots_by_day_hours.each do |row| %>
     <div class="css-grid-table-body">
       <div class="sticky-left" data-controller="hello" data-action="click->hello#handleTime">
         <%= row.first.strftime("%H:%M") %>
       </div>
       <% row.last.each do |slot| %>
-        <%= render slot %>
+      <%= render slot %>
       <% end %>
     </div>
-  <% end %>
+    <% end %>
+    <!--  <div>-->
+    <!--    <button type="button" id="newTraining" class="btn btn-outline-secondary new-table-button" data-bs-toggle="modal" data-bs-target="#trainingModal" data-bs-whatever="group training">+</button>-->
+    <!--  </div>-->
+  </div>
+
 </div>
