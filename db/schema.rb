@@ -27,7 +27,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_131347) do
     t.string "name"
     t.string "email"
     t.string "phone"
-    t.integer "price"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.string "duration"
     t.date "day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -10,11 +10,25 @@ today_slot:
   price: 400
   state: open
 
-tomorrow_slot:
+tomorrow_slot_booked_slot:
   gametable: gametable_1
-  time: <%= "14:00".to_time + 1.day  %>
+  time: <%= "13:00".to_time + 1.day  %>
   price: 400
   state: open
+  bookable: first_training (Training)
+
+tomorrow_slot:
+  gametable: gametable_1
+  time: <%= Time.find_zone("UTC").parse("14:00") + 1.day %>
+  price: 400
+  state: open
+
+tomorrow_slot_booked:
+  gametable: gametable_1
+  time: <%= Time.find_zone("UTC").parse("14:30") + 1.day %>
+  price: 400
+  state: open
+  bookable: tomorrow_event (Event)
 
 training_slot:
   gametable: gametable_1

@@ -74,7 +74,6 @@ class SlotTest < ActiveSupport::TestCase
     day = 1.month.after
 
     gametables = Slot.generate_slots(day, club.id)
-    p gametables.last.slots.count
 
     assert gametables.last.slots.count == 48
   end

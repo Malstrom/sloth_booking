@@ -46,7 +46,7 @@ class TournamentsController < ApplicationController
   end
 
   # Use callbacks to share common setup or constraints between actions.
-  def selected_ay
+  def selected_day
     @selected_day = params[:selected_ay]
   end
 

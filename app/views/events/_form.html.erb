@@ -1,4 +1,4 @@
-<%= form_with(model: event) do |form| %>
+<%= form_with(model: Event.new, url: book_club_events_path(@club)) do |form| %>
   <% if event.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :club_id, style: "display: block" %>
-    <%= form.text_field :club_id %>
+    <%= form.text_field :club_id, value: @event %>
   </div>
 
   <div>
@@ -22,28 +22,23 @@
   </div>
 
   <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div>
     <%= form.label :phone, style: "display: block" %>
     <%= form.text_field :phone %>
   </div>
 
   <div>
-    <%= form.label :tables, style: "display: block" %>
-    <%= form.text_field :tables %>
-  </div>
-
-  <div>
     <%= form.label :starts_at, style: "display: block" %>
-    <%= form.datetime_field :starts_at %>
+    <%= form.text_field :starts_at, value: params[:starts_at]  %>
   </div>
 
   <div>
-    <%= form.label :ends_at, style: "display: block" %>
-    <%= form.datetime_field :ends_at %>
+    <%= form.label :duration, style: "display: block" %>
+    <%= form.text_field :duration, value: params[:duration]  %>
+  </div>
+
+  <div>
+    <%= form.label :day, style: "display: block" %>
+    <%= form.text_field :day, value: @selected_day  %>
   </div>
 
   <div>

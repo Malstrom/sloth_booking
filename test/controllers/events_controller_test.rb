@@ -6,13 +6,39 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @club = clubs(:sokol)
     @event = events(:first_event)
+    @slot = slots(:tomorrow_slot)
+    @booked_slot = slots(:tomorrow_slot_booked_slot)
+
+    @event_attributes = {
+        club: @club,
+        name:'giovanni',
+        phone: "7349857",
+        starts_at: @slot.time,
+        duration: 1
+    }
+
     @tomorrow = Date.tomorrow
   end
 
   test 'should create event' do
     assert_difference('Event.count') do
       post club_events_url(@club),
-           params: { event: { name: @event.name, phone: @event.phone, day: @tomorrow } }
+           params: { event: @event_attributes }
+    end
+  end
+
+  test 'should book event' do
+    assert_difference('Event.count') do
+      post book_club_events_url(@club),
+           params: { event: @event_attributes }
+    end
+  end
+
+  test 'should not book event without free slots' do
+    @event_attributes[:starts_at] = @booked_slot.time
+    assert_no_difference('Event.count') do
+      post book_club_events_url(@club),
+           params: { event: @event_attributes }
     end
   end
 

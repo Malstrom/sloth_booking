@@ -5,13 +5,16 @@ Rails.application.routes.draw do
   resources :slots do
     collection do
       put :set_working_time
-      put :set_working_time_club
     end
   end
 
   resources :timetable
   resources :clubs do
-    resources :events
+    resources :events do
+      collection do
+        post :book
+      end
+    end
     resources :tournaments
     resources :trainings
   end

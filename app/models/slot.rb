@@ -10,14 +10,17 @@ class Slot < ApplicationRecord
 
   before_update :toggle_bookable
 
+  validates :price, presence: true
+
   validates :time, comparison: { greater_than: Time.zone.now }, on: :update
 
   INTERVAL = 30.minutes
 
   scope :by_club, ->(club) { joins(:gametable).where('gametables.club_id = ?', club).order(:gametable_id, :time) }
-  scope :open_slot, -> { where(state: :open) }
+  scope :open_slot, ->  { where(state: :open) }
   scope :close_slot, -> { where(state: :close) }
 
+  scope :by_time_range, ->(starts, ends) { where(time: starts...ends) }
   scope :by_day, ->(selected_day) { where(time: selected_day.beginning_of_day..selected_day.end_of_day) }
   scope :group_by_hours, -> { group_by { |cell| cell['time'].itself } }
 
@@ -28,14 +31,14 @@ class Slot < ApplicationRecord
 
   scope :only_available, ->(not_available_times) { where.not(time: not_available_times) }
 
-  scope :not_booked, -> { where(bookable_id: nil) }
-  scope :booked, -> { where.not(bookable_id: nil) }
+  scope :not_booked, -> { where(bookable: nil) }
+  scope :booked,     -> { where.not(bookable_id: nil) }
 
   def display_value
     case bookable_type
     when 'Training' then bookable.trainer
     when 'Tournament' then "< #{bookable.rating}"
-    when 'Event' then "#{bookable.name} #{bookable.phone} #{bookable.price}"
+    when 'Event' then "#{bookable.name} #{bookable.phone} #{price}"
     else
       price
     end
@@ -89,16 +92,14 @@ class Slot < ApplicationRecord
     selected_day ||= Date.tomorrow
     duration     ||= 1
 
-    duration_in_minutes = duration.to_i.hours.to_i / 60
     slots = Slot.by_club(club).by_day(selected_day)
-
     open_slots = slots.open_slot
 
     generate_slots(selected_day, club.id) if slots.empty?
-    open_slots.only_available(unavailable_times(open_slots, duration_in_minutes))
+    open_slots.only_available(unavailable_times(open_slots, duration))
   end
 
-  def self.unavailable_times(open_slots, duration_in_minutes)
+  def self.unavailable_times(open_slots, duration)
     closing_time = open_slots.group_by_hours.keys.last + INTERVAL
     booked_slots = open_slots.booked.group_by_hours
 
@@ -106,11 +107,12 @@ class Slot < ApplicationRecord
       time.first if time.last.count >= time.last.first.gametable.club.gametables.count
     end.compact
 
-    times_not_bookable(booked_time_range, closing_time, duration_in_minutes)
+    times_not_bookable(booked_time_range, closing_time, duration)
   end
 
-  def self.times_not_bookable(booked_times, closing_time, duration_in_minutes)
+  def self.times_not_bookable(booked_times, closing_time, duration)
     not_available_times = []
+    duration_in_minutes = duration.to_i.hours.to_i / 60
     booked_times.append(closing_time).each do |time|
       start = time - duration_in_minutes.minutes
       start += INTERVAL if duration_in_minutes.minutes > INTERVAL

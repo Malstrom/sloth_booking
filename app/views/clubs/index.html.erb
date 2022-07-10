@@ -15,17 +15,9 @@
     </div>
   <% end %>
 
-  <br>
-
-  <div class="row">
-    <% @clubs.each do |club| %>
-      <div class="col-sm-3">
-        <%= render club %>
-      </div>
-    <% end %>
-  </div>
-
-
+  <% @clubs.each do |club| %>
+    <%= render club %>
+  <% end %>
 </div>
 
 
