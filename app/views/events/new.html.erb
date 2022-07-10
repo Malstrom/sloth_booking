@@ -1,9 +1,14 @@
-<h1>New event</h1>
+<div class="container">
 
-<%= render "form", event: @event %>
+  <h1>New event</h1>
 
-<br>
+  <%= render "form", event: @event %>
 
-<div>
-  <%= link_to "Back to events", events_path %>
+  <br>
+
+  <div>
+    <%= link_to "Back to events", club_events_path(@club) %>
+  </div>
+
+
 </div>
