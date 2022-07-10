@@ -45,10 +45,10 @@ class TournamentsController < ApplicationController
     @club = Club.find(params[:club_id])
   end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def selected_day
-      @selected_day = params[:selected_ay]
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def selected_day
+    @selected_day = params[:selected_ay]
+  end
 
   # Only allow a list of trusted parameters through.
   def tournament_params

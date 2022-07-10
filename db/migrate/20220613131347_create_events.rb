@@ -5,7 +5,6 @@ class CreateEvents < ActiveRecord::Migration[7.0]
     create_table :events do |t|
       t.references :club, null: false, foreign_key: true
       t.string :name
-      t.string :email
       t.string :phone
       t.datetime :starts_at
       t.datetime :ends_at

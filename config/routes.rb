@@ -11,7 +11,11 @@ Rails.application.routes.draw do
 
   resources :timetable
   resources :clubs do
-    resources :events
+    resources :events do
+      collection do
+        post :book
+      end
+    end
     resources :tournaments
     resources :trainings
   end

@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def selected_day_hours_for_select(day)
     hours = (day.at_beginning_of_day.to_i..day.at_end_of_day.to_i).step(30.minutes).map do |hour|
-      [(Time.at(hour).utc).strftime('%H:%M'), Time.at(hour).utc]
+      [Time.at(hour).utc.strftime('%H:%M'), Time.at(hour).utc]
     end
     Rails.logger.debug hours
     hours.sort

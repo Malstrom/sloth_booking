@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SlotsController < ApplicationController
-  before_action :set_slot, only: %i[show edit update destroy]
+  before_action :set_slot, only: %i[update]
   before_action :set_club, :selected_day, :set_starts_at_and_ends_at, only: %i[index set_working_time]
 
   # PATCH/PUT /slots/1 or /slots/1.json
@@ -37,11 +37,6 @@ class SlotsController < ApplicationController
   def set_club
     # @club = Price.find(params[:club_id])
     @club = Club.first
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def selected_day
-    @selected_day = params[:selected_day] ? params[:selected_day].to_date : Date.today
   end
 
   # Use callbacks to share common setup or constraints between actions.

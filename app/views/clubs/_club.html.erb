@@ -7,7 +7,8 @@
     <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
 
     <% Slot.available_slots(club, @selected_day, @duration).pluck(:time, :price).uniq.sort.each do |slot| %>
-      <%= link_to slot[0].localtime.strftime("%H:%M"), new_club_event_path(club, starts_at: slot[0].localtime, duration: @duration, selected_day: params[:selected_day] ), class: "btn btn-sm btn-outline-primary" %>
+      <%= link_to slot[0].strftime("%H:%M"), new_club_event_path(club, starts_at: slot[0], duration: @duration, selected_day: params[:selected_day] ),
+                  class: "btn btn-sm btn-outline-primary" %>
     <% end %>
 
   </div>

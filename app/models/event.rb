@@ -6,13 +6,19 @@ class Event < ApplicationRecord
 
   before_validation :define_ends_at, if: :duration
 
-  validates_presence_of :email, :phone, :name
+  validates :phone, :name, presence: true
 
-  after_create :reserve_time, if: :starts_at
+  validate :reserve_time, if: :starts_at
 
   before_destroy :destroy_bookable, prepend: true
 
   scope :by_selected_day, ->(selected_day) { where(day: selected_day) }
+
+  def reserve_slots
+    @available_to_reserve.where(gametable_id: @available_to_reserve.pluck(:gametable_id).uniq.sample).map do |slot|
+      slot.update(bookable: self)
+    end
+  end
 
   private
 
@@ -21,12 +27,9 @@ class Event < ApplicationRecord
   end
 
   def reserve_time
-    available_to_reserve = Slot.by_club(self.club).open_slot.not_booked.by_time_range(starts_at, ends_at)
-    gametable_id = available_to_reserve.pluck(:gametable_id).uniq.sample
+    @available_to_reserve = Slot.by_club(club).open_slot.not_booked.by_time_range(starts_at, ends_at)
 
-    available_to_reserve.where(gametable_id: gametable_id).map do |slot|
-      slot.update(bookable: self)
-    end
+    errors.add(:slots, 'are already booked') if @available_to_reserve.empty?
   end
 
   def update_reservation_time

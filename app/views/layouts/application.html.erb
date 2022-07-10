@@ -18,7 +18,7 @@
           <div class="d-flex">
             <div class="toast-header">
               <div class="me-auto d-inline ">
-                <%= msg.html_safe %>
+                <%= msg %>
               </div>
 
             <div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>
@@ -29,6 +29,8 @@
     <% end %>
 
     <%= yield %>
+
+
 
     <%#= link_to "log_out", destroy_user_session_path, class: "nav-link", data: { turbo_method: :delete } %>
   </body>
