@@ -10,11 +10,11 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     @booked_slot = slots(:tomorrow_slot_booked_slot)
 
     @event_attributes = {
-        club: @club,
-        name:'giovanni',
-        phone: "7349857",
-        starts_at: @slot.time,
-        duration: 1
+      club: @club,
+      name: 'giovanni',
+      phone: '7349857',
+      starts_at: @slot.time,
+      duration: 1
     }
 
     @tomorrow = Date.tomorrow

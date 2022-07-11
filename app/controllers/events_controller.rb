@@ -17,7 +17,6 @@ class EventsController < ApplicationController
     else
       redirect_to root_path(selected_day: @selected_day), notice: 'something wrong'
     end
-
   end
 
   def book
@@ -30,11 +29,11 @@ class EventsController < ApplicationController
 
   # PATCH/PUT /events/1 or /events/1.json
   def update
-      if @event.update(event_params)
-        redirect_to root_path(selected_day: @selected_day), notice: 'Event updated'
-      else
-        render :edit, status: :unprocessable_entity
-      end
+    if @event.update(event_params)
+      redirect_to root_path(selected_day: @selected_day), notice: 'Event updated'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   # DELETE /events/1 or /events/1.json
