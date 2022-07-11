@@ -10,8 +10,7 @@ class EventsController < ApplicationController
   end
 
   # GET /clubs/1 or /clubs/1.json
-  def show
-  end
+  def show; end
 
   def new
     @event = Event.new
