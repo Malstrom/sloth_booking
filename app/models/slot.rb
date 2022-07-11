@@ -24,11 +24,6 @@ class Slot < ApplicationRecord
   scope :by_day, ->(selected_day) { where(time: selected_day.beginning_of_day..selected_day.end_of_day) }
   scope :group_by_hours, -> { group_by { |cell| cell['time'].itself } }
 
-  scope :group_by_day_hours, lambda { |selected_day|
-    where(time: selected_day.beginning_of_day..selected_day.end_of_day)
-      .group_by { |cell| cell['time'].itself }
-  }
-
   scope :only_available, ->(not_available_times) { where.not(time: not_available_times) }
 
   scope :not_booked, -> { where(bookable: nil) }
