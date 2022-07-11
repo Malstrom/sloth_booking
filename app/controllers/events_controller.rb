@@ -2,7 +2,16 @@
 
 class EventsController < ApplicationController
   before_action :set_club, :selected_day
-  before_action :set_event, only: %i[update destroy]
+  before_action :set_event, only: %i[show update destroy]
+
+  # GET /clubs or /clubs.json
+  def index
+    @events = Event.all
+  end
+
+  # GET /clubs/1 or /clubs/1.json
+  def show
+  end
 
   def new
     @event = Event.new

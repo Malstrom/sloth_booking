@@ -1,11 +1,10 @@
 <p style="color: green"><%= notice %></p>
 
-ciao
-<%# render @event %>
+<% render @event %>
 
-<!--<div>-->
-<!--  <%#= link_to "Edit this event", edit_club_event_path(@club, @event) %> |-->
-  <%#= link_to "Back to events", club_events_path(@club) %>
+<div>
+  <%= link_to "Edit this event", edit_club_event_path(@club, @event) %> |
+  <%= link_to "Back to events", club_events_path(@club) %>
 
-  <%#= button_to "Destroy this event", @event, method: :delete %>
-<!--</div>-->
+  <%= button_to "Destroy this event", club_event_path(@club, @event), method: :delete, remote: true %>
+</div>
