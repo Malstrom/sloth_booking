@@ -8,7 +8,7 @@ class TimetablesTest < ApplicationSystemTestCase
   setup do
     @user = users(:client)
     sign_in @user
-    @today = Date.today
+    @today = Time.zone.today
   end
 
   test 'visiting the index' do

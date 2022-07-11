@@ -16,12 +16,12 @@ class Slot < ApplicationRecord
 
   INTERVAL = 30.minutes
 
-  scope :by_club, ->(club) { joins(:gametable).where('gametables.club_id = ?', club).order(:gametable_id, :time) }
+  scope :by_club, ->(club) { joins(:gametable).where(gametables: { club_id: club }).order(:gametable_id, :time) }
   scope :open_slot, ->  { where(state: :open) }
   scope :close_slot, -> { where(state: :close) }
 
   scope :by_time_range, ->(starts, ends) { where(time: starts...ends) }
-  scope :by_day, ->(selected_day) { where(time: selected_day.beginning_of_day..selected_day.end_of_day) }
+  scope :by_day, ->(selected_day) { where(time: selected_day.all_day) }
   scope :group_by_hours, -> { group_by { |cell| cell['time'].itself } }
 
   scope :only_available, ->(not_available_times) { where.not(time: not_available_times) }
@@ -59,12 +59,12 @@ class Slot < ApplicationRecord
   end
 
   def define_color_by_bookable
-    case bookable_type
-    when 'Training'    then 'cell-color-training'
-    when 'Tournament'  then 'cell-color-tournament'
-    when 'Event'       then 'cell-color-training'
-    else 'cell-color-yellow'
-    end
+    bookable_style = {
+      'Training'   => 'cell-color-training',
+      'Tournament' => 'cell-color-tournament',
+      'Event'      => 'cell-color-training'
+    }
+    bookable_style[bookable_type]
   end
 
   def self.update_working_date(club, selected_day, starts_at, ends_at)

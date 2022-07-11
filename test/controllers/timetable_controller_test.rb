@@ -9,7 +9,7 @@ class TimetableControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get index where slots is not generated' do
-    get timetable_index_path(selected_day: Date.today + 1.month)
+    get timetable_index_path(selected_day: Time.zone.today + 1.month)
     assert_response :success
   end
 end

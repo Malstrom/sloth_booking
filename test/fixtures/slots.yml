@@ -10,6 +10,13 @@ today_slot:
   price: 400
   state: open
 
+today_booked_slot:
+  gametable: gametable_1
+  time: <%= "14:00".to_time %>
+  price: 400
+  state: open
+  bookable: today_event (Event)
+
 tomorrow_slot_booked_slot:
   gametable: gametable_1
   time: <%= "13:00".to_time + 1.day  %>

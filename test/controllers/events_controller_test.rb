@@ -5,16 +5,16 @@ require 'test_helper'
 class EventsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @club = clubs(:sokol)
-    @event = events(:first_event)
+    @event = events(:tomorrow_event)
     @slot = slots(:tomorrow_slot)
     @booked_slot = slots(:tomorrow_slot_booked_slot)
 
     @event_attributes = {
-      club: @club,
-      name: 'giovanni',
-      phone: '7349857',
+      club:      @club,
+      name:      'giovanni',
+      phone:     '7349857',
       starts_at: @slot.time,
-      duration: 1
+      duration:  1
     }
 
     @tomorrow = Date.tomorrow

@@ -31,6 +31,6 @@ class TimetableController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def selected_day
-    @selected_day = params[:selected_day] ? params[:selected_day].to_date : Date.today
+    @selected_day = params[:selected_day] ? params[:selected_day].to_date : Time.zone.today
   end
 end

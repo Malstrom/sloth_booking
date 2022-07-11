@@ -14,7 +14,7 @@ class SlotsController < ApplicationController
   end
 
   def set_working_time
-    if @starts_at.to_date >= Date.today
+    if @starts_at.to_date >= Time.zone.today
       if Slot.update_working_date(@club, @selected_day, @starts_at, @ends_at)
         redirect_to timetable_index_path(selected_day: @selected_day), notice: 'Working time day updated'
       else

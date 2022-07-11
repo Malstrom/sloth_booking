@@ -32,10 +32,6 @@ class Event < ApplicationRecord
     errors.add(:slots, 'are already booked') if @available_to_reserve.empty?
   end
 
-  def update_reservation_time
-    Slot.update_reservation_slots(stars_at, ends_at, slots)
-  end
-
   def destroy_bookable
     slots.each(&:remove_bookable)
   end

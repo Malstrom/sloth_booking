@@ -1,12 +1,13 @@
 # frozen_string_literal: true
-require "test_helper"
+
+require 'test_helper'
 
 class ClubsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @club = clubs(:sokol)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get clubs_url
     assert_response :success
   end

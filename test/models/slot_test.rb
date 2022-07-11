@@ -20,14 +20,14 @@ class SlotTest < ActiveSupport::TestCase
   test 'invalid state if date in past' do
     slot = slots(:yesterday_slot)
 
-    slot.update_attribute(:state, :close)
+    slot.update(state: :close)
     assert_not slot.valid?
   end
 
   test 'valid state if date in future' do
     slot = slots(:tomorrow_slot)
 
-    slot.update_attribute(:state, :close)
+    slot.update(state: :close)
     assert slot.valid?
   end
 

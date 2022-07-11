@@ -1,6 +1,13 @@
-first_event:
+tomorrow_event:
   club: sokol
   name: Igor
   phone: 7234927329
   starts_at: <%= '14:00'.to_time + 1.day %>
+  day: <%= Time.zone.tomorrow %>
+
+today_event:
+  club: sokol
+  name: Igor
+  phone: 7234927329
+  starts_at: <%= '14:00'.to_time %>
   day: <%= Time.zone.tomorrow %>

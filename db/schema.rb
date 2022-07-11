@@ -25,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_131347) do
   create_table "events", force: :cascade do |t|
     t.bigint "club_id", null: false
     t.string "name"
-    t.string "email"
     t.string "phone"
     t.datetime "starts_at"
     t.datetime "ends_at"
@@ -109,7 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_13_131347) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "club_id", null: false
+    t.bigint "club_id"
     t.index ["club_id"], name: "index_users_on_club_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
