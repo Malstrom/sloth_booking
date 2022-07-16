@@ -17,6 +17,10 @@ class TimetableController < ApplicationController
     generate_slots if @slots_by_day_hours.empty?
   end
 
+  def new_working_time
+    @slots_by_day_hours = Slot.by_club(@club).open_slot.by_day(@selected_day).group_by_hours
+  end
+
   private
 
   def generate_slots

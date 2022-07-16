@@ -2,7 +2,7 @@ tomorrow_event:
   club: sokol
   name: Igor
   phone: 7234927329
-  starts_at: <%= '14:00'.to_time + 1.day %>
+  starts_at: <%= '14:30'.to_time + 1.day %>
   day: <%= Time.zone.tomorrow %>
 
 today_event:

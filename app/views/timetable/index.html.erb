@@ -7,8 +7,11 @@
 </style>
 
 <%= render 'days_weeks_navbar' %>
+
 <div class="fw-bold p-3 text-center">
+
   <%= render 'working_time' %>
+
 </div>
   <div id="traninngsTournaments" class="d-flex flex-wrap p-3" style="max-width: 1360px; margin: 0 auto;">
     <div class="menu-containers menu-containers-width">
@@ -19,18 +22,13 @@
       <%= render 'trainings_controls' %>
     </div>
 
-
       <%= render 'event_controls' %>
-
-
 
     <div class="menu-containers">
       <%= render 'set_price_control' %>
     </div>
 
     <input class="form-control d-none" list="datalistOptions" id="params_to_send" value="<%= params[:params_to_send] %>">
-
-
   </div>
 
 <div class="timetable-wrapper">

@@ -8,7 +8,12 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :timetable
+  resources :timetable do
+    collection do
+      get :new_working_time
+    end
+  end
+
   resources :clubs do
     resources :events do
       collection do

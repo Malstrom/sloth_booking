@@ -86,9 +86,11 @@ class SlotTest < ActiveSupport::TestCase
     ends_at = starts_at + hour_to_add.hours
 
     Slot.generate_slots(selected_day, club.id)
-    Slot.update_working_date(club, selected_day, starts_at, ends_at)
+    p Slot.update_working_date(club, selected_day, starts_at, ends_at)
 
-    assert Slot.by_club(club).open_slot.by_day(selected_day).group_by_hours.count == 8
+    open_hours = Slot.by_club(club).open_slot.by_day(selected_day).group_by_hours.count
+
+    assert_equal 8, open_hours
   end
 
   test 'update invalid working date' do
