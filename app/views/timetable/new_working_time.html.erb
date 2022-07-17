@@ -1,7 +1,7 @@
 <%= turbo_frame_tag 'work_time_form' do %>
   <%= form_with url: set_working_time_slots_path(selected_day:@selected_day), method: :put, data: { turbo: false } do |form| %>
-    <%= form.select :starts_at, options_for_select(selected_day_hours_for_select(@selected_day), @slots_by_day_hours.keys.first)%>
-    <%= form.select :ends_at, options_for_select(selected_day_hours_for_select(@selected_day), @slots_by_day_hours.keys.last  + 30.minutes) %>
+    <%= form.select :starts_at, options_for_select(selected_day_hours_for_select(@selected_day), @slots_by_day_hours.keys.first), id: 'starts_at' %>
+    <%= form.select :ends_at, options_for_select(selected_day_hours_for_select(@selected_day), @slots_by_day_hours.keys.last  + 30.minutes), id: 'ends_at' %>
 
     <%= form.submit "Set", class:"btn btn-sm btn-primary" %>
   <% end %>
